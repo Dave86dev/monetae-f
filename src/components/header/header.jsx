@@ -1,5 +1,6 @@
 
 import React, {Fragment} from "react";
+import "./header.css";
 
 
 class Header extends React.Component {
