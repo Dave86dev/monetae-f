@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../header/header'
 import './home.css';
 
 
@@ -7,15 +8,11 @@ class Home extends Component {
 	
     render() {
         return (
+			
+
             <div className="home">
 					
-                    <header >
-						<img src="https://i.gyazo.com/153ce44e8749482c581daac9f42f9c04.png" alt="logo"/>
-			    		
-			   		</header>
-					
-					
-			    	<div className="main">
+                    <div className="main">
 			    		
 						<div className="card">
 							
