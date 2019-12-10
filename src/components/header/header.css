@@ -26,6 +26,9 @@ header .logo {
 
 header .logo img {
 	height: 5em;
+	
+	min-height: 5em;
+	min-width: 5em;
 }
 
 
