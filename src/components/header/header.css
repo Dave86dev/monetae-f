@@ -1,0 +1,14 @@
+
+header {
+	
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	flex: 0;
+    background: var(--pri9);
+    color: var(--sec6);
+}
+
+header img {
+	height: 6em;
+}
+
