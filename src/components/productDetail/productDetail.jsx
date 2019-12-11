@@ -49,7 +49,27 @@ class ProductDetail extends React.Component {
 				
 				<div className="purchase">
 					<h1 className="price">99.999 €</h1>
-					<input type="number" placeholder="1" />
+					
+					<p></p>
+					
+					<div className="cajaDropdown">
+						
+						<p>Cantidad: </p>
+						<select>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						
+					</div>
+					
 					<button className="purchaseButton">Añadir al carrito</button>
 					<button className="purchaseButton">Comprar</button>
 				</div>
