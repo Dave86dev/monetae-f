@@ -90,8 +90,30 @@
 	
 }
 
+.purchase .cajaDropdown {
+	display: flex;
+	flex-direction: row;
+	
+	align-items: center;
+	justify-content: center;
+	
+	margin-bottom: 1em;
+}
+
+.purchase .cajaDropdown p {
+	margin-right: 0.5em;
+}
+
+.purchase select {
+	width: 3em;
+	
+	font-size: 1em;
+	border-radius: 3px;
+}
+
 .purchaseButton {
 	
 	width: 15em;
+	margin-bottom: 0.3em;
 	
 }
