@@ -14,7 +14,7 @@ class Register extends React.Component {
 
 				<div className="registerCard">
 					<h2>Account</h2>
-					<div className="registerCardAcc">
+					<div className="registerCardInfoA">
                         <input className="inputRegister" type="text" placeholder="username"></input>
                         <input className="inputRegister" type="text" placeholder="email"></input>
                         <input className="inputRegister" type="text" placeholder="password"></input>
@@ -23,17 +23,20 @@ class Register extends React.Component {
                         <input className="inputRegister" type="text" placeholder="Secret Answer"></input>
                     </div>
                     <h2>Personal</h2>
-                    <div className="registerCardPer">
-
+                    <div className="registerCardInfoB">
+                        <input className="inputRegister" type="text" placeholder="Address"></input>
+                        <input className="inputRegister" type="text" placeholder="Phone"></input>
+                        <input className="inputRegister" type="text" placeholder="City"></input>
+                        <input className="inputRegister" type="text" placeholder="Country"></input>
                     </div>
                     <h2>Billing</h2>
-                    <div className="registerCardBil">
-
+                    <div className="registerCardInfoB">
+                        <input className="inputRegister" type="text" placeholder="Paypal"></input>
+                        <input className="inputRegister" type="text" placeholder="Card Number"></input>
+                        <input className="inputRegister" type="text" placeholder="Expire Date"></input>
+                        <input className="inputRegister" type="text" placeholder="Card Owner"></input>
                     </div>
-						{/* <input type="text" placeholder="username or email"></input>
-						<input type="text" placeholder="password"></input>
-						<button>Login</button> */}
-					
+						
 				</div>
 
 			</div>
