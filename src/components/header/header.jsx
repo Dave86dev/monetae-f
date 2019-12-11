@@ -25,7 +25,7 @@ class Header extends React.Component {
 				<div className="search">
 					<input type="text" placeholder="Búsqueda" />
 					<div className="backgroundIcon">
-						<i class="material-icons">search</i>
+						<i className="material-icons">search</i>
 					</div>
 				</div>
 

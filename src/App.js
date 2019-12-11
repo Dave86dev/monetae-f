@@ -1,10 +1,13 @@
 import React from "react";
 import Home from "./components/home/home";
 import Header from "./components/header/header";
+import SearchResults from "./components/searchResults/searchResults";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./global.css";
 import "./App.css";
+
 
 export default function App() {
 	return (
@@ -24,6 +27,9 @@ export default function App() {
 					</Route>
 					<Route path="/profile" exact>
 						<Profile />
+					</Route>
+					<Route path="/search" exact>
+						<SearchResults />
 					</Route>
 				</Switch>
 			</Router>
