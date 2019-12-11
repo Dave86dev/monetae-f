@@ -1,7 +1,7 @@
 
 import React, {Fragment} from "react";
 
-import './login.css';
+import './login.scss';
 
 
 class Login extends React.Component {
