@@ -2,6 +2,8 @@ import React from "react";
 import Home from "./components/home/home";
 import Header from "./components/header/header";
 import SearchResults from "./components/searchResults/searchResults";
+import Login from "./components/login/login";
+import Register from "./components/register/register";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -37,13 +39,6 @@ export default function App() {
 	);
 }
 
-function Login() {
-	return <h2>Login</h2>;
-}
-
-function Register() {
-	return <h2>Register</h2>;
-}
 
 function Profile() {
 	return <h2>Users</h2>;

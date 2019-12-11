@@ -79,7 +79,7 @@ input {
 	font-size: 1.1em;
 	
 	border: none;
-	border-radius: 3px 0px 0px 3px;
+	border-radius: 3px 3px 3px 3px;
 	
 	padding: 3px;
 	height: 1.4em;
@@ -88,4 +88,24 @@ input {
     -moz-box-sizing: border-box;
 	box-sizing: border-box;
 	
+}
+
+button {
+    
+    all: unset;
+    width: 6em;
+    height: 2em;
+    border-radius: 3px;
+    background: var(--colNar);
+    text-align: center;
+    /* margin-top: 0.5em; */
+    cursor: pointer;
+    font-size: 1.3em;
+    color: var(--pri9);
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--colNarCla);
+    
 }

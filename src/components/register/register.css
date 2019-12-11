@@ -1,15 +1,14 @@
 
-.loginMain {
+.registerMain {
 	background-color: var(--pri1);
     display: flex;
     justify-content: center;
 	
 }
 
-.loginCard {
+.registerCard {
 	display: flex;
 	flex-direction: column;
-	
 	height: 29em;
 	width: 26em;
 	border-radius: 3px;
@@ -24,7 +23,7 @@
     height: 15em;
 }
 
-.loginMain .loginCard .header .image  {
+.registerMain .registerCard .header .image  {
     width: 12em;
     top: 6em;
     position: absolute;    
