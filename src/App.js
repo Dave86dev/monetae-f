@@ -2,6 +2,7 @@ import React from "react";
 import Home from "./components/home/home";
 import Header from "./components/header/header";
 import SearchResults from "./components/searchResults/searchResults";
+import ProductDetail from "./components/productDetail/productDetail";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -13,6 +14,7 @@ export default function App() {
 	return (
 		<div>
 			<Router>
+				
 				<Header />
 				
 				<Switch>
@@ -31,7 +33,11 @@ export default function App() {
 					<Route path="/search" exact>
 						<SearchResults />
 					</Route>
+					<Route path="/detail" exact>
+						<ProductDetail />
+					</Route>
 				</Switch>
+				
 			</Router>
 		</div>
 	);
@@ -48,3 +54,4 @@ function Register() {
 function Profile() {
 	return <h2>Users</h2>;
 }
+
