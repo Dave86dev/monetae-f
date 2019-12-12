@@ -53,7 +53,7 @@ class Login extends React.Component {
 		
 		
 		// Llamada
-		let url = getUrl("/login");
+		let url = getUrl("/users/login");
 		let body = {
 			username: username,
 			password: password
