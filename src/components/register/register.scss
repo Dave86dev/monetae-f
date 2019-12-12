@@ -105,4 +105,13 @@
         width: 11.6em;
         height: 1.5em;
     }
+
+    .error {
+		margin-top: 1em;
+		color: var(--colRojCla);
+	}
+	.success {
+		margin-top: 1em;
+		color: var(--colVer);
+	}
 }
