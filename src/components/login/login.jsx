@@ -3,6 +3,7 @@ import React from "react";
 
 import axios from "axios";
 import getUrl from "../../utils/getUrl";
+import {session} from "../../utils/session";
 
 import './login.scss';
 
@@ -12,29 +13,30 @@ class Login extends React.Component {
 	
 	constructor (props) {
 		super(props);
-		
+		 
 		this.state = {
 			username: "",
 			password: "",
 			
-			message: "asd",
+			message: "",
+			errorTime: 0,
+			messageClassName: "error",
 		};
 		
-		// this.handleChange = this.handleChange.bind(this); // ¿para qué es esto?
+		// this.handleChange = this.handleChange.bind(this); // esto es para que el this de la función clásica pille el de la instancia de la clase Login y no otra
 		
 	};
 	
-	 
+	
 	
 	handleChange(event, key) {
 		
-		if (key === "username") {
-			this.setState({username: event.target.value});
-		} else {
-			this.setState({password: event.target.value});
-		};
+		this.setState({
+			[key]: event.target.value
+		});
 		
 	};
+	
 	
 	
 	async pulsaLogin() {
@@ -45,7 +47,7 @@ class Login extends React.Component {
 		
 		
 		if (username === "") {
-			this.muestraError("El username no puede estar vacío.");
+			this.muestraError("El usuario / email no puede estar vacío.");
 			return;
 		};
 		if (password === "") {
@@ -63,12 +65,23 @@ class Login extends React.Component {
 				password: password
 			};
 			
-			console.log( "Esperando..." );
-			
 			let res = await axios.post( getUrl("/user/login"), body);
 			
-			console.log( res.data );
-					
+			
+			
+			// Guardo datos de sesión
+			session.set({
+				username: res.username,
+				userId: res.userId,
+				token: res.token,
+				userType: res.userType
+			});
+			
+			
+			// Muestro
+			this.muestraError("Accediendo...", null, false);
+			
+			
 		} catch (err) {
 			
 			let res = err.response.data;
@@ -90,9 +103,42 @@ class Login extends React.Component {
 	};
 	
 	
-	muestraError(str, className = "error") {
-		this.setState({message: str});
-	}
+	
+	muestraError (message, timeout = 3, isError = true) {
+		
+		// Pongo la clase
+		let className = isError ? "error" : "success";
+		this.setState({messageClassName: className});
+		
+		
+		// Pongo el mensaje
+		this.setState({message: message});
+		
+		
+		// Ya estoy en loop
+		if (this.state.errorTime > 0) {
+			this.setState({errorTime: timeout});
+			return; // y salgo
+		};
+		
+		
+		this.setState({errorTime: timeout}); // Entro por primera vez, pongo tiempo
+		
+		
+		// Loop
+		let loop = setInterval( ()=> {
+			
+			if (this.state.errorTime <= 0) {
+				this.setState({message: ""});
+				clearInterval(loop); // salgo del loop
+			};
+			
+			
+			this.setState( preState => ( {errorTime: preState.errorTime - 1}) );
+			
+		}, 1000);
+		
+	};
 	
 	
 	
@@ -111,19 +157,19 @@ class Login extends React.Component {
 						
 						<input
 							type="text"
-							placeholder="username or email"
+							placeholder="Usuario / email"
 							onChange={ (ev) => {this.handleChange(ev, "username")} }
 						></input>
 						
 						<input
-							type="text"
-							placeholder="password"
+							type="password"
+							placeholder="Contraseña"
 							onChange={ (ev) => {this.handleChange(ev, "password")} }
 						></input>
 						
 						<button onClick={ () => this.pulsaLogin() }>Entrar</button>
 						
-						<p>{this.state.message}</p>
+						<p className={this.state.messageClassName}> {this.state.message} </p>
 						
 					</div>
 				</div>

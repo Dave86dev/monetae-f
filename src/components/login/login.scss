@@ -46,6 +46,15 @@
         border-width: 0.5px;
         border-color: var(--pri9);
     }
-
-
+	
+	.error {
+		margin-top: 1em;
+		color: var(--colRojCla);
+	}
+	.success {
+		margin-top: 1em;
+		color: var(--colVer);
+	}
+	
+	
 }
