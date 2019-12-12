@@ -32,6 +32,7 @@
     /* Colors */
     --colVer: rgb(11, 226, 51);
     --colRoj: rgb(177, 3, 35);
+    --colRojCla: rgb(221, 0, 40);
     --colAzu: rgb(30, 30, 255);
     --colAzuCla: rgb(30, 165, 255);
     --colAma: rgb(255, 255, 28);
@@ -62,8 +63,9 @@
 
 * {
     margin: 0;
-	padding: 0;
-	
+    padding: 0;
+    
+	color: var(--pri9);
 	font-family: 'Hind', sans-serif;
 }
 
@@ -91,7 +93,6 @@ input {
 }
 
 button {
-    
     all: unset;
     width: 6em;
     height: 2em;
