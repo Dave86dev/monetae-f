@@ -61,6 +61,8 @@
     --onSuc: var(--pri9);
 }
 
+
+/* Generales */
 * {
     margin: 0;
     padding: 0;
@@ -74,7 +76,13 @@ html {
 	background-color: var(--pri1);
 }
 
-.br { border-radius: 3px; }
+
+/* Estados */
+.br { border-radius: 3px}
+.hide {
+	visibility: hidden;
+	display: none;
+}
 
 
 /* Padding */
