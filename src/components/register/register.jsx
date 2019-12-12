@@ -50,7 +50,7 @@ class Register extends React.Component {
         //Comprobamos que todos los campos esten rellenados
 
         let arrRegister = ["username","email","password","password2","secretQ","secretA",
-        "phone","userType","address","country","city","paypal","cNumber","cOwner","expireM","expireY"];
+        "phone","userType","address","country","city"];
 
         for(let _x of arrRegister) {
             if(this.state[_x] === ""){
@@ -59,34 +59,78 @@ class Register extends React.Component {
             }
         }
 
+        //Comprobamos que el cliente bien dispone de paypal o de tarjeta de crédito.
+
         if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.email) ) {
             this.muestraError("Introduce un e-mail válido.");
             return;
         };
 
+        if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.paypal) ) {
+            this.muestraError("Introduce un paypal válido.");
+            return;
+        };
+
         
-        if (this.state.email < 4) {
+        if (this.state.password.length < 4) {
             this.muestraError("El password debe de tener al menos 4 caracteres.");
             return;
         };
 
         if (! /[\d()+-]/g.test(this.state.phone) ) {
-                    this.muestraError("El teléfono debe ser válido");
-                    return;
-                };
+            this.muestraError("El teléfono debe ser válido");
+            return;
+        };
+
         if (! /[a-z]/gi.test(this.state.cOwner) ) {
-                    this.muestraError("El titular de la tarjeta debe ser válido.");
-                    return;
-                };
+            this.muestraError("El titular de la tarjeta debe ser válido.");
+            return;
+        };
+
+        if (! /[a-z]/gi.test(this.state.address) ) {
+            this.muestraError("El titular de la tarjeta debe ser válido.");
+            return;
+        };
+
+        if (! /[a-z]/gi.test(this.state.country) ) {
+            this.muestraError("El titular de la tarjeta debe ser válido.");
+            return;
+        };
+
+        if (! /[a-z]/gi.test(this.state.city) ) {
+            this.muestraError("El titular de la tarjeta debe ser válido.");
+            return;
+        };
+
+        if (! /[0-9]/g.test(this.state.cNumber) ) {
+            this.muestraError("El numero de la tarjeta debe de ser válido.");
+            return;
+        };
+
         if (! /[0-9]/g.test(this.state.expireM) ) {
             this.muestraError("El mes de caducidad debe de ser válido.");
             return;
         };
+        if (!this.state.expireM.length === 2){
+            this.muestraError("El mes de caducidad debe tener 2 caracteres.");
+            return;
+        }
+        if (!this.state.expireY.length === 2){
+            this.muestraError("El año de caducidad debe tener 2 caracteres.");
+            return;
+        }
 
         if (! /[0-9]/g.test(this.state.expireY) ) {
             this.muestraError("El año de caducidad debe de ser válido.");
             return;
         };
+
+        if (this.state.password != this.state.password2){
+            this.muestraError("Los dos passwords deben coincidir");
+            return;
+        }
+
+
     }
 
     muestraError (message, timeout = 3, isError = true) {
@@ -134,10 +178,10 @@ class Register extends React.Component {
 				<div className="registerCard">
 					<h2>Cuenta</h2>
 					<div className="registerCardInfoA">
-                        <input className="inputRegister" type="text" placeholder="nombre" name="username" value={this.state.username}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="email"  name="email" value={this.state.email}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="password"  name="password" value={this.state.password}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="repite password"  name="password2" value={this.state.password2}  onChange={this.handleChange} ></input>
+                        <input className="inputRegister" type="text" placeholder="Nombre de usuario" name="username" value={this.state.username}  onChange={this.handleChange} ></input>
+                        <input className="inputRegister" type="text" placeholder="E-mail"  name="email" value={this.state.email}  onChange={this.handleChange} ></input>
+                        <input className="inputRegister" type="password" placeholder="Password"  name="password" value={this.state.password}  onChange={this.handleChange} ></input>
+                        <input className="inputRegister" type="password" placeholder="Repite password"  name="password2" value={this.state.password2}  onChange={this.handleChange} ></input>
                         <input className="inputRegister" type="text" placeholder="Pregunta secreta"  name="secretQ" value={this.state.secretQ}  onChange={this.handleChange} ></input>
                         <input className="inputRegister" type="text" placeholder="Respuesta secreta"  name="secretA" value={this.state.secretA}  onChange={this.handleChange} ></input>
                     </div>
