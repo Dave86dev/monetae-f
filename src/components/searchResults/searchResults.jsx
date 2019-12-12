@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import "./searchResults.css";
 
 
 class SearchResults extends React.Component {
-	constructor() {
-		super();
-	}
+	// constructor(props) {
+	// 	super(props);
+	// }
 
 	render() {
 		return (

@@ -1,10 +1,11 @@
 
-import React, {Fragment} from "react";
+import React from "react";
 
 import axios from "axios";
 import getUrl from "../../utils/getUrl";
 
 import './login.scss';
+
 
 
 class Login extends React.Component {
@@ -15,6 +16,8 @@ class Login extends React.Component {
 		this.state = {
 			username: "",
 			password: "",
+			
+			message: "asd",
 		};
 		
 		// this.handleChange = this.handleChange.bind(this); // ¿para qué es esto?
@@ -34,7 +37,7 @@ class Login extends React.Component {
 	};
 	
 	
-	pulsaLogin() {
+	async pulsaLogin() {
 		
 		// Validación
 		let username = this.state.username;
@@ -52,32 +55,35 @@ class Login extends React.Component {
 		
 		
 		
-		// Llamada
-		let url = getUrl("/user/login");
-		let body = {
-			username: username,
-			password: password
+		try {
+			
+			// Llamada
+			let body = {
+				username: username,
+				password: password
+			};
+			
+			console.log( "Esperando..." );
+			
+			let res = await axios.post( getUrl("/user/login"), body);
+			
+			console.log( res.data );
+					
+		} catch (err) {
+			
+			let res = err.response.data;
+			
+			
+			if (res.errorCode === "user_login_1") {
+				this.muestraError("Usuario no encontrado o contraseña incorrecta.");
+				return;
+			};
+			if (res.errorCode === "user_login_2") {
+				this.muestraError("Ya estabas logeado.");
+				return;
+			};
+			
 		};
-		
-		console.log( url, body );
-		
-		axios.post(url, {})
-		.then( (res) => {
-			
-			console.log( res );
-			
-		}).catch ( (err) => {
-			
-			console.log( err );
-			
-		});
-		
-		
-		// axios.get( getUrl("/rating/all") ).then( (res) => {
-		// 	console.log( res )
-		// }).catch ( (err) => {
-		// 	console.log( err );
-		// });
 		
 		
 		
@@ -85,10 +91,7 @@ class Login extends React.Component {
 	
 	
 	muestraError(str, className = "error") {
-		
-		// Aquí irá lo que rellena el texto de error
-		console.log( str, className );
-		
+		this.setState({message: str});
 	}
 	
 	
@@ -119,6 +122,8 @@ class Login extends React.Component {
 						></input>
 						
 						<button onClick={ () => this.pulsaLogin() }>Login</button>
+						
+						<p>{this.state.message}</p>
 						
 					</div>
 				</div>

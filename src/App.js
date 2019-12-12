@@ -1,4 +1,8 @@
+
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Componentes
 import Home from "./components/home/home";
 import Header from "./components/header/header";
 import SearchResults from "./components/searchResults/searchResults";
@@ -6,8 +10,7 @@ import ProductDetail from "./components/productDetail/productDetail";
 import Login from "./components/login/login";
 import Register from "./components/register/register";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+// CSS
 import "./global.css";
 import "./App.css";
 
@@ -30,7 +33,7 @@ export default function App() {
 						<Register />
 					</Route>
 					<Route path="/profile" exact>
-						<Profile />
+						<Login />
 					</Route>
 					<Route path="/search" exact>
 						<SearchResults />
@@ -46,7 +49,4 @@ export default function App() {
 }
 
 
-function Profile() {
-	return <h2>Users</h2>;
-}
 
