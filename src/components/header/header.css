@@ -90,3 +90,14 @@ header .nav a {
 	padding: 0.3em 0.3em;
 	
 }
+
+header button {
+	
+	font-size: 1em;
+	margin-right: 0.75em;
+    
+} 
+
+header a {
+	all:unset;
+}

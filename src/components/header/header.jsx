@@ -34,12 +34,12 @@ class Header extends React.Component {
 				<div className="nav">
 					<button>
 						<NavLink exact activeClassName="active" to="/login">
-							Login
+							Acceder
 						</NavLink>
 					</button>
 					<button>
 						<NavLink exact activeClassName="active" to="/register">
-							Register
+							Registrarse
 						</NavLink>
 					</button>
 				</div>
