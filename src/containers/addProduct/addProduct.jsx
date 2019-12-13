@@ -42,7 +42,7 @@ class AddProduct extends React.Component {
      }
 
    
-    pulsaProduct ()  {
+    async pulsaProduct ()  {
 
         //Comprobamos que todos los campos esten rellenados
 
@@ -81,7 +81,65 @@ class AddProduct extends React.Component {
             return;
         };
 
-        
+        //Procedemos a introducir el producto en la base de datos
+
+        try {
+			
+			// Llamada
+			let body = {
+				titulo: this.state.titulo,
+				precio: this.state.precio
+			};
+			
+			// let res = await axios.post( getUrl("/user/login"), body);
+			
+			// let data = res.data;
+			
+			
+			// // Guardo datos de sesión
+			// session.set({
+			// 	username: data.username,
+			// 	userId: data.userId,
+			// 	token: data.token,
+			// 	userType: data.userType
+			// });
+			
+			
+			// Muestro
+			// this.muestraError("Accediendo...", null, false);
+			
+			// this.props.history.push("/");
+			
+			
+		} catch (err) {
+			
+			let res = err.response.data;
+			
+			
+			// if (res.errorCode === "user_login_1") {
+			// 	this.muestraError("Usuario no encontrado o contraseña incorrecta.");
+			// 	return;
+			// };
+			
+			// if (res.errorCode === "user_login_2") {
+				
+			// 	// Guardo datos de sesión
+			// 	session.set({
+			// 		username: res.username,
+			// 		userId: res.userId,
+			// 		token: res.token,
+			// 		userType: res.userType
+			// 	});
+				
+				
+			// 	// Muestro mensaje y redirijo
+			// 	this.muestraError("Ya estabas logeado.");
+			// 	// this.props.history.push("/");
+			// 	return;
+				
+			// };
+			
+		};
 
 
     }
@@ -131,10 +189,10 @@ class AddProduct extends React.Component {
 				<div className="addProductCard">
 					<h2>Añade un nuevo producto</h2>
                     <div className="productRegisterFieldsA">
-                        <input className="inputaddProduct" type="text" placeholder="Título" name="titulo" maxlength="50" value={this.state.titulo}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Título" name="titulo" maxLength="50" value={this.state.titulo}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Precio"  name="precio" value={this.state.precio}  onChange={this.handleChange} ></input>
-                        <input className="inputaddProduct" type="password" placeholder="Stock"  name="stock" value={this.state.stock}  onChange={this.handleChange} ></input>
-                        <input className="inputaddProduct" type="password" placeholder="Stock Activo"  name="stockActivo" value={this.state.stockActivo}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Stock"  name="stock" value={this.state.stock}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Stock Activo"  name="stockActivo" value={this.state.stockActivo}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Localizacion"  name="location" value={this.state.location}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Categoría"  name="category" value={this.state.category}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 1"  name="image1" value={this.state.image1}  onChange={this.handleChange} ></input>
@@ -143,7 +201,7 @@ class AddProduct extends React.Component {
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 4"  name="image4" value={this.state.image4}  onChange={this.handleChange} ></input>
                     </div>
                     <div className="productRegisterFieldsB">
-                        <textarea className="textAddProduct" rows="5" cols="60" maxlength="200" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
+                        <textarea className="textAddProduct" rows="5" cols="60" maxLength="200" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
                         <select className="addProductDropdown br" name="isActive" onChange={this.handleChange}>
 					        	<option value="false">Oculto</option>
 					        	<option value="true">A la venta</option>
