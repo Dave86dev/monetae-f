@@ -13,29 +13,26 @@ class AddProduct extends React.Component {
 		super(props);
 		
 		this.state = {
-            username: "",
-            email: "",
-            password: "",
-            password2: "",
-            secretQ: "",
-            secretA: "",
-            phone: "",
-            userType: 0,
-            address: "",
-            country: "",
-            city: "",
-            paypal: "",
-            cNumber: "",
-            cOwner: "",
-            expireM: "",
-            expireY: "",
+            titulo: "",
+            precio: "",
+            stock: "",
+            stockActivo: "",
+            location: "",
+            category: "",
+            description: "",
+            image1: "",
+            image2: "",
+            image3: "",
+            image4: "",
+            isActive: "false",
+
 
             message: "",
 			errorTime: 0,
 			messageClassName: "error",
 		};
 		
-        this.pulsaRegistro = this.pulsaRegistro.bind(this);
+        this.pulsaProduct = this.pulsaProduct.bind(this);
     };
     
      handleChange = (ev) =>{
@@ -45,99 +42,46 @@ class AddProduct extends React.Component {
      }
 
    
-    pulsaRegistro ()  {
+    pulsaProduct ()  {
 
         //Comprobamos que todos los campos esten rellenados
 
-        let arrRegister = ["username","email","password","password2","secretQ","secretA",
-        "phone","userType","address","country","city"];
+        let arraddProduct = ["titulo","precio","stock","stockActivo","location","category",
+        "description","image1"];
 
-        for(let _x of arrRegister) {
+        for(let _x of arraddProduct) {
             if(this.state[_x] === ""){
                 this.muestraError(`El campo ${_x} no puede estar vacío`);
                 return;
             }
         }
 
-        if (this.state.paypal === "" && this.state.cNumber === "") {
-            this.muestraError(`Debes de introducir una dirección paypal o una tarjeta de crédito válida.`);
-            return;
-        }
-
-
-        if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.email) ) {
-            this.muestraError("Introduce un e-mail válido.");
+        if (this.state.titulo.length < 3) {
+            this.muestraError("El titulo debe de tener al menos 3 caracteres.");
             return;
         };
 
-        if(this.state.paypal !== ""){
-            if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.paypal) ) {
-                this.muestraError("Introduce un paypal válido.");
-                return;
-            };
-        }
+        if (! /[0-9]/g.test(this.state.precio) ) {
+            this.muestraError("El precio debe ser válido.");
+            return;
+        };
+
+        if (! /[0-9]/g.test(this.state.stock) ) {
+            this.muestraError("El stock debe ser válido.");
+            return;
+        };
+
+        if (! /[0-9]/g.test(this.state.stockActivo) ) {
+            this.muestraError("El stock activo debe ser válido.");
+            return;
+        };
+
+        if (! /[a-z0-9]+/gi.test(this.state.location) ) {
+            this.muestraError("La localización debe ser válida.");
+            return;
+        };
+
         
-        if (this.state.password.length < 4) {
-            this.muestraError("El password debe de tener al menos 4 caracteres.");
-            return;
-        };
-
-        if (! /[\d()+-]/g.test(this.state.phone) ) {
-            this.muestraError("El teléfono debe ser válido");
-            return;
-        };
-
-        if (! /[a-z]/gi.test(this.state.address) ) {
-            this.muestraError("La dirección debe ser válida.");
-            return;
-        };
-
-        if (! /[a-z]/gi.test(this.state.country) ) {
-            this.muestraError("El país debe ser válido.");
-            return;
-        };
-
-        if (! /[a-z]/gi.test(this.state.city) ) {
-            this.muestraError("La ciudad debe ser válida.");
-            return;
-        };
-
-
-        if(this.state.cNumber !== ""){
-            if (! /[0-9]/g.test(this.state.cNumber) ) {
-                this.muestraError("El numero de la tarjeta debe de ser válido.");
-                return;
-            };
-
-            if (! /[a-z]/gi.test(this.state.cOwner) ) {
-                this.muestraError("El titular de la tarjeta debe ser válido.");
-                return;
-            };
-        
-            if (! /[0-9]/g.test(this.state.expireM) ) {
-                this.muestraError("El mes de caducidad debe de ser válido.");
-                return;
-            };
-            if (this.state.expireM.length !== 2){
-                this.muestraError("El mes de caducidad debe tener 2 caracteres.");
-                return;
-            }
-            if (this.state.expireY.length !== 2){
-                this.muestraError("El año de caducidad debe tener 2 caracteres.");
-                return;
-            }
-        
-            if (! /[0-9]/g.test(this.state.expireY) ) {
-                this.muestraError("El año de caducidad debe de ser válido.");
-                return;
-            };
-        }
-            
-
-        if (this.state.password !== this.state.password2){
-            this.muestraError("Los dos passwords deben coincidir");
-            return;
-        }
 
 
     }
@@ -181,42 +125,33 @@ class AddProduct extends React.Component {
     render() {
        
 		return(
-			<div className="registerMain">
+			<div className="addProductMain">
             {/* <pre>{JSON.stringify(this.state, null,2)}</pre> */}
 
-				<div className="registerCard">
-					<h2>Cuenta</h2>
-					<div className="registerCardInfoA">
-                        <input className="inputRegister" type="text" placeholder="Nombre de usuario" name="username" value={this.state.username}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="E-mail"  name="email" value={this.state.email}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="password" placeholder="Password"  name="password" value={this.state.password}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="password" placeholder="Repite password"  name="password2" value={this.state.password2}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Pregunta secreta"  name="secretQ" value={this.state.secretQ}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Respuesta secreta"  name="secretA" value={this.state.secretA}  onChange={this.handleChange} ></input>
+				<div className="addProductCard">
+					<h2>Añade un nuevo producto</h2>
+                    <div className="productRegisterFieldsA">
+                        <input className="inputaddProduct" type="text" placeholder="Título" name="titulo" maxlength="50" value={this.state.titulo}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Precio"  name="precio" value={this.state.precio}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="password" placeholder="Stock"  name="stock" value={this.state.stock}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="password" placeholder="Stock Activo"  name="stockActivo" value={this.state.stockActivo}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Localizacion"  name="location" value={this.state.location}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Categoría"  name="category" value={this.state.category}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Link imagen 1"  name="image1" value={this.state.image1}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Link imagen 2"  name="image2" value={this.state.image2}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Link imagen 3"  name="image3" value={this.state.image3}  onChange={this.handleChange} ></input>
+                        <input className="inputaddProduct" type="text" placeholder="Link imagen 4"  name="image4" value={this.state.image4}  onChange={this.handleChange} ></input>
                     </div>
-                    <h2>Personal</h2>
-                    <div className="registerCardInfoB">
-                        <input className="inputRegister" type="text" placeholder="Dirección" name="address" value={this.state.address}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Teléfono" name="phone" value={this.state.phone}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Ciudad" name="city" value={this.state.city}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="País" name="country" value={this.state.country}  onChange={this.handleChange} ></input>
-                        <select className="registerDropdown br" name="userType" onChange={this.handleChange}>
-						    	<option value="0">Soy comprador</option>
-						    	<option value="1">Soy vendedor</option>
-						</select>
-					</div>
-                    <h2>Facturación</h2>
-                    <div className="registerCardInfoB">
-                        <input className="inputRegister" type="text" placeholder="Número de tarjeta" name="cNumber" value={this.state.cNumber}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Nombre de propietario" name="cOwner" value={this.state.cOwner}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Mes caducidad" name="expireM" value={this.state.expireM}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Año caducidad" name="expireY" value={this.state.expireY}  onChange={this.handleChange} ></input>
-                        <input className="inputRegister" type="text" placeholder="Paypal" name="paypal" value={this.state.paypal}  onChange={this.handleChange} ></input>
+                    <div className="productRegisterFieldsB">
+                        <textarea className="textAddProduct" rows="5" cols="60" maxlength="200" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
+                        <select className="addProductDropdown br" name="isActive" onChange={this.handleChange}>
+					        	<option value="false">Oculto</option>
+					        	<option value="true">A la venta</option>
+					    </select>
                     </div>
-					<p className={this.state.messageClassName}> {this.state.message} </p>
-                    <button onClick={this.pulsaRegistro}>Registrar</button>
-                    
-				</div>
+                    <p className={this.state.messageClassName}> {this.state.message} </p>
+                    <button onClick={this.pulsaProduct}>Añadir</button>
+                </div>
 
 			</div>
 		);
