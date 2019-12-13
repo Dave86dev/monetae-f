@@ -59,18 +59,23 @@ class Register extends React.Component {
             }
         }
 
-        //Comprobamos que el cliente bien dispone de paypal o de tarjeta de crédito.
+        if (this.state.paypal === "" && this.state.cNumber === "") {
+            this.muestraError(`Debes de introducir una dirección paypal o una tarjeta de crédito válida.`);
+            return;
+        }
+
 
         if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.email) ) {
             this.muestraError("Introduce un e-mail válido.");
             return;
         };
 
-        if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.paypal) ) {
-            this.muestraError("Introduce un paypal válido.");
-            return;
-        };
-
+        if(this.state.paypal !== ""){
+            if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.paypal) ) {
+                this.muestraError("Introduce un paypal válido.");
+                return;
+            };
+        }
         
         if (this.state.password.length < 4) {
             this.muestraError("El password debe de tener al menos 4 caracteres.");
@@ -82,50 +87,54 @@ class Register extends React.Component {
             return;
         };
 
-        if (! /[a-z]/gi.test(this.state.cOwner) ) {
-            this.muestraError("El titular de la tarjeta debe ser válido.");
-            return;
-        };
-
         if (! /[a-z]/gi.test(this.state.address) ) {
-            this.muestraError("El titular de la tarjeta debe ser válido.");
+            this.muestraError("La dirección debe ser válida.");
             return;
         };
 
         if (! /[a-z]/gi.test(this.state.country) ) {
-            this.muestraError("El titular de la tarjeta debe ser válido.");
+            this.muestraError("El país debe ser válido.");
             return;
         };
 
         if (! /[a-z]/gi.test(this.state.city) ) {
-            this.muestraError("El titular de la tarjeta debe ser válido.");
+            this.muestraError("La ciudad debe ser válida.");
             return;
         };
 
-        if (! /[0-9]/g.test(this.state.cNumber) ) {
-            this.muestraError("El numero de la tarjeta debe de ser válido.");
-            return;
-        };
 
-        if (! /[0-9]/g.test(this.state.expireM) ) {
-            this.muestraError("El mes de caducidad debe de ser válido.");
-            return;
-        };
-        if (!this.state.expireM.length === 2){
-            this.muestraError("El mes de caducidad debe tener 2 caracteres.");
-            return;
+        if(this.state.cNumber !== ""){
+            if (! /[0-9]/g.test(this.state.cNumber) ) {
+                this.muestraError("El numero de la tarjeta debe de ser válido.");
+                return;
+            };
+
+            if (! /[a-z]/gi.test(this.state.cOwner) ) {
+                this.muestraError("El titular de la tarjeta debe ser válido.");
+                return;
+            };
+        
+            if (! /[0-9]/g.test(this.state.expireM) ) {
+                this.muestraError("El mes de caducidad debe de ser válido.");
+                return;
+            };
+            if (this.state.expireM.length !== 2){
+                this.muestraError("El mes de caducidad debe tener 2 caracteres.");
+                return;
+            }
+            if (this.state.expireY.length !== 2){
+                this.muestraError("El año de caducidad debe tener 2 caracteres.");
+                return;
+            }
+        
+            if (! /[0-9]/g.test(this.state.expireY) ) {
+                this.muestraError("El año de caducidad debe de ser válido.");
+                return;
+            };
         }
-        if (!this.state.expireY.length === 2){
-            this.muestraError("El año de caducidad debe tener 2 caracteres.");
-            return;
-        }
+            
 
-        if (! /[0-9]/g.test(this.state.expireY) ) {
-            this.muestraError("El año de caducidad debe de ser válido.");
-            return;
-        };
-
-        if (this.state.password != this.state.password2){
+        if (this.state.password !== this.state.password2){
             this.muestraError("Los dos passwords deben coincidir");
             return;
         }
