@@ -10,7 +10,7 @@ import ProductDetail from "./components/productDetail/productDetail";
 import Login from "./components/login/login";
 import Register from "./components/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
-
+import AddProduct from "./containers/addProduct/addProduct";
 
 // CSS
 import "./global.css";
@@ -34,7 +34,7 @@ export default function App() {
 					<Route path="/search" exact> <SearchResults /> </Route>
 					<Route path="/detail" exact> <ProductDetail /> </Route>
 					
-					<Route path="/addProduct" exact> <ProductDetail /> </Route>
+					<Route path="/addProduct" exact> <AddProduct /> </Route>
 					
 				</Switch>
 				
