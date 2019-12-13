@@ -1,8 +1,9 @@
 
 import React, {Fragment} from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
-import {session} from "../../utils/session";
+import { session, getUrl } from "../../utils/uti";
 
 
 import "./header.css";
@@ -11,6 +12,20 @@ class Header extends React.Component {
 	// constructor(props) {
 	// 	super(props);
 	// }
+	
+	
+	pulsaLogout() {
+		
+		let token = session.get().token;
+		
+		
+		axios.get(
+			getUrl(`/user/logout?token=${token}`)
+		);
+		
+	}
+	
+	
 	
 	render() {
 		return (
@@ -68,6 +83,9 @@ function BotonesHeader() {
 					<NavLink exact to="/cart">
 						Cesta
 					</NavLink>
+				</button>
+				<button className="logoutButton" onClick={ () => this.pulsaLogout() }>
+					Logout
 				</button>
 				
 			</Fragment>

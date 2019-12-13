@@ -103,3 +103,9 @@ header button {
 header a {
 	all:unset;
 }
+
+
+
+header .logoutButton {
+	background-color: var(--colRojCla);
+}

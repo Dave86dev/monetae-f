@@ -2,8 +2,7 @@
 import React from "react";
 
 import axios from "axios";
-import getUrl from "../../utils/getUrl";
-import {session} from "../../utils/session";
+import { session, getUrl } from "../../utils/uti";
 
 import './login.scss';
 
