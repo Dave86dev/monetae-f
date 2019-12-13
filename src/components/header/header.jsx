@@ -14,14 +14,79 @@ class Header extends React.Component {
 	// }
 	
 	
+	
+	BotonesHeader() {
+	
+		if (session.get()) { // si estoy logeado...
+			
+			return (
+				
+				<Fragment>
+					
+					<button>
+						<NavLink exact to="/profile">
+							Perfil
+						</NavLink>
+					</button>
+					<button>
+						<NavLink exact to="/storage">
+							Mi almacén
+						</NavLink>
+					</button>
+					<button>
+						<NavLink exact to="/cart">
+							Cesta
+						</NavLink>
+					</button>
+					<button className="logoutButton" onClick={ () => this.pulsaLogout() }>
+						Logout
+					</button>
+					
+				</Fragment>
+						
+			)
+			
+			
+		} else {
+			
+			return (
+				
+				<Fragment>
+					
+					<button>
+						<NavLink exact to="/login">
+							Acceder
+						</NavLink>
+					</button>
+					<button>
+						<NavLink exact to="/register">
+							Registrarse
+						</NavLink>
+					</button>
+					
+				</Fragment>
+						
+			)		
+			
+		};
+		
+	}
+	
+	
+	
 	pulsaLogout() {
 		
 		let token = session.get().token;
 		
 		
+		// Hago la llamada para borrar mi token
 		axios.get(
 			getUrl(`/user/logout?token=${token}`)
 		);
+		
+		
+		// Borro mis datos de sesión
+		session.del();
 		
 	}
 	
@@ -51,7 +116,7 @@ class Header extends React.Component {
 				</div>
 				
 				<div className="nav">
-					<BotonesHeader />
+					{this.BotonesHeader()}
 				</div>
 				
 			</header>
@@ -60,63 +125,6 @@ class Header extends React.Component {
 }
 
 
-
-function BotonesHeader() {
-	
-	if (session.get()) { // si estoy logeado...
-		
-		return (
-			
-			<Fragment>
-				
-				<button>
-					<NavLink exact to="/profile">
-						Perfil
-					</NavLink>
-				</button>
-				<button>
-					<NavLink exact to="/storage">
-						Mi almacén
-					</NavLink>
-				</button>
-				<button>
-					<NavLink exact to="/cart">
-						Cesta
-					</NavLink>
-				</button>
-				<button className="logoutButton" onClick={ () => this.pulsaLogout() }>
-					Logout
-				</button>
-				
-			</Fragment>
-					
-		)
-		
-		
-	} else {
-		
-		return (
-			
-			<Fragment>
-				
-				<button>
-					<NavLink exact to="/login">
-						Acceder
-					</NavLink>
-				</button>
-				<button>
-					<NavLink exact to="/register">
-						Registrarse
-					</NavLink>
-				</button>
-				
-			</Fragment>
-					
-		)		
-		
-	};
-	
-}
 
 
 

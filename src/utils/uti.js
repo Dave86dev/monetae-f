@@ -28,11 +28,11 @@
 export const session = {
 	
 	get: () => {
-		return localStorage.getItem("sessionData");
+		return JSON.parse( localStorage.getItem("sessionData") );
 	},
 	
 	set: (data) => {
-		localStorage.setItem ("sessionData", data);
+		localStorage.setItem ("sessionData", JSON.stringify(data) );
 	},
 	
 	del: () => {

@@ -66,14 +66,15 @@ class Login extends React.Component {
 			
 			let res = await axios.post( getUrl("/user/login"), body);
 			
+			let data = res.data;
 			
 			
 			// Guardo datos de sesión
 			session.set({
-				username: res.username,
-				userId: res.userId,
-				token: res.token,
-				userType: res.userType
+				username: data.username,
+				userId: data.userId,
+				token: data.token,
+				userType: data.userType
 			});
 			
 			
@@ -92,10 +93,23 @@ class Login extends React.Component {
 				this.muestraError("Usuario no encontrado o contraseña incorrecta.");
 				return;
 			};
+			
 			if (res.errorCode === "user_login_2") {
+				
+				// Guardo datos de sesión
+				session.set({
+					username: res.username,
+					userId: res.userId,
+					token: res.token,
+					userType: res.userType
+				});
+				
+				
+				// Muestro mensaje y redirijo
 				this.muestraError("Ya estabas logeado.");
 				// this.props.history.push("/");
 				return;
+				
 			};
 			
 		};
