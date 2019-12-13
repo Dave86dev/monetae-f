@@ -29,6 +29,8 @@ header .logo img {
 	
 	min-height: 5em;
 	min-width: 5em;
+	
+	cursor: pointer;
 }
 
 

@@ -81,6 +81,8 @@ class Login extends React.Component {
 			// Muestro
 			this.muestraError("Accediendo...", null, false);
 			
+			// this.props.history.push("/");
+			
 			
 		} catch (err) {
 			
@@ -93,6 +95,7 @@ class Login extends React.Component {
 			};
 			if (res.errorCode === "user_login_2") {
 				this.muestraError("Ya estabas logeado.");
+				// this.props.history.push("/");
 				return;
 			};
 			
