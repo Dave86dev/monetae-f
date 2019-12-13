@@ -9,6 +9,8 @@ import SearchResults from "./components/searchResults/searchResults";
 import ProductDetail from "./components/productDetail/productDetail";
 import Login from "./components/login/login";
 import Register from "./components/register/register";
+import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
+
 
 // CSS
 import "./global.css";
@@ -23,24 +25,17 @@ export default function App() {
 				<Header />
 				
 				<Switch>
-					<Route path="/" exact>
-						<Home />
-					</Route>
-					<Route path="/login" exact>
-						<Login />
-					</Route>
-					<Route path="/register" exact>
-						<Register />
-					</Route>
-					<Route path="/profile" exact>
-						<Login />
-					</Route>
-					<Route path="/search" exact>
-						<SearchResults />
-					</Route>
-					<Route path="/detail" exact>
-						<ProductDetail />
-					</Route>
+					<Route path="/" exact> <Home /> </Route>
+					<Route path="/login" exact> <Login /> </Route>
+					<Route path="/register" exact> <Register /> </Route>
+					<Route path="/profile" exact> <Login /> </Route>
+					<Route path="/passwordRecovery" exact> <PasswordRecovery /> </Route>
+					
+					<Route path="/search" exact> <SearchResults /> </Route>
+					<Route path="/detail" exact> <ProductDetail /> </Route>
+					
+					<Route path="/addProduct" exact> <ProductDetail /> </Route>
+					
 				</Switch>
 				
 			</Router>
