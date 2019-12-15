@@ -1,6 +1,7 @@
 
 import React from "react";
 import axios from "axios";
+import bcrypt from "cryptjs";
 
 import { getUrl } from "../../utils/uti";
 
@@ -68,32 +69,39 @@ class PasswordRecovery extends React.Component {
 	
 	
 	
-	pulsaContinuar2() {
+	async pulsaContinuar2() {
 		
 		if (this.state.password !== this.state.password2) {
 			console.log( "Contraseñas diferentes" );
 			return;
-		}
+		};
 		
 		
-		axios.post(
-			getUrl("/user/forgotPassword2"), 
-			{
-				"username": this.state.username,
-				"userAnswer": this.state.userAnswer,
-				"newPassword": this.state.password
-			}
-		).then( (res) => {
+		try {
+			
+			// Encripto pass
+			const encryptedPass = await bcrypt.hash(this.state.password, 10);
+			
+			
+			// Llamo
+			let res = axios.post(
+				getUrl("/user/forgotPassword2"), 
+				{
+					"username": this.state.username,
+					"userAnswer": this.state.userAnswer,
+					"newPassword": encryptedPass
+				}
+			);
 			
 			let data = res.data;
+			console.log( data );
 			
-			console.log( "BIEN2: ", res );
 			
-		}).catch( (err) => {
+		} catch (error) {
 			
-			console.log("MA2L: ", err.response.data );
+			console.log( error );
 			
-		});		
+		};
 		
 	};
 	
