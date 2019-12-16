@@ -1,23 +1,32 @@
 
 import React, {Fragment} from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import axios from "axios";
 
 import { session, getUrl } from "../../utils/uti";
 import {connect} from 'react-redux'
+import { login } from "../../redux/actions/users";
 
 import "./header.css";
 
 class Header extends React.Component {
+	
 	constructor(props) {
 		super(props);
+		
+		this.state = {
+			
+		}
+		
 	}
 	
 	
 	
 	BotonesHeader() {
 	
-		if (this.props.user) { // si estoy logeado...
+		console.log( this.props );
+		
+		if (this.props.isLoggedIn) { // si estoy logeado...
 			
 			return (
 				
@@ -88,12 +97,20 @@ class Header extends React.Component {
 		// Borro mis datos de sesión
 		session.del();
 		
+		
+		// Digo que no estoy logeado (con redux)
+		login(false);
+		
+		
+		// Redirección
+		this.props.history.push("/");		
+		
 	}
 	
 	
 	
 	render() {
-		console.log(this.props.user)
+		
 		return (
 			<header>
 				<div className="logo">
@@ -126,11 +143,14 @@ class Header extends React.Component {
 }
 
 
-const mapStateToProps =(state)=>{
+
+const mapStateToProps = (state) => { // ese state es de redux
 	return ({
-		user:state.user //creamos la prop user a partir de la key user del state
+		isLoggedIn: state.isLoggedIn //creamos la prop user a partir de la key user del state
 	})
 }
 
 
-export default connect(mapStateToProps) (Header);
+export default connect(mapStateToProps) (withRouter(Header) );
+
+// withRouter(Header) es para meter Header en el contexto de "Route" para que tenga el history y toa la movida

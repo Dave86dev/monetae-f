@@ -48,17 +48,32 @@ export const session = {
 /*
 	Forma una URL apuntando a la API.
 	
+	Params:
+		route: STRING - Ruta a la que se quiere llamar.
+		incudeToken: BOOL (opc) - Si es true se añadirá "token={token}" al final del string de route.
+		
 	Import:
 		import { getUrl } from "./utils/uti"
 	
 	Ejemplos:
 		getUrl(); 				// Devuelve http://localhost:3000	
 		getUrl("/user/login"); 	// Devuelve http://localhost:3000/user/login	
+		getUrl("/user/asd?", true); 	// Devuelve http://localhost:3000/asd?token=123h1u8o93uhe
 	
 */
 
-export const getUrl = (route = "") => {
-	return `http://localhost:3000${route}`
+export const getUrl = (route = "", includeToken = false) => {
+	
+	let sessionData = session.get();
+	let token = "";
+	
+	if (includeToken) {
+		if (sessionData) {
+			token = "token=" + sessionData.token;
+		};
+	};
+	
+	return `http://localhost:3000${route}${token}`
 };
 
 

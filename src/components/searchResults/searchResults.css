@@ -1,9 +1,9 @@
 
-.main {
+.mainSearch {
 	background-color: var(--pri1);
 	
 	display: grid;
-	/* grid-template: repeat(4, 1fr) / repeat(4, 1fr); */
+	/* grid-template: repeat(4, 1fr) / repeat(5, 1fr); */
 	grid-template-columns: repeat(auto-fit, minmax(22em, 1fr));
 	
 	grid-row-gap: 1em;
@@ -23,6 +23,9 @@
 	
 	height: 32em;
 	width: 22em;
+	
+	min-width: 10em;
+	max-width: 25em;
 	
 	border-radius: 3px;
 	padding: 1em;

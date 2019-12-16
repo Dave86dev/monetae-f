@@ -1,7 +1,6 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {Redirect} from "react-router-dom";
 import axios from "axios";
 
 import { session, getUrl } from "../../utils/uti";
@@ -78,14 +77,18 @@ class Login extends React.Component {
 				token: data.token,
 				userType: data.userType
 			});
-			login(data.username)
+			
 			
 			// Muestro
-			this.muestraError("Accediendo...", null, false);
+			// this.muestraError("Accediendo...", 2, false);
 			
-			console.log('ei',this.props.history)
-			// Redir
-			this.props.history.push("/")
+			
+			// Digo que estoy logeado
+			login(true);
+			
+			
+			// Redirección
+			this.props.history.push("/");
 			
 			
 		} catch (err) {
@@ -109,9 +112,19 @@ class Login extends React.Component {
 				});
 				
 				
-				// Muestro mensaje y redirijo
-				this.muestraError("Ya estabas logeado.");
-				// this.props.history.push("/");
+				// Muestro mensaje
+				this.muestraError("Ya estabas logeado.", 2);
+				
+				
+				// Digo que estoy logeado
+				login(true);
+				
+				
+				// Redirijo
+				setTimeout( () => {
+					this.props.history.push("/");
+				}, 2000)
+				
 				return;
 				
 			};
