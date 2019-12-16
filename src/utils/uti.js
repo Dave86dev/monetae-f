@@ -1,6 +1,8 @@
 
 // Import de todo:
-// import { session, getUrl } from "./utils/session"
+// import * from "./utils/session"
+
+
 
 /*
 	Almacena u obtiene los datos de sesión en el siguiente formato:
@@ -58,3 +60,63 @@ export const session = {
 export const getUrl = (route = "") => {
 	return `http://localhost:3000${route}`
 };
+
+
+
+/*
+	Muestra un mensaje de error de forma temporal.
+	
+	Import:
+		import { muestraError } from "./utils/uti"
+	
+	Ejemplos:
+		muestraError("Usuario no encontrado");
+		muestraError("Todo bien", 2, false);
+	
+	Requisitos:
+		1. Tener los siguientes estados declarados:
+			message: "",
+			errorTime: 0,
+			messageClassName: "error"
+		2. Poner en el HTML esto:
+			<p className={this.state.messageClassName}> {this.state.message} </p>
+		.
+	.
+*/
+
+export const muestraError = (message, timeout = 3, isError = true) => {
+	
+	// Pongo la clase
+	let className = isError ? "error" : "success";
+	this.setState({messageClassName: className});
+	
+	
+	// Pongo el mensaje
+	this.setState({message: message});
+	
+	
+	// Ya estoy en loop
+	if (this.state.errorTime > 0) {
+		this.setState({errorTime: timeout});
+		return; // y salgo
+	};
+	
+	
+	this.setState({errorTime: timeout}); // Entro por primera vez, pongo tiempo
+	
+	
+	// Loop
+	let loop = setInterval( ()=> {
+		
+		if (this.state.errorTime <= 0) {
+			this.setState({message: ""});
+			clearInterval(loop); // salgo del loop
+		};
+		
+		
+		this.setState( preState => ( {errorTime: preState.errorTime - 1}) );
+		
+	}, 1000);
+	
+};
+

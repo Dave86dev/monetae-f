@@ -3,7 +3,10 @@ import React from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 
-import { getUrl } from "../../utils/uti";
+import { getUrl, muestraError } from "../../utils/uti";
+
+
+import "./passwordRecovery.scss";
 
 
 class PasswordRecovery extends React.Component {
@@ -21,6 +24,10 @@ class PasswordRecovery extends React.Component {
 			
 			password: "",
 			password2: "",
+			
+			message: "",
+			errorTime: 0,
+			messageClassName: "error",			
 			
 		}
 		
@@ -84,7 +91,7 @@ class PasswordRecovery extends React.Component {
 			
 			
 			// Llamo
-			let res = axios.post(
+			await axios.post(
 				getUrl("/user/forgotPassword2"), 
 				{
 					"username": this.state.username,
@@ -93,13 +100,13 @@ class PasswordRecovery extends React.Component {
 				}
 			);
 			
-			let data = res.data;
-			console.log( data );
 			
+			
+			muestraError("Tu contraseña ha sido cambiada. Redireccionando al login...", null, false);
 			
 		} catch (error) {
 			
-			console.log( error );
+			muestraError(error.response?.data);
 			
 		};
 		
@@ -112,25 +119,39 @@ class PasswordRecovery extends React.Component {
 		if (this.state.secretQuestion === "") {
 			
 			return(
-				<div>
-					<h1>fase1</h1>
-					<input type="text" placeholder="Usuario / email" onChange={ (ev) => {this.handleChange(ev, "username")} } />
-					<button onClick={ () => {this.pulsaContinuar1()} }>Continuar</button>
+				<div className="main mainPasswordRecovery">
+					<div className="card">
+						<div className="cardHeader">
+							<h1 className="cardTitle"> Paso 1/2 </h1>
+						</div>
+						<div className="cardBody">
+							<input type="text" placeholder="Usuario / email" onChange={ (ev) => {this.handleChange(ev, "username")} } />
+							<button onClick={ () => {this.pulsaContinuar1()} }>Continuar</button>
+							
+							<p className={this.state.messageClassName}> {this.state.message} </p>
+						</div>
+					</div>
 				</div>
 			);			
 			
 		} else {
 			
 			return(
-				
-				<div>
-					<h1>fase2</h1>
-					<input type="text" placeholder="Esperando pregunta secreta..." value={this.state.secretQuestion} />
-					<input type="text" placeholder="" onChange={ (ev) => {this.handleChange(ev, "userAnswer")} } />
-					<input type="text" placeholder="Nueva contraseña" onChange={ (ev) => {this.handleChange(ev, "password")} } />
-					<input type="text" placeholder="Repite nueva contraseña" onChange={ (ev) => {this.handleChange(ev, "password2")} } />
-					
-					<button onClick={ () => {this.pulsaContinuar2()} }>Cambiar contraseña</button>
+
+				<div className="main mainPasswordRecovery">
+					<div className="card">
+						<div className="cardHeader">
+							<h1 className="cardTitle"> Paso 2/2 </h1>
+						</div>
+						<div className="cardBody">
+							<input type="text" placeholder="Esperando pregunta secreta..." value={this.state.secretQuestion} disabled />
+							<input type="text" placeholder="Respuesta" onChange={ (ev) => {this.handleChange(ev, "userAnswer")} } />
+							<input type="text" placeholder="Nueva contraseña" onChange={ (ev) => {this.handleChange(ev, "password")} } />
+							<input type="text" placeholder="Repite nueva contraseña" onChange={ (ev) => {this.handleChange(ev, "password2")} } />
+							
+							<button onClick={ () => {this.pulsaContinuar2()} }>Cambiar contraseña</button>
+						</div>
+					</div>
 				</div>
 				
 			)
