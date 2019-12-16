@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {Component} from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Componentes
@@ -25,16 +25,16 @@ export default function App() {
 				<Header />
 				
 				<Switch>
-					<Route path="/" exact> <Home /> </Route>
-					<Route path="/login" exact> <Login /> </Route>
-					<Route path="/register" exact> <Register /> </Route>
-					<Route path="/profile" exact> <Login /> </Route>
-					<Route path="/passwordRecovery" exact> <PasswordRecovery /> </Route>
+					<Route path="/" exact component={Home} />
+					<Route path="/login" exact component={Login} />
+					<Route path="/register" exact component={Register} />
+					<Route path="/profile" exact component={Login} />
+					<Route path="/passwordRecovery" exact component={PasswordRecovery} />
 					
-					<Route path="/search" exact> <SearchResults /> </Route>
-					<Route path="/detail" exact> <ProductDetail /> </Route>
+					<Route path="/search" exact component={SearchResults} />
+					<Route path="/detail" exact component={ProductDetail} />
 					
-					<Route path="/addProduct" exact> <AddProduct /> </Route>
+					<Route path="/addProduct" exact component={AddProduct} />
 					
 				</Switch>
 				

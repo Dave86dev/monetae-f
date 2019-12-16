@@ -1,7 +1,9 @@
 
 import React from "react";
-
+import { NavLink } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import axios from "axios";
+
 import { session, getUrl } from "../../utils/uti";
 
 import './login.scss';
@@ -25,7 +27,6 @@ class Login extends React.Component {
 		// this.handleChange = this.handleChange.bind(this); // esto es para que el this de la función clásica pille el de la instancia de la clase Login y no otra
 		
 	};
-	
 	
 	
 	handleChange(event, key) {
@@ -81,7 +82,9 @@ class Login extends React.Component {
 			// Muestro
 			this.muestraError("Accediendo...", null, false);
 			
-			// this.props.history.push("/");
+			
+			// Redir
+			this.props.history.push("/")
 			
 			
 		} catch (err) {
@@ -185,6 +188,10 @@ class Login extends React.Component {
 						
 						<button onClick={ () => this.pulsaLogin() }>Entrar</button>
 						
+						<NavLink to="/passwordRecovery">
+							<p>¿Has olvidado la contraseña?</p>
+						</NavLink>
+						
 						<p className={this.state.messageClassName}> {this.state.message} </p>
 						
 					</div>
@@ -195,6 +202,7 @@ class Login extends React.Component {
 	
 	
 };
+
 
 
 export default Login;
