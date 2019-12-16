@@ -2,7 +2,7 @@
 import React from "react";
 
 import axios from "axios";
-import { getUrl, session } from "../../utils/uti";
+import { getUrl } from "../../utils/uti";
 
 import './register.scss';
 
@@ -45,7 +45,7 @@ class Register extends React.Component {
      }
 
    
-    pulsaRegistro ()  {
+    async pulsaRegistro ()  {
 
         //Comprobamos que todos los campos esten rellenados
 
@@ -143,27 +143,33 @@ class Register extends React.Component {
 
         try {
 
-            // let imagesArray = [this.state.image1, this.state.image2, this.state.image3, this.state.image4];
-            let sessionData = session.get();
 
-
+            let objectBilling = {
+                "address": this.state.address,
+                "country": this.state.country,
+                "city": this.state.city,
+                "paypal": this.state.paypal,
+                "card": {
+                    "number": this.state.cNumber,
+                    "owner": this.state.cOwner,
+                    "expireDate": [this.state.expireM, this.state.expireY]
+                }
+            };
 			
 			// Construcción del cuerpo del producto.
 			let body = {
-                ownerId: sessionData.userId,
-                category: this.state.category,
-                imageUrl: imagesArray,
-                title: this.state.titulo,
-                description: this.state.description,
-                price: price,
-                stock: stock,
-                activeStock: stockActivo,
-                location: this.state.location,
-                isActive: this.state.isActive === "true"
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+                secretQuestion: this.state.secretQ,
+                secretAnswer: this.state.secretA,
+                phone: this.state.phone,
+                userType: this.state.userType,
+                billing: objectBilling
             };
-             
+
             
-            await axios.post( getUrl(`/product/add?token=${sessionData.token}`), body);
+            await axios.post( getUrl(`{{url}}/user/register`), body);
 			
 			// Muestro
             // this.muestraError("Producto añadido.", 2, false);

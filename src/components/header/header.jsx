@@ -4,20 +4,20 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 import { session, getUrl } from "../../utils/uti";
-
+import {connect} from 'react-redux'
 
 import "./header.css";
 
 class Header extends React.Component {
-	// constructor(props) {
-	// 	super(props);
-	// }
+	constructor(props) {
+		super(props);
+	}
 	
 	
 	
 	BotonesHeader() {
 	
-		if (session.get()) { // si estoy logeado...
+		if (this.props.user) { // si estoy logeado...
 			
 			return (
 				
@@ -93,6 +93,7 @@ class Header extends React.Component {
 	
 	
 	render() {
+		console.log(this.props.user)
 		return (
 			<header>
 				<div className="logo">
@@ -125,7 +126,11 @@ class Header extends React.Component {
 }
 
 
+const mapStateToProps =(state)=>{
+	return ({
+		user:state.user //creamos la prop user a partir de la key user del state
+	})
+}
 
 
-
-export default Header;
+export default connect(mapStateToProps) (Header);

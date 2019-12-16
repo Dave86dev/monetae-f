@@ -16,13 +16,12 @@ import AddProduct from "./containers/addProduct/addProduct";
 import "./global.css";
 import "./App.css";
 
-
 export default function App() {
 	return (
 		<div>
 			<Router>
 				
-				<Header />
+				<Header/>
 				
 				<Switch>
 					<Route path="/" exact component={Home} />

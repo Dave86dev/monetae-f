@@ -7,6 +7,7 @@ import axios from "axios";
 import { session, getUrl } from "../../utils/uti";
 
 import './login.scss';
+import { login } from "../../redux/actions/users";
 
 
 
@@ -77,12 +78,12 @@ class Login extends React.Component {
 				token: data.token,
 				userType: data.userType
 			});
-			
+			login(data.username)
 			
 			// Muestro
 			this.muestraError("Accediendo...", null, false);
 			
-			
+			console.log('ei',this.props.history)
 			// Redir
 			this.props.history.push("/")
 			
