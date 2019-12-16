@@ -113,6 +113,17 @@
         margin: 1.5em 0 0 0;
     }
 
+    .categoryDropdown {
+        background: var(--pri1);
+        border-style: solid;
+        font-size: 1em;
+        border-width: 0.5px;
+        border-color: var(--pri9);
+        width: 11.6em;
+        height: 1.5em;
+        margin: 1.5em 0 1.5em 0;
+    }
+
     .error {
 		margin-top: 1em;
 		color: var(--colRojCla);

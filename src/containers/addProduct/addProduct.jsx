@@ -1,8 +1,9 @@
 
 import React from "react";
 
-// import axios from "axios";
-// import getUrl from "../../utils/getUrl";
+
+import axios from "axios";
+import {getUrl, session} from "../../utils/uti";
 
 import './addProduct.scss';
 
@@ -41,10 +42,39 @@ class AddProduct extends React.Component {
         
      }
 
+     resetState () {
+
+        this.setState(
+        {
+            titulo: "",
+            precio: "",
+            stock: "",
+            stockActivo: "",
+            location: "",
+            category: "",
+            description: "",
+            image1: "",
+            image2: "",
+            image3: "",
+            image4: "",
+            isActive: "false",
+
+
+            message: "",
+			errorTime: 0,
+			messageClassName: "error",
+		});
+
+     }
+
    
     async pulsaProduct ()  {
 
         //Comprobamos que todos los campos esten rellenados
+
+        let price = parseInt(this.state.precio);
+        let stock = parseInt(this.state.stock);
+        let stockActivo = parseInt(this.state.stockActivo);
 
         let arraddProduct = ["titulo","precio","stock","stockActivo","location","category",
         "description","image1"];
@@ -61,84 +91,75 @@ class AddProduct extends React.Component {
             return;
         };
 
-        if (! /[0-9]/g.test(this.state.precio) ) {
+        if (! /[0-9]/g.test(price) ) {
             this.muestraError("El precio debe ser válido.");
             return;
         };
 
-        if (! /[0-9]/g.test(this.state.stock) ) {
+        if (! /[0-9]/g.test(stock) ) {
             this.muestraError("El stock debe ser válido.");
             return;
         };
 
-        if (! /[0-9]/g.test(this.state.stockActivo) ) {
+        if (! /[0-9]/g.test(stockActivo) ) {
             this.muestraError("El stock activo debe ser válido.");
             return;
         };
+
+        if (stockActivo > stock) {
+            this.muestraError("El stock activo no puede ser mayor que el stock.");
+            
+            return;
+        }
 
         if (! /[a-z0-9]+/gi.test(this.state.location) ) {
             this.muestraError("La localización debe ser válida.");
             return;
         };
 
+
         //Procedemos a introducir el producto en la base de datos
 
         try {
+
+            let imagesArray = [this.state.image1, this.state.image2, this.state.image3, this.state.image4];
+            let sessionData = session.get();
+
+
 			
-			// Llamada
+			// Construcción del cuerpo del producto.
 			let body = {
-				titulo: this.state.titulo,
-				precio: this.state.precio
-			};
-			
-			// let res = await axios.post( getUrl("/user/login"), body);
-			
-			// let data = res.data;
-			
-			
-			// // Guardo datos de sesión
-			// session.set({
-			// 	username: data.username,
-			// 	userId: data.userId,
-			// 	token: data.token,
-			// 	userType: data.userType
-			// });
-			
+                ownerId: sessionData.userId,
+                category: this.state.category,
+                imageUrl: imagesArray,
+                title: this.state.titulo,
+                description: this.state.description,
+                price: price,
+                stock: stock,
+                activeStock: stockActivo,
+                location: this.state.location,
+                isActive: this.state.isActive === "true"
+            };
+             
+            
+            await axios.post( getUrl(`/product/add?token=${sessionData.token}`), body);
 			
 			// Muestro
-			// this.muestraError("Accediendo...", null, false);
-			
-			// this.props.history.push("/");
-			
+            this.muestraError("Producto añadido.", 2, false);
+            
+            setTimeout( () => {
+                this.resetState();
+            }, 2000)
+            
 			
 		} catch (err) {
 			
-			let res = err.response.data;
-			
-			
-			// if (res.errorCode === "user_login_1") {
-			// 	this.muestraError("Usuario no encontrado o contraseña incorrecta.");
-			// 	return;
-			// };
-			
-			// if (res.errorCode === "user_login_2") {
-				
-			// 	// Guardo datos de sesión
-			// 	session.set({
-			// 		username: res.username,
-			// 		userId: res.userId,
-			// 		token: res.token,
-			// 		userType: res.userType
-			// 	});
-				
-				
-			// 	// Muestro mensaje y redirijo
-			// 	this.muestraError("Ya estabas logeado.");
-			// 	// this.props.history.push("/");
-			// 	return;
-				
-			// };
-			
+			if(err.response){
+                if(err.response.data) {
+                    this.muestraError("Ha ocurrido un error añadiendo el producto.");
+                }
+            }
+            
 		};
 
 
@@ -194,7 +215,25 @@ class AddProduct extends React.Component {
                         <input className="inputaddProduct" type="text" placeholder="Stock"  name="stock" value={this.state.stock}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Stock Activo"  name="stockActivo" value={this.state.stockActivo}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Localizacion"  name="location" value={this.state.location}  onChange={this.handleChange} ></input>
-                        <input className="inputaddProduct" type="text" placeholder="Categoría"  name="category" value={this.state.category}  onChange={this.handleChange} ></input>
+                        {/* <input className="inputaddProduct" type="text" placeholder="Categoría"  name="category" value={this.state.category}  onChange={this.handleChange} ></input> */}
+                        <select className="categoryDropdown br" name="category" value={this.state.category} onChange={this.handleChange}>
+					        	<option value="">Elige una categoría</option>
+					        	<option value="aut">Automóvil</option>
+					        	<option value="ali">Alimentación</option>
+					        	<option value="bri">Bricolaje</option>
+					        	<option value="cul">Cultura</option>
+					        	<option value="dep">Deporte</option>
+					        	<option value="electrod">Electrodomésticos</option>
+					        	<option value="electron">Electrónica</option>
+                                <option value="hog">Hogar</option>
+					        	<option value="jug">Juguetes</option>
+					        	<option value="vid">Videojuegos</option>
+					        	<option value="mod">Moda</option>
+					        	<option value="ofi">Oficina</option>
+					        	<option value="par">Parafarmacia</option>
+					        	<option value="cos">Cosmética</option>
+					        	<option value="otr">Otros</option>
+					    </select>
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 1"  name="image1" value={this.state.image1}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 2"  name="image2" value={this.state.image2}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 3"  name="image3" value={this.state.image3}  onChange={this.handleChange} ></input>
@@ -202,7 +241,7 @@ class AddProduct extends React.Component {
                     </div>
                     <div className="productRegisterFieldsB">
                         <textarea className="textAddProduct" rows="5" cols="60" maxLength="200" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
-                        <select className="addProductDropdown br" name="isActive" onChange={this.handleChange}>
+                        <select className="addProductDropdown br" name="isActive" value={this.state.isActive} onChange={this.handleChange}>
 					        	<option value="false">Oculto</option>
 					        	<option value="true">A la venta</option>
 					    </select>
