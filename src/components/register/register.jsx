@@ -44,6 +44,34 @@ class Register extends React.Component {
         
      }
 
+     resetState () {
+
+        this.setState(
+        {
+            username: "",
+            email: "",
+            password: "",
+            password2: "",
+            secretQ: "",
+            secretA: "",
+            phone: "",
+            userType: 0,
+            address: "",
+            country: "",
+            city: "",
+            paypal: "",
+            cNumber: "",
+            cOwner: "",
+            expireM: "",
+            expireY: "",
+
+            message: "",
+			errorTime: 0,
+			messageClassName: "error",
+		});
+
+     }
+
    
     async pulsaRegistro ()  {
 
@@ -169,28 +197,26 @@ class Register extends React.Component {
             };
 
             
-            await axios.post( getUrl(`{{url}}/user/register`), body);
+            await axios.post( getUrl(`/user/register`), body);
 			
 			// Muestro
-            // this.muestraError("Producto añadido.", 2, false);
+            this.muestraError("Usuario registrado con éxito.", 2, false);
             
-            // setTimeout( () => {
-            //     this.resetState();
-            // }, 2000)
+            setTimeout( () => {
+                this.resetState();
+            }, 2000)
             
 			
 		} catch (err) {
 			
-			// if(err.response){
-            //     if(err.response.data) {
-            //         this.muestraError("Ha ocurrido un error añadiendo el producto.");
-            //     }
-            // }
-            
+			if(err.response){
+                if(err.response.data) {
+                    this.muestraError("Ha ocurrido un error durante el registro.");
+                }
+                return;
+            }
+            console.log(err);
 		};
-
-
-
     }
 
     muestraError (message, timeout = 3, isError = true) {
