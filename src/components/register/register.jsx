@@ -1,8 +1,8 @@
 
 import React from "react";
 
-// import axios from "axios";
-// import getUrl from "../../utils/getUrl";
+import axios from "axios";
+import { getUrl, session } from "../../utils/uti";
 
 import './register.scss';
 
@@ -138,6 +138,51 @@ class Register extends React.Component {
             this.muestraError("Los dos passwords deben coincidir");
             return;
         }
+
+        //Procedemos a registrar el nuevo usuario en la base de datos
+
+        try {
+
+            // let imagesArray = [this.state.image1, this.state.image2, this.state.image3, this.state.image4];
+            let sessionData = session.get();
+
+
+			
+			// Construcción del cuerpo del producto.
+			let body = {
+                ownerId: sessionData.userId,
+                category: this.state.category,
+                imageUrl: imagesArray,
+                title: this.state.titulo,
+                description: this.state.description,
+                price: price,
+                stock: stock,
+                activeStock: stockActivo,
+                location: this.state.location,
+                isActive: this.state.isActive === "true"
+            };
+             
+            
+            await axios.post( getUrl(`/product/add?token=${sessionData.token}`), body);
+			
+			// Muestro
+            // this.muestraError("Producto añadido.", 2, false);
+            
+            // setTimeout( () => {
+            //     this.resetState();
+            // }, 2000)
+            
+			
+		} catch (err) {
+			
+			// if(err.response){
+            //     if(err.response.data) {
+            //         this.muestraError("Ha ocurrido un error añadiendo el producto.");
+            //     }
+            // }
+            
+		};
+
 
 
     }
