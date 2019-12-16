@@ -1,7 +1,7 @@
 
 import React from "react";
 import axios from "axios";
-import bcrypt from "cryptjs";
+import bcrypt from "bcryptjs";
 
 import { getUrl } from "../../utils/uti";
 
