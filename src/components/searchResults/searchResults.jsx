@@ -85,7 +85,18 @@ class SearchResults extends React.Component {
 			<div className="mainSearch">
 				
 				<div className="filters pt3 pb3">
-					<p>FILTROs</p>
+					
+					<div className="precio">
+						Precio: <input type="text" className="ml2" placeholder="Mín." /> - <input type="text" placeholder="Máx." />
+					</div>
+					
+					<div className="ordenar ml3">
+						<button>Precio asc.</button>
+						<button>Precio desc.</button>
+						<button>Votos asc.</button>
+						<button>Votos desc.</button>
+					</div>
+					
 				</div>
 				
 				<div className="mainResults pt3 pb3">

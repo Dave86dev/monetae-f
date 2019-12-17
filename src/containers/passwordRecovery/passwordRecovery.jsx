@@ -138,13 +138,12 @@ class PasswordRecovery extends React.Component {
 			this.muestraError("Las contraseñas deben ser iguales.", 2);
 			return;
 		};
-
-		console.log( this.state.userAnswer.length );
+		
 		
 		if (this.state.userAnswer.length < 4) {
             this.muestraError("La respuesta secreta debe tener al menos 4 caracteres.");
             return;
-		};		
+		};
 		
 		
 		
