@@ -184,25 +184,25 @@ class Register extends React.Component {
         try {
 			
             let objectBilling = {
-                "address": this.state.address,
-                "country": this.state.country,
-                "city": this.state.city,
-                "paypal": this.state.paypal,
+                "address": this.state.address.trim(),
+                "country": this.state.country.trim(),
+                "city": this.state.city.trim(),
+                "paypal": this.state.paypal.trim(),
                 "card": {
-                    "number": this.state.cNumber,
-                    "owner": this.state.cOwner,
+                    "number": this.state.cNumber.trim(),
+                    "owner": this.state.cOwner.trim(),
                     "expireDate": [this.state.expireM, this.state.expireY]
                 }
             };
 			
 			// Construcción del cuerpo del producto.
 			let body = {
-                username: this.state.username,
-                email: this.state.email,
+                username: this.state.username.trim(),
+                email: this.state.email.trim(),
                 password: this.state.password,
-                secretQuestion: this.state.secretQ,
-                secretAnswer: this.state.secretA,
-                phone: this.state.phone,
+                secretQuestion: this.state.secretQ.trim(),
+                secretAnswer: this.state.secretA.trim(),
+                phone: this.state.phone.trim(),
                 userType: this.state.userType,
                 billing: objectBilling
             };

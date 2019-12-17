@@ -1,6 +1,6 @@
 
 import React from "react";
-import "./productDetail.css";
+import "./productDetail.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -40,7 +40,10 @@ class ProductDetail extends React.Component {
 			<div className="productDetailMain">
 				
 				<div className="images">
-					<img className="img" src={this.props.productData.imageUrl[0]} alt=""/>
+					<div className="bigImage br">
+						<img className="img" src={this.props.productData.imageUrl[0]} alt=""/>
+					</div>
+
 					
 					<div className="gallery">
 						<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt=""/>
