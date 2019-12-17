@@ -22,9 +22,14 @@ class ProductDetail extends React.Component {
 		this.setState({ quantity: ev.target.value });
 	};
 	
+	pulsaFoto (ev, idx) {
+		document.querySelector(".img").src = this.props.productData.imageUrl[idx];
+	};
+	
+	
 	
 	componentDidMount() {
-		this.setState({ quantity: 1 });
+		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
 	}
 	
 	
@@ -38,10 +43,10 @@ class ProductDetail extends React.Component {
 					<img className="img" src={this.props.productData.imageUrl[0]} alt=""/>
 					
 					<div className="gallery">
-						<img className="miniImg" src={this.props.productData.imageUrl[0]} alt=""/>
-						<img className="miniImg" src={this.props.productData.imageUrl[1]} alt=""/>
-						<img className="miniImg" src={this.props.productData.imageUrl[2]} alt=""/>
-						<img className="miniImg" src={this.props.productData.imageUrl[3]} alt=""/>
+						<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt=""/>
+						<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 1) } src={this.props.productData.imageUrl[1]} alt=""/>
+						<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 2) } src={this.props.productData.imageUrl[2]} alt=""/>
+						<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 3) } src={this.props.productData.imageUrl[3]} alt=""/>
 					</div>
 					
 				</div>
