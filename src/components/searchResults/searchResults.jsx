@@ -30,6 +30,7 @@ class SearchResults extends React.Component {
 	};
 	
 	
+	
 	pulsaResultado(productData) {
 		
 		// Guardo en redux
@@ -44,8 +45,6 @@ class SearchResults extends React.Component {
 	
 	
 	muestraResultados() {
-		
-		console.log( "Props (searchResults): ", this.props.productSearchResults );
 		
 		
 		return (
@@ -84,6 +83,11 @@ class SearchResults extends React.Component {
 	render() {
 		return (
 			<div className="mainSearch">
+				
+				<div className="filters pt3 pb3">
+					<p>FILTROs</p>
+				</div>
+				
 				<div className="mainResults pt3 pb3">
 					{this.muestraResultados()}
 					

@@ -1,5 +1,8 @@
+import { session } from "../../utils/uti";
 
-const reducer = (state = {}, action) => {
+const reducer = (state = {
+	isLoggedIn: !!session.get()
+}, action) => {
 	
 	switch (action.type) {
 		
