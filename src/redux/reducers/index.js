@@ -14,6 +14,12 @@ const reducer = (state = {}, action) => {
 			...state,
 			productData: action.payload
 		};
+		
+		case "PRODUCT_SEARCH":
+		return {
+			...state,
+			productSearchResults: action.payload
+		};
 
 		default:
 		return state;

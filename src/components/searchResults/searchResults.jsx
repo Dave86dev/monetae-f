@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { rdx_product } from "../../redux/actions/products";
+import { rdx_productDetail } from "../../redux/actions/products";
 import { getUrl } from "../../utils/uti";
 
 import "./searchResults.scss";
@@ -17,7 +17,6 @@ class SearchResults extends React.Component {
 		
 		this.state = {
 			productList: [],
-			
 		}
 		
 	};
@@ -26,15 +25,7 @@ class SearchResults extends React.Component {
 	
 	componentDidMount() {
 		
-		axios.get(
-			getUrl("/product/all")
-		).then( (res) => {
-			
-			this.setState({productList: res.data});
-			
-		}).catch( (err) => {
-			console.log( err );
-		});
+		
 		
 	};
 	
@@ -42,7 +33,7 @@ class SearchResults extends React.Component {
 	pulsaResultado(productData) {
 		
 		// Guardo en redux
-		rdx_product(productData);
+		rdx_productDetail(productData);
 		
 		
 		// Redirijo
@@ -54,10 +45,13 @@ class SearchResults extends React.Component {
 	
 	muestraResultados() {
 		
+		console.log( "Props (searchResults): ", this.props.productSearchResults );
+		
+		
 		return (
 			<Fragment>
 				{
-					this.state.productList.map(_x => {
+					this.props.productSearchResults?.map(_x => {
 						return (
 							<div
 								className="card"
@@ -117,13 +111,12 @@ class SearchResults extends React.Component {
 }
 
 
-// const mapStateToProps = (state) => { // ese state es de redux
-// 	return ({
-// 		productData: state.productData // creamos la prop clickedResult a partir de la key clickedResult del state
-// 	})
-// }
+
+const mapStateToProps = (state) => { // ese state es de redux
+	return ({
+		productSearchResults: state.productSearchResults
+	})
+}
 
 
-export default /*connect(mapStateToProps)*/ (withRouter(SearchResults));
-
-// withRouter(SearchResults) es para meter Header en el contexto de "Route" para que tenga el history y toa la movida
+export default connect(mapStateToProps) (withRouter(SearchResults));

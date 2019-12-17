@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './home.scss';
 import axios from "axios";
 
-import { rdx_product } from "../../redux/actions/products"
+import { rdx_productDetail } from "../../redux/actions/products"
 import { getUrl } from "../../utils/uti";
 
 
@@ -68,7 +68,7 @@ class Home extends Component {
 	 pulsaProducto (productData) {
 		 
 		//Guardo en redux
-		rdx_product(productData);
+		rdx_productDetail(productData);
 
 		//Redirijo 
 		this.props.history.push("/detail");

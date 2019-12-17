@@ -2,12 +2,15 @@
 import React, {Fragment} from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import axios from "axios";
+import {connect} from 'react-redux'
 
 import { session, getUrl } from "../../utils/uti";
-import {connect} from 'react-redux'
 import { login } from "../../redux/actions/users";
+import { rdx_productSearchResults } from "../../redux/actions/products";
 
 import "./header.css";
+
+
 
 class Header extends React.Component {
 	
@@ -15,6 +18,7 @@ class Header extends React.Component {
 		super(props);
 		
 		this.state = {
+			
 			
 		}
 		
@@ -77,8 +81,51 @@ class Header extends React.Component {
 			
 		};
 		
-	}
+	};
 	
+	
+	
+	buscaResultados(keywords = "") {
+		
+		let query = keywords !== "" ? `?title=${keywords}` : "";
+		
+		
+		axios.get(
+			getUrl(`/product/get${query}`)
+		).then( (res) => {
+			
+			// Envio a redux
+			rdx_productSearchResults(res.data);
+			
+		}).catch( (err) => {
+			console.log( err );
+		});
+		
+	};
+	
+	
+	
+	pulsaTecla(ev) {
+		
+		let busqueda = ev.target.value;
+		busqueda = busqueda.trim();
+		
+		
+		if (busqueda === "") {
+			
+			this.props.history.push("/");
+			
+		} else {
+			
+			// Busco resultados
+			this.buscaResultados(busqueda);
+			
+			// Redirijo
+			this.props.history.push("/search");
+			
+		};
+		
+	};
 	
 	
 	pulsaLogout() {
@@ -103,7 +150,7 @@ class Header extends React.Component {
 		// Redirección
 		this.props.history.push("/");		
 		
-	}
+	};
 	
 	
 	
@@ -125,7 +172,11 @@ class Header extends React.Component {
 				
 				
 				<div className="search">
-					<input type="text" placeholder="Búsqueda" />
+					<input
+						type="text"
+						placeholder="Búsqueda"
+						onChange={ (ev) => {this.pulsaTecla(ev)} }
+					/>
 					<div className="backgroundIcon">
 						<i className="material-icons">search</i>
 					</div>
