@@ -23,6 +23,59 @@
 	
 }
 
+/* ----- Slider Section ------ */
+
+.scrolling-wrapper-flexbox {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	flex-direction: row;
+	align-items: flex-start;
+	width: auto;
+  
+	.cardSlider {
+		flex: 0 0 auto;
+	  	//pointer-events: none;
+	  	margin: 0.3em;
+	  	display: flex;
+	  	justify-content: center;
+	  	align-items: center;
+	  
+	} 
+
+	.bestSellContainer {
+		height: 14em;
+		width: 14em;
+		background-color: white;
+		flex: 0 0 auto;
+		display: flex;
+	  	justify-content: center;
+		align-items: center;
+
+		border-style: solid;
+		border-color: var(--pri3);
+		border-width: 1px;
+	
+		transition: border-color 0.05s;
+		  
+
+	}
+
+	.cardSlider .bestSellContainer img {
+		height: 10em;
+	}
+	
+	.bestSellContainer:hover {
+		border-color: var(--pri9);
+	}
+  }
+  
+  .scrolling-wrapper-flexbox {
+	&::-webkit-scrollbar {
+	  display: none;
+	}
+  }
+
 /* ----- Product Section ----- */
    .product {
 
