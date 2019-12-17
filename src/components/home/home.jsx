@@ -50,6 +50,7 @@ class Home extends Component {
 	imageSlider () {
 
 		return (
+			
 			<div className="cardSlider">
 				{
 					this.state.sliderData.map(_y => {
@@ -80,11 +81,14 @@ class Home extends Component {
 
 		<div className="home">
 			<div className="main">
-				<div className="scrolling-wrapper-flexbox">
-    				
-       						{this.imageSlider()}
-       				
-				</div>
+				
+					<div className="titulosMasVendidos">Los más vendidos</div>
+					<div className="scrolling-wrapper-flexbox">
+			
+       							{this.imageSlider()}
+			
+					</div>
+				
 			</div>
 		</div>
 		)

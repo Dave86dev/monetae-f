@@ -90,7 +90,7 @@ class SearchResults extends React.Component {
 	render() {
 		return (
 			<div className="mainSearch">
-				<div className="mainResults">
+				<div className="mainResults pt3 pb3">
 					{this.muestraResultados()}
 					
 					{/* TEMPLATE */}

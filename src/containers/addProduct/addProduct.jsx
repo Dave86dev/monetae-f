@@ -132,12 +132,12 @@ class AddProduct extends React.Component {
                 ownerId: sessionData.userId,
                 category: this.state.category,
                 imageUrl: imagesArray,
-                title: this.state.titulo,
-                description: this.state.description,
-                price: price,
-                stock: stock,
-                activeStock: stockActivo,
-                location: this.state.location,
+                title: this.state.titulo.trim(),
+                description: this.state.description.trim(),
+                price: price.trim(),
+                stock: stock.trim(),
+                activeStock: stockActivo.trim(),
+                location: this.state.location.trim(),
                 isActive: this.state.isActive === "true"
             };
              
@@ -240,7 +240,7 @@ class AddProduct extends React.Component {
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 4"  name="image4" value={this.state.image4}  onChange={this.handleChange} ></input>
                     </div>
                     <div className="productRegisterFieldsB">
-                        <textarea className="textAddProduct" rows="5" cols="60" maxLength="200" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
+                        <textarea className="textAddProduct" rows="5" cols="60" maxLength="400" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
                         <select className="addProductDropdown br" name="isActive" value={this.state.isActive} onChange={this.handleChange}>
 					        	<option value="false">Oculto</option>
 					        	<option value="true">A la venta</option>

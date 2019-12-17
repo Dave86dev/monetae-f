@@ -16,10 +16,18 @@
 }
 
 .main {
-    flex: 1;
+    // flex: 1;
 	padding: 2em 0;
     background: var(--bac);
-    display: flex;
+	display: flex;
+	flex-direction: column;
+
+	.titulosMasVendidos {
+		margin-left: 1em;
+		font-weight: bold;
+		font-size: 1.5em;
+		color: var(--pri09);
+	}
 	
 }
 
@@ -53,7 +61,7 @@
 		align-items: center;
 
 		border-style: solid;
-		border-color: var(--pri3);
+		border-color: white;
 		border-width: 1px;
 	
 		transition: border-color 0.05s;
@@ -66,7 +74,7 @@
 	}
 	
 	.bestSellContainer:hover {
-		border-color: var(--pri9);
+		border-color: var(--pri4);
 	}
   }
   
