@@ -225,6 +225,26 @@ button:hover {
 	background: var(--pri0);
 	margin-top: 3em;
 }
+.cardHover {
+	display: flex;
+	flex-direction: column;
+
+	height: fit-content;
+	width: fit-content;
+	
+	padding: 2em;
+	
+	border-radius: 3px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background: var(--pri0);
+	margin-top: 3em;	
+}
+
+.cardHover:hover {
+	transform: translateY(-0.4em);
+}
+
+
 
 .cardHeader {
 	display: flex;
