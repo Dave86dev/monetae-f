@@ -200,13 +200,13 @@ class PasswordRecovery extends React.Component {
 		
 		if (this.state.secretQuestion === "") {
 			
-			return(
+			return (
 				<div className="main mainPasswordRecovery">
 					<div className="card">
 						<div className="cardHeader">
 							<h1 className="cardTitle"> Paso 1/2 </h1>
 						</div>
-						<div className="cardBody">
+						<div className="cardBody mt4">
 							<input type="text" placeholder="Usuario / email" onChange={ (ev) => {this.handleChange(ev, "username")} } />
 							<button onClick={ () => {this.pulsaContinuar1()} }>Continuar</button>
 							
@@ -225,7 +225,7 @@ class PasswordRecovery extends React.Component {
 						<div className="cardHeader">
 							<h1 className="cardTitle"> Paso 2/2 </h1>
 						</div>
-						<div className="cardBody">
+						<div className="cardBody mt4">
 							<input type="text" placeholder="Esperando pregunta secreta..." value={this.state.secretQuestion} disabled />
 							<input type="text" placeholder="Respuesta" onChange={ (ev) => {this.handleChange(ev, "userAnswer")} } />
 							<input type="text" placeholder="Nueva contraseña" onChange={ (ev) => {this.handleChange(ev, "password")} } />
