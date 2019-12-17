@@ -3,10 +3,11 @@ import React from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 
-import { getUrl, muestraError } from "../../utils/uti";
+import { getUrl } from "../../utils/uti";
 
 
 import "./passwordRecovery.scss";
+
 
 
 class PasswordRecovery extends React.Component {
@@ -45,10 +46,49 @@ class PasswordRecovery extends React.Component {
 	
 	
 	
+	// muestraError2 = muestraError.bind(this);
+	muestraError (message, timeout = 3, isError = true) {
+		
+		// Pongo la clase
+		let className = isError ? "error" : "success";
+		this.setState({messageClassName: className});
+		
+		
+		// Pongo el mensaje
+		this.setState({message: message});
+		
+		
+		// Ya estoy en loop
+		if (this.state.errorTime > 0) {
+			this.setState({errorTime: timeout});
+			return; // y salgo
+		};
+		
+		
+		this.setState({errorTime: timeout}); // Entro por primera vez, pongo tiempo
+		
+		
+		// Loop
+		let loop = setInterval( ()=> {
+			
+			if (this.state.errorTime <= 0) {
+				this.setState({message: ""});
+				clearInterval(loop); // salgo del loop
+			};
+			
+			
+			this.setState( preState => ( {errorTime: preState.errorTime - 1}) );
+			
+		}, 1000);
+		
+	};
+	
+	
+	
 	pulsaContinuar1() {
 		
 		if (this.state.username === "") {
-			console.log( "Username / email no puede estar vacio" );
+			this.muestraError("Username / email no puede estar vacio.", 2);
 			return;
 		};
 		
@@ -66,9 +106,14 @@ class PasswordRecovery extends React.Component {
 				secretQuestion: data.secretQuestion
 			});
 			
-		}).catch( (err) => {
+		}).catch( (error) => {
 			
-			console.log( "ERR: ", err.response.data );
+			let errData = error.response.data;
+			
+			if (errData.errorCode === "user_recovery_1") {
+				this.muestraError("No se ha encontrado ningún usuario.", 2);
+				return;
+			};
 			
 		});
 		
@@ -78,12 +123,30 @@ class PasswordRecovery extends React.Component {
 	
 	async pulsaContinuar2() {
 		
-		if (this.state.password !== this.state.password2) {
-			console.log( "Contraseñas diferentes" );
+		// Validación
+		if ((this.state.password === "") || (this.state.password2 === "")) {
+			this.muestraError("Debes escribir la contraseña.", 2);
 			return;
 		};
 		
+        if (this.state.password.length < 4) {
+            this.muestraError("El password debe de tener al menos 4 caracteres.");
+            return;
+        };
 		
+		if (this.state.password !== this.state.password2) {
+			this.muestraError("Las contraseñas deben ser iguales.", 2);
+			return;
+		};
+
+		if (! this.state.userAnswer.length < 4) {
+            this.muestraError("La respuesta secreta debe tener al menos 4 caracteres.");
+            return;
+		};		
+		
+		
+		
+		// Empiezo
 		try {
 			
 			// Encripto pass
@@ -101,12 +164,31 @@ class PasswordRecovery extends React.Component {
 			);
 			
 			
+			// Mensaje
+			this.muestraError("Tu contraseña ha sido cambiada. Redireccionando al login...", 2000, false);
 			
-			muestraError("Tu contraseña ha sido cambiada. Redireccionando al login...", null, false);
+			
+			// Redirección
+			setTimeout( () => {
+				this.props.history.push("/login");
+			}, 2000);
+			
 			
 		} catch (error) {
 			
-			muestraError(error.response?.data);
+			if (error.response) {
+				
+				let errData = error.response.data;
+				
+				if (errData.errorCode === "user_recovery_2") {
+					this.muestraError("La respuesta secreta no era correcta.", 2);
+					return;
+				};
+				
+			};
+			
+			
+			this.muestraError(error.response.data);
 			
 		};
 		
@@ -150,6 +232,8 @@ class PasswordRecovery extends React.Component {
 							<input type="text" placeholder="Repite nueva contraseña" onChange={ (ev) => {this.handleChange(ev, "password2")} } />
 							
 							<button onClick={ () => {this.pulsaContinuar2()} }>Cambiar contraseña</button>
+							
+							<p className={this.state.messageClassName}> {this.state.message} </p>
 						</div>
 					</div>
 				</div>

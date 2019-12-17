@@ -23,8 +23,6 @@ class Header extends React.Component {
 	
 	
 	BotonesHeader() {
-	
-		console.log( this.props );
 		
 		if (this.props.isLoggedIn) { // si estoy logeado...
 			
