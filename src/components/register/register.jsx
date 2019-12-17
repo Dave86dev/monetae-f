@@ -38,13 +38,13 @@ class Register extends React.Component {
         this.pulsaRegistro = this.pulsaRegistro.bind(this);
     };
     
-     handleChange = (ev) =>{
+    handleChange = (ev) =>{
          
-         this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value});
+        this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value});
         
-     }
+    }
 
-     resetState () {
+    resetState () {
 
         this.setState(
         {
@@ -70,7 +70,7 @@ class Register extends React.Component {
 			messageClassName: "error",
 		});
 
-     }
+    }
 
    
     async pulsaRegistro ()  {
@@ -80,17 +80,19 @@ class Register extends React.Component {
         let arrRegister = ["username","email","password","password2","secretQ","secretA",
         "phone","userType","address","country","city"];
 
-        for(let _x of arrRegister) {
-            if(this.state[_x] === ""){
-                this.muestraError(`El campo ${_x} no puede estar vacío`);
+        for (let _x of arrRegister) {
+            if (this.state[_x] === "") {
+                this.muestraError("Todos los campos son requeridos.");
                 return;
-            }
-        }
+            };
+        };
 
+		
+		
         if (this.state.paypal === "" && this.state.cNumber === "") {
             this.muestraError(`Debes de introducir una dirección paypal o una tarjeta de crédito válida.`);
             return;
-        }
+        };
 
 
         if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.email) ) {
@@ -98,7 +100,7 @@ class Register extends React.Component {
             return;
         };
 
-        if(this.state.paypal !== ""){
+        if (this.state.paypal !== "") {
             if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.paypal) ) {
                 this.muestraError("Introduce un paypal válido.");
                 return;
@@ -130,8 +132,16 @@ class Register extends React.Component {
             return;
         };
 
+		if (! this.state.secretQ.length < 4) {
+            this.muestraError("La pregunta secreta debe tener al menos 4 caracteres.");
+            return;
+		};
+		if (! this.state.secretA.length < 4) {
+            this.muestraError("La respuesta secreta debe tener al menos 4 caracteres.");
+            return;
+		};
 
-        if(this.state.cNumber !== ""){
+        if (this.state.cNumber !== "") {
             if (! /[0-9]/g.test(this.state.cNumber) ) {
                 this.muestraError("El numero de la tarjeta debe de ser válido.");
                 return;
@@ -146,11 +156,11 @@ class Register extends React.Component {
                 this.muestraError("El mes de caducidad debe de ser válido.");
                 return;
             };
-            if (this.state.expireM.length !== 2){
+            if (this.state.expireM.length !== 2) {
                 this.muestraError("El mes de caducidad debe tener 2 caracteres.");
                 return;
             }
-            if (this.state.expireY.length !== 2){
+            if (this.state.expireY.length !== 2) {
                 this.muestraError("El año de caducidad debe tener 2 caracteres.");
                 return;
             }
@@ -160,18 +170,19 @@ class Register extends React.Component {
                 return;
             };
         }
-            
-
-        if (this.state.password !== this.state.password2){
+		
+		
+		
+        if (this.state.password !== this.state.password2) {
             this.muestraError("Los dos passwords deben coincidir");
             return;
-        }
-
-        //Procedemos a registrar el nuevo usuario en la base de datos
-
+		}
+		
+		
+		
+        // Procedemos a registrar el nuevo usuario en la base de datos
         try {
-
-
+			
             let objectBilling = {
                 "address": this.state.address,
                 "country": this.state.country,
@@ -209,7 +220,7 @@ class Register extends React.Component {
 			
 		} catch (err) {
 			
-			if(err.response){
+			if(err.response) {
                 if(err.response.data) {
                     this.muestraError("Ha ocurrido un error durante el registro.");
                 }
