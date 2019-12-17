@@ -1,8 +1,9 @@
 import React from "react";
 
-import "./searchResults.css";
 import axios from "axios";
 import { getUrl } from "../../utils/uti";
+
+import "./searchResults.scss";
 
 
 class SearchResults extends React.Component {

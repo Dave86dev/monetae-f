@@ -1,0 +1,74 @@
+
+.mainSearch {
+	background-color: var(--pri1);
+	
+	display: grid;
+	/* grid-template: repeat(4, 1fr) / repeat(5, 1fr); */
+	grid-template-columns: repeat(auto-fit, minmax(22em, 1fr));
+	
+	grid-row-gap: 1em;
+	/* grid-column-gap: 1em; */
+	column-gap: 0.1em;
+	
+	align-items: center;
+	/* justify-content: center; */
+	justify-items: center;
+	
+	
+	
+	.card {
+		display: flex;
+		flex-direction: column;
+		
+		align-items: center;
+		
+		height: 32em;
+		width: 22em;
+		
+		min-width: 10em;
+		max-width: 25em;
+		
+		border-radius: 3px;
+		padding: 1em;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		
+		background: var(--pri0);
+		
+		transition: transform 0.3s;
+		-webkit-transition: transform 0.3s;
+		
+	}
+	.card:hover {
+		transform: translateY(-0.4em);
+	}
+
+	.cardImage {
+		height: 12.32em;
+		max-width: 22em;
+		
+		border-radius: 3px;
+	}
+
+	.cardPrice {
+		text-align: center;
+	}
+	.cardTitle {
+		text-align: center;
+		margin-bottom: 0.75em;
+		
+		color: var(--pri8);
+	}
+	.cardDescription {
+		text-align: left;
+
+		color: var(--pri6);
+		
+		display: -webkit-box;
+		-webkit-line-clamp: 5;
+		-webkit-box-orient: vertical;  
+		overflow: hidden;
+		
+	}
+	
+}
+
