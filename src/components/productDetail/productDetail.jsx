@@ -1,27 +1,47 @@
 
 import React from "react";
 import "./productDetail.css";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 
 class ProductDetail extends React.Component {
 	
-	// constructor (props) {
-	// 	super(props);
+	constructor (props) {
+		super(props);
 		
-	// };
+		this.state = {
+			quantity: 0,
+			
+		}
+	};
+	
+	
+	
+	cambiaDropdown (ev) {
+		this.setState({ quantity: ev.target.value });
+	};
+	
+	
+	componentDidMount() {
+		this.setState({ quantity: 1 });
+	}
+	
+	
 	
 	render() {
-		return(
+		
+		return (
 			<div className="productDetailMain">
 				
 				<div className="images">
-					<img className="img" src="https://www.ikea.com/es/es/images/products/ivar-chair-pine__0728155_PE736115_S5.JPG?f=s" alt=""/>
+					<img className="img" src={this.props.productData.imageUrl[0]} alt=""/>
 					
 					<div className="gallery">
-						<img className="miniImg" src="https://www.ikea.com/es/es/images/products/ivar-chair-pine__0728155_PE736115_S5.JPG?f=s" alt=""/>
-						<img className="miniImg" src="https://www.ikea.com/es/es/images/products/ivar-chair-pine__0728155_PE736115_S5.JPG?f=s" alt=""/>
-						<img className="miniImg" src="https://www.ikea.com/es/es/images/products/ivar-chair-pine__0728155_PE736115_S5.JPG?f=s" alt=""/>
-						<img className="miniImg" src="https://www.ikea.com/es/es/images/products/ivar-chair-pine__0728155_PE736115_S5.JPG?f=s" alt=""/>
+						<img className="miniImg" src={this.props.productData.imageUrl[0]} alt=""/>
+						<img className="miniImg" src={this.props.productData.imageUrl[1]} alt=""/>
+						<img className="miniImg" src={this.props.productData.imageUrl[2]} alt=""/>
+						<img className="miniImg" src={this.props.productData.imageUrl[3]} alt=""/>
 					</div>
 					
 				</div>
@@ -29,7 +49,7 @@ class ProductDetail extends React.Component {
 				
 				
 				<div className="detail">
-					<h2 className="title">Silla nomal y corriente</h2>
+					<h2 className="title">{this.props.productData.title}</h2>
 					<p className="seller">Vendido por: <a href="/">Pepe</a> </p>
 					<p className="sellerRating">
 						<img className="ratingStar" src="/img/star.png" alt=""/>
@@ -38,21 +58,23 @@ class ProductDetail extends React.Component {
 						<img className="ratingStar" src="/img/star_half.png" alt=""/>
 						<img className="ratingStar" src="/img/star_disabled.png" alt=""/>
 					</p>
-					<h1 className="price">99.999 €</h1>
+					<h1 className="price">{this.props.productData.price} €</h1>
 					<p className="description">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati non, vitae ex dolore officiis consequatur? Alias, commodi repellendus tenetur soluta mollitia, non quidem, possimus necessitatibus quisquam omnis totam aut consequuntur.
-						asdadsLorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis porro, amet recusandae eum delectus commodi in deleniti similique fuga unde quod cum sed, voluptatem quia, quisquam soluta dolores. Autem, beatae.
+						{this.props.productData.description}
 					</p>
 				</div>
 				
 				
 				
 				<div className="purchase">
-					<h1 className="price">99.999 €</h1>
+					<h1 className="price">{this.state.quantity * this.props.productData.price } €</h1>
 					
 					<p></p>
 					
-					<div className="cajaDropdown">
+					<div
+						className="cajaDropdown"
+						onChange={ (ev) => this.cambiaDropdown(ev) }
+					>
 						
 						<p>Cantidad: </p>
 						<select>
@@ -82,4 +104,12 @@ class ProductDetail extends React.Component {
 };
 
 
-export default ProductDetail;
+
+const mapStateToProps = (state) => { // ese state es de redux
+	return ({
+		productData: state.productData
+	})
+}
+
+
+export default connect(mapStateToProps) (withRouter(ProductDetail));
