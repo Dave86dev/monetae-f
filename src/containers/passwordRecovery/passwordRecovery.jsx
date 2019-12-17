@@ -139,7 +139,9 @@ class PasswordRecovery extends React.Component {
 			return;
 		};
 
-		if (! this.state.userAnswer.length < 4) {
+		console.log( this.state.userAnswer.length );
+		
+		if (this.state.userAnswer.length < 4) {
             this.muestraError("La respuesta secreta debe tener al menos 4 caracteres.");
             return;
 		};		
