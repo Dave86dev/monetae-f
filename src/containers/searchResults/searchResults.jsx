@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { rdx_productDetail, rdx_productSearchResults } from "../../redux/actions/products";
 import { getUrl } from "../../utils/uti";
+import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
 
 import "./searchResults.scss";
 
@@ -20,6 +21,7 @@ class SearchResults extends React.Component {
 			sort: "vd",
 			minPrice: "",
 			maxPrice: "",
+			category: "",
 			
 			productList: [],
 		}
@@ -28,17 +30,32 @@ class SearchResults extends React.Component {
 	
 	
 	
-	// componentDidMount() {
-	// };
+    handleChangeDropdown = (ev) =>{
+		this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value}, () => {
+			this.llamaAxios();
+		});
+	};
 	
 	
 	
 	pulsaSort(tipo) {
+		this.setState({ sort: tipo }, () => {
+			this.llamaAxios();
+		});
+	};
+	
+	
+	
+	llamaAxios() {
 		
-		this.setState({ sort: tipo });
+		let queryTitle = `title=${this.props.productSearchResults?.keywords}`;
+		let querySort = `sort=${this.state.sort}`;
+		let queryCategory = `category=${this.state.category}`;
+		let queryMinPrice = `minPrice=${this.state.minPrice}`;
+		let queryMaxPrice = `minPrice=${this.state.maxPrice}`;
 		
 		
-		axios.get( getUrl(`/product/get?title=${this.props.productSearchResults?.keywords}&sort=${tipo}`) ).then( (res) => {
+		axios.get( getUrl(`/product/get?${queryTitle}&${querySort}&${queryCategory}`) ).then( (res) => {
 			
 			rdx_productSearchResults({
 				keywords: this.props.productSearchResults.keywords,
@@ -47,8 +64,7 @@ class SearchResults extends React.Component {
 			
 		}).catch( (err) => {
 			console.log( err );
-		});
-		
+		});		
 		
 	};
 	
@@ -118,7 +134,7 @@ class SearchResults extends React.Component {
 						Precio: <input type="text" className="ml2" placeholder="Mín." /> - <input type="text" placeholder="Máx." />
 					</div>
 					
-					<div className="filtros ml3">
+					<div className="sort ml3">
 						<button onClick={() => {this.pulsaSort("pa")}} className="firstBtn">
 							<img src="/img/filter_price_asc.png" alt="filtro precio asc"/>
 						</button>
@@ -133,6 +149,15 @@ class SearchResults extends React.Component {
 						</button>
 						
 					</div>
+					
+					<div className="categorias ml3">
+						<DropdownCategories
+							category={this.state.category}
+							handleChange={this.handleChangeDropdown}
+							defaultCategory={"Todo"}
+						/>
+					</div>
+					
 					
 				</div>
 				

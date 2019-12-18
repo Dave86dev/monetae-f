@@ -4,6 +4,7 @@ import React from "react";
 
 import axios from "axios";
 import {getUrl, session} from "../../utils/uti";
+import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
 
 import './addProduct.scss';
 
@@ -43,7 +44,7 @@ class AddProduct extends React.Component {
 	
 	
     handleChange = (ev) =>{
-         
+		 
         this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value});
 		
 		
@@ -51,7 +52,6 @@ class AddProduct extends React.Component {
 		if (ev.target.name === "description") {
 			this.updateDescriptionRemainingCharacters();
 		};
-		
 		
 	};
 	
@@ -173,7 +173,7 @@ class AddProduct extends React.Component {
                 isActive: this.state.isActive === "true"
             };
              
-            console.log(body);
+            
             await axios.post( getUrl(`/product/add?token=${sessionData.token}`), body);
 			
 			// Muestro
@@ -186,8 +186,8 @@ class AddProduct extends React.Component {
 			
 		} catch (err) {
 			
-			if(err.response){
-                if(err.response.data) {
+			if (err.response) {
+                if (err.response.data) {
                     this.muestraError("Ha ocurrido un error añadiendo el producto.");
                 }
             }
@@ -248,7 +248,7 @@ class AddProduct extends React.Component {
                         <input className="inputaddProduct" type="text" placeholder="Stock Activo"  name="stockActivo" value={this.state.stockActivo}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Localizacion"  name="location" value={this.state.location}  onChange={this.handleChange} ></input>
                         {/* <input className="inputaddProduct" type="text" placeholder="Categoría"  name="category" value={this.state.category}  onChange={this.handleChange} ></input> */}
-                        <select className="categoryDropdown br" name="category" value={this.state.category} onChange={this.handleChange}>
+                        {/* <select className="categoryDropdown br" name="category" value={this.state.category} onChange={this.handleChange}>
 					        	<option value="">Elige una categoría</option>
 					        	<option value="aut">Automóvil</option>
 					        	<option value="ali">Alimentación</option>
@@ -265,7 +265,14 @@ class AddProduct extends React.Component {
 					        	<option value="par">Parafarmacia</option>
 					        	<option value="cos">Cosmética</option>
 					        	<option value="otr">Otros</option>
-					    </select>
+					    </select> */}
+						
+						<DropdownCategories
+							category={this.state.category}
+							handleChange={this.handleChange}
+							defaultCategory={"Elige una categoría"}
+						/>
+						
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 1"  name="image1" value={this.state.image1}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 2"  name="image2" value={this.state.image2}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 3"  name="image3" value={this.state.image3}  onChange={this.handleChange} ></input>
