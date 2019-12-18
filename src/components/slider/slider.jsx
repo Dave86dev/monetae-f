@@ -49,7 +49,7 @@ class Slider extends React.Component {
 		//Redirijo 
 		this.props.history.push("/detail");
 
-	 }
+	}
     
     render() {
         return(
