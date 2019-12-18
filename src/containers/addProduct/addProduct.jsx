@@ -35,14 +35,46 @@ class AddProduct extends React.Component {
 		
         this.pulsaProduct = this.pulsaProduct.bind(this);
     };
-    
-     handleChange = (ev) =>{
+	
+	
+	componentDidMount() {
+		this.updateDescriptionRemainingCharacters();
+	};
+	
+	
+    handleChange = (ev) =>{
          
-         this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value});
-        
-     }
+        this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value});
+		
+		
+		// Excepción para medir caracteres restantes en la descripción
+		if (ev.target.name === "description") {
+			this.updateDescriptionRemainingCharacters();
+		};
+		
+		
+	};
+	
+	
+	updateDescriptionRemainingCharacters() {
+		
+		let ele = document.querySelector(".textAddProduct");
+		let lenght = ele.value.length;
+		let max = ele.maxLength;
+		let remaining = document.querySelector("#descriptionRemainingCharacters");
+		
+		remaining.innerHTML = `${lenght}/${max}`;
+		
+		if (lenght >= max) {
+			remaining.classList.add("error");
+		} else {
+			remaining.classList.remove("error");
+		};
+				
+	}
+	
 
-     resetState () {
+    resetState () {
 
         this.setState(
         {
@@ -65,7 +97,7 @@ class AddProduct extends React.Component {
 			messageClassName: "error",
 		});
 
-     }
+    }
 
    
     async pulsaProduct ()  {
@@ -202,7 +234,7 @@ class AddProduct extends React.Component {
 	};
 
     render() {
-       
+		
 		return(
 			<div className="addProductMain">
             {/* <pre>{JSON.stringify(this.state, null,2)}</pre> */}
@@ -240,8 +272,11 @@ class AddProduct extends React.Component {
                         <input className="inputaddProduct" type="text" placeholder="Link imagen 4"  name="image4" value={this.state.image4}  onChange={this.handleChange} ></input>
                     </div>
                     <div className="productRegisterFieldsB">
-                        <textarea className="textAddProduct" rows="5" cols="60" maxLength="400" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange}></textarea>
-                        <select className="addProductDropdown br" name="isActive" value={this.state.isActive} onChange={this.handleChange}>
+                        
+						<textarea className="textAddProduct" rows="5" cols="60" maxLength="400" placeholder="Add product description here." name="description" value={this.state.description}  onChange={this.handleChange} ></textarea>
+						<span id="descriptionRemainingCharacters"></span>
+						
+					    <select className="addProductDropdown br" name="isActive" value={this.state.isActive} onChange={this.handleChange}>
 					        	<option value="false">Oculto</option>
 					        	<option value="true">A la venta</option>
 					    </select>
@@ -249,7 +284,7 @@ class AddProduct extends React.Component {
                     <p className={this.state.messageClassName}> {this.state.message} </p>
                     <button onClick={this.pulsaProduct}>Añadir</button>
                 </div>
-
+				
 			</div>
 		);
 	};

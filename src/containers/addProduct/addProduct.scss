@@ -100,7 +100,17 @@
         box-shadow:none !important;
         border-width: 0.5px;
         border-color: var(--pri9);
-    }
+	}
+	
+	#descriptionRemainingCharacters {
+		position: relative;
+		width: 100%;
+		
+		text-align: right;
+		
+		bottom: 1.5em;
+		padding-right: 0.3em;
+	}
 
     .addProductDropdown {
         background: var(--pri1);
@@ -125,11 +135,9 @@
     }
 
     .error {
-		margin-top: 1em;
 		color: var(--colRojCla);
 	}
 	.success {
-		margin-top: 1em;
 		color: var(--colVer);
 	}
 }

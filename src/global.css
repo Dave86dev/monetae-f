@@ -180,11 +180,11 @@ button:hover {
 }
 
 .error {
-	margin-top: 1em;
+	/* margin-top: 1em; */
 	color: var(--colRojCla);
 }
 .success {
-	margin-top: 1em;
+	/* margin-top: 1em; */
 	color: var(--colVer);
 }
 
