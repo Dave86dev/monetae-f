@@ -19,7 +19,7 @@ class Slider extends React.Component {
     };
 
     async componentDidMount () {
-
+		
         try {
 
 			const res = await axios.get(getUrl(this.props.url));

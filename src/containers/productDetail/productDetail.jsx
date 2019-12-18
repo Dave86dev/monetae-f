@@ -41,7 +41,7 @@ class ProductDetail extends React.Component {
 	render() {
 		
 		return (
-
+			
 			<div className="productDetailMain">
 				{this.props.productData && <div className="productDetail">
 					
@@ -49,7 +49,6 @@ class ProductDetail extends React.Component {
 						<div className="bigImage br">
 							<img className="img" src={this.props.productData.imageUrl[0]} alt=""/>
 						</div>
-			
 						
 						<div className="gallery">
 							<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt=""/>
@@ -106,14 +105,14 @@ class ProductDetail extends React.Component {
 							
 						</div>
 						
-						<button className="purchaseButton">Añadir al carrito</button>
+						<button className="purchaseButton">Añadir a la cesta</button>
 						<button className="purchaseButton">Comprar</button>
 					</div>
 				</div>}
-
+				
 				<Slider url={`/product/category?cat=${this.props.productData?.category}&excludeId=
 				${this.props.productData?._id}&limit=25`} />
-
+				
 			</div>
 		);
 	};
