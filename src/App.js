@@ -8,6 +8,7 @@ import Header from "./components/header/header";
 import SearchResults from "./containers/searchResults/searchResults";
 import ProductDetail from "./containers/productDetail/productDetail";
 import Login from "./containers/login/login";
+import Profile from "./components/profile/profile";
 import Register from "./containers/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
 import AddProduct from "./containers/addProduct/addProduct";
@@ -27,7 +28,7 @@ export default function App() {
 					<Route path="/" exact component={Home} />
 					<Route path="/login" exact component={Login} />
 					<Route path="/register" exact component={Register} />
-					<Route path="/profile" exact component={Login} />
+					<Route path="/profile" exact component={Profile} />
 					<Route path="/passwordRecovery" exact component={PasswordRecovery} />
 					
 					<Route path="/search" exact component={SearchResults} />

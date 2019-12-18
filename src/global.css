@@ -208,7 +208,8 @@ button:hover {
 .main {
     background-color: var(--pri1);
     display: flex;
-    justify-content: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .card {
