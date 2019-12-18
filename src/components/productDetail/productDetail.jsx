@@ -108,7 +108,8 @@ class ProductDetail extends React.Component {
 					</div>
 				</div>
 
-				<Slider url="/product/best?limit=10" />
+				<Slider url={`/product/category?cat=${this.props.productData.category}&excludeId=
+				${this.props.productData._id}&limit=10`} />
 
 			</div>
 		);

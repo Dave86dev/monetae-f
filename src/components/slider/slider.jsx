@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from "axios";
 import { getUrl } from "../../utils/uti";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { rdx_productDetail } from "../../redux/actions/products"
 
 import "./slider.scss";
