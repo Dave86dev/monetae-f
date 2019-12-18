@@ -30,6 +30,9 @@ class ProductDetail extends React.Component {
 	
 	
 	componentDidMount() {
+		if(!this.props.productData){
+			//axios
+		}
 		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
 	}
 	
@@ -40,7 +43,7 @@ class ProductDetail extends React.Component {
 		return (
 
 			<div className="productDetailMain">
-				<div className="productDetail">
+				{this.props.productData && <div className="productDetail">
 					
 					<div className="images">
 						<div className="bigImage br">
@@ -106,10 +109,10 @@ class ProductDetail extends React.Component {
 						<button className="purchaseButton">Añadir al carrito</button>
 						<button className="purchaseButton">Comprar</button>
 					</div>
-				</div>
+				</div>}
 
-				<Slider url={`/product/category?cat=${this.props.productData.category}&excludeId=
-				${this.props.productData._id}&limit=10`} />
+				<Slider url={`/product/category?cat=${this.props.productData?.category}&excludeId=
+				${this.props.productData?._id}&limit=25`} />
 
 			</div>
 		);

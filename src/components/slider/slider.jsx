@@ -31,7 +31,17 @@ class Slider extends React.Component {
 		};
     }
 
-    pulsaProducto (productData) {
+    async pulsaProducto (productData) {
+
+		try {
+
+			const res = await axios.get(getUrl(this.props.url));
+			
+			this.setState({sliderData : res.data.filter(producto=>producto._id!==productData._id)})
+			
+		} catch (err) {
+			console.log(err);
+		};
 		 
 		//Guardo en redux
 		rdx_productDetail(productData);
