@@ -95,7 +95,10 @@ class Header extends React.Component {
 		).then( (res) => {
 			
 			// Envio a redux
-			rdx_productSearchResults(res.data);
+			rdx_productSearchResults({
+				keywords: keywords,
+				data: res.data
+			});
 			
 		}).catch( (err) => {
 			console.log( err );

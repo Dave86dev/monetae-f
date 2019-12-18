@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { rdx_productDetail } from "../../redux/actions/products";
+import { rdx_productDetail, rdx_productSearchResults } from "../../redux/actions/products";
 import { getUrl } from "../../utils/uti";
 
 import "./searchResults.scss";
@@ -16,10 +16,16 @@ class SearchResults extends React.Component {
 		super(props);
 		
 		this.state = {
+			
+			sort: "vd",
+			minPrice: "",
+			maxPrice: "",
+			
 			productList: [],
 		}
 		
 	};
+	
 	
 	
 	
@@ -29,6 +35,34 @@ class SearchResults extends React.Component {
 		
 	};
 	
+	
+	
+	pulsaSort(tipo) {
+		
+		this.setState({ sort: tipo });
+		
+		
+		axios.get( getUrl(`/product/get?title=u&sort=${tipo}`) ).then( (res) => {
+			
+			this.setState({ productList: res.data });
+			
+			rdx_productSearchResults({
+				keywords: this.props.keywords,
+				data: res.data
+			});
+			
+		}).catch( (err) => {
+			console.log( err );
+		});
+		
+		
+	};
+	
+	
+	
+	componentDidUpdate() {
+		this.render();
+	}
 	
 	
 	pulsaResultado(productData) {
@@ -46,11 +80,10 @@ class SearchResults extends React.Component {
 	
 	muestraResultados() {
 		
-		
 		return (
 			<Fragment>
 				{
-					this.props.productSearchResults?.map(_x => {
+					this.props.productSearchResults?.data?.map(_x => {
 						return (
 							<div
 								className="card"
@@ -81,6 +114,7 @@ class SearchResults extends React.Component {
 	
 	
 	render() {
+		
 		return (
 			<div className="mainSearch">
 				
@@ -90,11 +124,20 @@ class SearchResults extends React.Component {
 						Precio: <input type="text" className="ml2" placeholder="Mín." /> - <input type="text" placeholder="Máx." />
 					</div>
 					
-					<div className="ordenar ml3">
-						<button>Precio asc.</button>
-						<button>Precio desc.</button>
-						<button>Votos asc.</button>
-						<button>Votos desc.</button>
+					<div className="filtros ml3">
+						<button onClick={() => {this.pulsaSort("pa")}} className="firstBtn">
+							<img src="/img/filter_price_asc.png" alt="filtro precio asc"/>
+						</button>
+						<button onClick={() => {this.pulsaSort("pd")}} >
+							<img src="/img/filter_price_des.png" alt="filtro precio des"/>
+						</button>
+						<button onClick={() => {this.pulsaSort("va")}} >
+							<img src="/img/filter_votes_asc.png" alt="filtro votos asc"/>
+						</button>
+						<button onClick={() => {this.pulsaSort("vd")}} className="lastBtn">
+							<img src="/img/filter_votes_des.png" alt="filtro votos des"/>
+						</button>
+						
 					</div>
 					
 				</div>
@@ -129,6 +172,7 @@ class SearchResults extends React.Component {
 
 const mapStateToProps = (state) => { // ese state es de redux
 	return ({
+		keywords: state.keywords,
 		productSearchResults: state.productSearchResults
 	})
 }
