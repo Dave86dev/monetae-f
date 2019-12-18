@@ -301,8 +301,9 @@ class Register extends React.Component {
                         <input className="inputRegister" type="text" placeholder="Año caducidad" name="expireY" value={this.state.expireY}  onChange={this.handleChange} ></input>
                         <input className="inputRegister" type="text" placeholder="Paypal" name="paypal" value={this.state.paypal}  onChange={this.handleChange} ></input>
                     </div>
-					<p className={this.state.messageClassName}> {this.state.message} </p>
+					
                     <button onClick={this.pulsaRegistro}>Registrar</button>
+                    <p className={this.state.messageClassName}> {this.state.message} </p>
                     
 				</div>
 

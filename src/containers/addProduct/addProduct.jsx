@@ -281,8 +281,9 @@ class AddProduct extends React.Component {
 					        	<option value="true">A la venta</option>
 					    </select>
                     </div>
-                    <p className={this.state.messageClassName}> {this.state.message} </p>
+                    
                     <button onClick={this.pulsaProduct}>Añadir</button>
+                    <p className={this.state.messageClassName}> {this.state.message} </p>
                 </div>
 				
 			</div>
