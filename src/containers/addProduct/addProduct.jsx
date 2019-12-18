@@ -69,7 +69,7 @@ class AddProduct extends React.Component {
 
    
     async pulsaProduct ()  {
-
+        
         //Comprobamos que todos los campos esten rellenados
 
         let price = parseInt(this.state.precio);
@@ -119,14 +119,14 @@ class AddProduct extends React.Component {
 
 
         //Procedemos a introducir el producto en la base de datos
-
+        
         try {
 
             let imagesArray = [this.state.image1, this.state.image2, this.state.image3, this.state.image4];
             let sessionData = session.get();
 
 
-			
+            
 			// Construcción del cuerpo del producto.
 			let body = {
                 ownerId: sessionData.userId,
@@ -134,14 +134,14 @@ class AddProduct extends React.Component {
                 imageUrl: imagesArray,
                 title: this.state.titulo.trim(),
                 description: this.state.description.trim(),
-                price: price.trim(),
-                stock: stock.trim(),
-                activeStock: stockActivo.trim(),
+                price: price,
+                stock: stock,
+                activeStock: stockActivo,
                 location: this.state.location.trim(),
                 isActive: this.state.isActive === "true"
             };
              
-            
+            console.log(body);
             await axios.post( getUrl(`/product/add?token=${sessionData.token}`), body);
 			
 			// Muestro

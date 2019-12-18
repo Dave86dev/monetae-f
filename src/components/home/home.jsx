@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './home.scss';
-import axios from "axios";
 
-import { rdx_productDetail } from "../../redux/actions/products"
-import { getUrl } from "../../utils/uti";
+import Slider from "../slider/slider";
 
 
 class Home extends Component {
@@ -12,24 +10,12 @@ class Home extends Component {
 		super(props);
 		
 		this.state = {
-			sliderData: [],
 			detail: {}
 		}
 		
 	}
 
 	async componentDidMount () {
-
-		try {
-
-			const res = await axios.get(getUrl("/product/best?limit=10"));
-			console.log(res.data);
-			this.setState({sliderData : res.data})
-			
-		} catch (err) {
-			console.log(err);
-		};
-
 
 		// let item = document.querySelector('.scrolling-wrapper-flexbox');
 		
@@ -47,48 +33,30 @@ class Home extends Component {
 		
 	}
 
-	imageSlider () {
-
-		return (
-			
-			<div className="cardSlider">
-				{
-					this.state.sliderData.map(_y => {
-						return (
-							<div className="bestSellContainer" key={_y._id}>
-								<img onClick={() => this.pulsaProducto(_y)} alt="sliderStuff" src={_y.imageUrl[0]}/>
-							</div>
-						)
-					})
-				}
-			</div>
-		);
-
-	 }
-	 
-	 pulsaProducto (productData) {
-		 
-		//Guardo en redux
-		rdx_productDetail(productData);
-
-		//Redirijo 
-		this.props.history.push("/detail");
-
-	 }
-
+	
 	render() {
 		return (
 
 		<div className="home">
 			<div className="main">
 				
-					<div className="titulosMasVendidos">Los más vendidos</div>
-					<div className="scrolling-wrapper-flexbox">
+					<div className="sliderProductosHome">Los más vendidos</div>
+					
 			
-       							{this.imageSlider()}
+       				<Slider url="/product/best?limit=10" />
 			
-					</div>
+					
+					<div className="sliderProductosHome">Los más votados</div>
 				
+			
+					<Slider url="/product/voted?limit=10" />
+			
+					
+					<div className="sliderProductosHome">Sugerencias para ti</div>
+					
+			
+					<Slider url="/product/best?limit=10" />
+			
 			</div>
 		</div>
 		)

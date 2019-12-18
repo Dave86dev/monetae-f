@@ -189,8 +189,8 @@ class Register extends React.Component {
                 "city": this.state.city.trim(),
                 "paypal": this.state.paypal.trim(),
                 "card": {
-                    "number": this.state.cNumber.trim(),
-                    "owner": this.state.cOwner.trim(),
+                    "number": this.state.cNumber,
+                    "owner": this.state.cOwner,
                     "expireDate": [this.state.expireM, this.state.expireY]
                 }
             };
