@@ -64,7 +64,7 @@ class ProductDetail extends React.Component {
 					
 					<div className="detail">
 						<h2 className="title">{this.props.productData.title}</h2>
-						<p className="seller">Vendido por: <a href="/">Pepe</a> </p>
+						<p className="seller">Vendedor: <a href="/">{this.props.productData.ownerId}</a> </p>
 						<p className="sellerRating">
 							<img className="ratingStar" src="/img/star.png" alt=""/>
 							<img className="ratingStar" src="/img/star.png" alt=""/>
