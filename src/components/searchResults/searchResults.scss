@@ -19,9 +19,36 @@
 			height: 2em;
 		}
 		
-		.ordenar {
+		.filtros {
+			
+			display: flex;
+			flex-direction: row;
+			
+			align-items: center;
+			
+			button {
+				border-radius: 0;
+				height: 1.5em;
+			}
+			
+			img {
+				display: inline-flex;
+				align-items: flex-end; 
+				width: 2.5em;
+			}
+			
+			
+			.firstBtn {
+				border-radius: 3px 0 0 3px;
+			}
+			.lastBtn {
+				border-radius: 0 3px 3px 0;
+			}
+			
 			
 		}
+		
+		
 		
 	}
 	
