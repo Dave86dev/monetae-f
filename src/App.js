@@ -3,12 +3,12 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Componentes
-import Home from "./components/home/home";
+import Home from "./containers/home/home";
 import Header from "./components/header/header";
-import SearchResults from "./components/searchResults/searchResults";
-import ProductDetail from "./components/productDetail/productDetail";
-import Login from "./components/login/login";
-import Register from "./components/register/register";
+import SearchResults from "./containers/searchResults/searchResults";
+import ProductDetail from "./containers/productDetail/productDetail";
+import Login from "./containers/login/login";
+import Register from "./containers/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
 import AddProduct from "./containers/addProduct/addProduct";
 

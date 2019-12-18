@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './home.scss';
 
-import Slider from "../slider/slider";
+import Slider from "../../components/slider/slider";
 
 
 class Home extends Component {

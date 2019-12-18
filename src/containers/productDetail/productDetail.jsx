@@ -3,7 +3,7 @@ import React from "react";
 import "./productDetail.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import Slider from "../slider/slider";
+import Slider from "../../components/slider/slider";
 
 
 class ProductDetail extends React.Component {
