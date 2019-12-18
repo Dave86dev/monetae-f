@@ -28,12 +28,8 @@ class SearchResults extends React.Component {
 	
 	
 	
-	
-	componentDidMount() {
-		
-		
-		
-	};
+	// componentDidMount() {
+	// };
 	
 	
 	
@@ -42,12 +38,12 @@ class SearchResults extends React.Component {
 		this.setState({ sort: tipo });
 		
 		
-		axios.get( getUrl(`/product/get?title=u&sort=${tipo}`) ).then( (res) => {
+		axios.get( getUrl(`/product/get?title=${this.props.productSearchResults?.keywords}&sort=${tipo}`) ).then( (res) => {
 			
 			this.setState({ productList: res.data });
 			
 			rdx_productSearchResults({
-				keywords: this.props.keywords,
+				keywords: this.props.productSearchResults.keywords,
 				data: res.data
 			});
 			
@@ -62,7 +58,7 @@ class SearchResults extends React.Component {
 	
 	componentDidUpdate() {
 		this.render();
-	}
+	};
 	
 	
 	pulsaResultado(productData) {
