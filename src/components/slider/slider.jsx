@@ -23,7 +23,6 @@ class Slider extends React.Component {
         try {
 
 			const res = await axios.get(getUrl(this.props.url));
-			console.log(res.data);
 			this.setState({sliderData : res.data})
 			
 		} catch (err) {
@@ -48,8 +47,8 @@ class Slider extends React.Component {
 
 		//Redirijo 
 		this.props.history.push("/detail");
-
-	 }
+		
+	}
     
     render() {
         return(

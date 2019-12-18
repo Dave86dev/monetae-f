@@ -14,10 +14,8 @@ class Profile extends React.Component {
     try {
         let token = session.get().token;
         let id = session.get().userId;
-        console.log(getUrl(`/user/userId=${id}&token=${token}`));
         
         const res = await axios.get(getUrl(`/user/${id}?token=${token}`));
-        console.log(res.data);
         
     } catch (err) {
         console.log(err);
