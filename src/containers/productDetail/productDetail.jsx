@@ -34,9 +34,24 @@ class ProductDetail extends React.Component {
 			//axios
 		}
 		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
+		
+		
+		
 	}
 	
-	
+	componentDidUpdate () {
+		//Quito la clase hide a todos para reinicializar.
+		for (let i= 1; i<4; i++){
+			document.querySelector("#img" + i).classList.remove("hide");
+		} 
+
+		//Se la pongo en caso de que la url tenga el valor "".
+		for (let i= 1; i<4; i++){
+			if(this.props.productData.imageUrl[i] === ""){
+				document.querySelector("#img" + i).classList.add("hide");
+			}
+		}
+	}
 	
 	render() {
 		
@@ -51,10 +66,10 @@ class ProductDetail extends React.Component {
 						</div>
 						
 						<div className="gallery">
-							<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt=""/>
-							<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 1) } src={this.props.productData.imageUrl[1]} alt=""/>
-							<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 2) } src={this.props.productData.imageUrl[2]} alt=""/>
-							<img className="miniImg" onClick={ (ev) => this.pulsaFoto(ev, 3) } src={this.props.productData.imageUrl[3]} alt=""/>
+							<img className="miniImg" id="img0" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt=""/>
+							<img className="miniImg" id="img1" onClick={ (ev) => this.pulsaFoto(ev, 1) } src={this.props.productData.imageUrl[1]} alt=""/>
+							<img className="miniImg" id="img2" onClick={ (ev) => this.pulsaFoto(ev, 2) } src={this.props.productData.imageUrl[2]} alt=""/>
+							<img className="miniImg" id="img3" onClick={ (ev) => this.pulsaFoto(ev, 3) } src={this.props.productData.imageUrl[3]} alt=""/>
 						</div>
 						
 					</div>
