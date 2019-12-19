@@ -30,6 +30,10 @@ class ProductDetail extends React.Component {
 	
 	
 	componentDidMount() {
+
+		// console.log(this.props.productData.category);
+		localStorage.setItem("categoriaBuscada", this.props.productData.category);
+
 		if(!this.props.productData){
 			//axios
 		}

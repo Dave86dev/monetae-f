@@ -135,3 +135,26 @@ export const muestraError = (message, timeout = 3, isError = true) => {
 	
 };
 
+/*Lista de las categorías. 
+	Import:
+		import { listaCategorias } from "./utils/uti"
+
+*/
+
+export const listaCategorias = {
+	"aut": "Automóvil",
+	"ali": "Alimentación",
+	"bri": "Bricolaje",
+	"cul": "Cultura",
+	"dep": "Deporte",
+	"electrod": "Electrodomésticos",
+	"electron": "Electrónica",
+	"hog": "Hogar",
+	"jug": "Juguetes",
+	"vid": "Videojuegos",
+	"mod": "Moda",
+	"ofi": "Oficina",
+	"par": "Parafarmacia",
+	"cos": "Cosmética",
+	"otr": "Otros"
+}
