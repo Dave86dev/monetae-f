@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { listaCategorias } from '../../utils/uti';
 import './home.scss';
 
 import Slider from "../../components/slider/slider";
@@ -10,9 +11,29 @@ class Home extends Component {
 		super(props);
 		
 		this.state = {
-			detail: {}
+			detail: {},
+			categoriaSugerida : ""
 		}
 		
+	}
+
+	componentWillMount () {
+		//Comprobamos si hay una categoría guardada en el localStorage.
+
+		if(localStorage.getItem("categoriaBuscada")) {
+			this.setState({ categoriaSugerida : localStorage.getItem("categoriaBuscada") });
+		}else{
+
+			//En caso de no haberla, asignamos una categoría random.
+
+			let arrCategorias = Object.keys(listaCategorias);
+		
+			let lengthObj = Object.keys(listaCategorias).length;
+		
+			let numRand = Math.floor (Math.random() * ((lengthObj + 1) - 0) + 0);
+	
+			this.state.categoriaSugerida = arrCategorias [numRand];
+		}
 	}
 
 	async componentDidMount () {
@@ -38,7 +59,7 @@ class Home extends Component {
 		return (
 
 		<div className="home">
-			<div className="main">
+			<div className="mainHome">
 				
 					<div className="sliderProductosHome">Los más vendidos</div>
 					
@@ -55,7 +76,7 @@ class Home extends Component {
 					<div className="sliderProductosHome">Sugerencias para ti</div>
 					
 			
-					<Slider url="/product/best?limit=10" />
+					<Slider url={`/product/category?cat=${this.state.categoriaSugerida}&limit=10`} />
 			
 			</div>
 		</div>

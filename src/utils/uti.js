@@ -139,11 +139,45 @@ export const muestraError = (message, timeout = 3, isError = true) => {
 
 /*
 	Limita un número por arriba y por abajo.
-	Return: number
 	
-	uti.minMax (15, 0, 10); // devuelve 10
+	Return:
+		number
+		
+	Import:
+		import { listaCategorias } from "./utils/uti"
+	Ejemplo: 	
+		uti.minMax (15, 0, 10); // devuelve 10
+	.
 */
 
 export const minMax = (n, min, max) => {
 	return Math.max (Math.min (n, max), min);
 };
+
+
+
+/*
+	Lista de las categorías. 
+	
+	Import:
+		import { listaCategorias } from "./utils/uti"
+	.
+*/
+
+export const listaCategorias = {
+	"aut": "Automóvil",
+	"ali": "Alimentación",
+	"bri": "Bricolaje",
+	"cul": "Cultura",
+	"dep": "Deporte",
+	"electrod": "Electrodomésticos",
+	"electron": "Electrónica",
+	"hog": "Hogar",
+	"jug": "Juguetes",
+	"vid": "Videojuegos",
+	"mod": "Moda",
+	"ofi": "Oficina",
+	"par": "Parafarmacia",
+	"cos": "Cosmética",
+	"otr": "Otros"
+}

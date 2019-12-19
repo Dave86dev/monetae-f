@@ -132,11 +132,11 @@ class Register extends React.Component {
             return;
         };
 
-		if (! this.state.secretQ.length < 4) {
+		if (this.state.secretQ.length < 4) {
             this.muestraError("La pregunta secreta debe tener al menos 4 caracteres.");
             return;
 		};
-		if (! this.state.secretA.length < 4) {
+		if (this.state.secretA.length < 4) {
             this.muestraError("La respuesta secreta debe tener al menos 4 caracteres.");
             return;
 		};
