@@ -16,3 +16,23 @@ export const rdx_productSearchResults = (productSearchResults) => {
 	})
 };
 
+
+export const rdx_cartAdd = (product) => {
+    store.dispatch({
+		type: 'CART_ADD',
+		payload: product
+	})
+};
+export const rdx_cartRemove = (product) => {
+    store.dispatch({
+		type: 'CART_REMOVE',
+		payload: product
+	})
+};
+export const rdx_cartEdit = (product) => {
+    store.dispatch({
+		type: 'CART_EDIT',
+		payload: product
+	})
+};
+
