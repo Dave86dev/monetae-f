@@ -34,9 +34,6 @@ class Home extends Component {
 	
 			this.state.categoriaSugerida = arrCategorias [numRand];
 		}
-
-		console.log(this.state.categoriaSugerida);
-		
 	}
 
 	async componentDidMount () {
