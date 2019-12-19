@@ -1,6 +1,6 @@
 
 import React, { Fragment } from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "./cesta.scss";
@@ -13,10 +13,10 @@ import { minMax } from "../../utils/uti";
 
 class Cesta extends React.Component {
 	
-	constructor (props) {
-		super(props);
-		
-	};
+	// constructor (props) {
+	// 	super(props);
+	// };
+	
 	
 	
 	pulsaResultado(productData) {
@@ -31,23 +31,22 @@ class Cesta extends React.Component {
 	};
 	
 	
-	pulsaBotonMasMenos(_id, n) {
+	
+	pulsaBotonMasMenos(_id, cantidad) {
 		
-		const cart = {...this.props.cart}; // clono todo el obj de redux
-		let nuevaId = _id;
+		// Busco si ya existe en el carrito
+		const encontrado = this.props.cart.find(_x => _x._id === _id);
 		
 		
-		let nuevaCantidad = 0;
-		
-		if (cart[nuevaId]) { // existe ese producto
-			
-			nuevaCantidad = minMax( cart[nuevaId].cartQuantity + n, 0, 100 ); // sumo o resto cantidad
-			cart[nuevaId].cartQuantity = nuevaCantidad;  // se la pongo
-			
-		} else {
+		// No se ha encontrado, salgo
+		if (! encontrado) {
 			console.log( "ERROR CESTA: no existe el producto que se está editando" );
 			return;
 		};
+		
+		
+		let nuevaCantidad = minMax( encontrado.cartQuantity + cantidad, 0, 100 ); // sumo o resto cantidad
+		// encontrado.cartQuantity = nuevaCantidad;  // se la pongo
 		
 		
 		// Estoy aplicando cantidad 0, llamo a borrar
@@ -57,9 +56,8 @@ class Cesta extends React.Component {
 			
 			store.dispatch({
 				type: 'CART_REMOVE',
-				payload: cart[nuevaId]
+				payload: encontrado._id
 			});
-			
 			
 			return;
 		};
@@ -67,37 +65,24 @@ class Cesta extends React.Component {
 		
 		// Envío a redux
 		store.dispatch({
-			type: 'CART_ADD',
-			payload: cart[nuevaId]
-		});		
+			type: 'CART_EDIT',
+			payload: {
+				_id: encontrado._id,
+				newQuantity: nuevaCantidad
+			}
+		});
+		
 		
 	}
-	
-	
-	componentDidUpdate() {
-		this.render();
-	}
-	
 	
 	
 	
 	muestraResultados() {
 		
-		let objCart = this.props.cart;
-		let arrCart = [];
-		
-		
-		// Paso de objeto a array
-		for (let _x of Object.keys(objCart)) {
-			arrCart.push(objCart[_x])
-		};
-		
-		
-		
 		return (
 			<Fragment>
 				{
-					arrCart.map(_x => {
+					this.props.cart.map(_x => {
 						return (
 							<div
 								className="card"
@@ -138,7 +123,6 @@ class Cesta extends React.Component {
 	
 	
 	render() {
-		
 		return (
 			<div className="mainSearch">
 				<div className="mainResults pt3 pb3">
@@ -157,6 +141,4 @@ const mapStateToProps = (state) => { // ese state es de redux
 		cart: state.cart
 	})
 }
-
-
-export default connect(mapStateToProps) (withRouter(Cesta));
+export default connect(mapStateToProps) (Cesta);

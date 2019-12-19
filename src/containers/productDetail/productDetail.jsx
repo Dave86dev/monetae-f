@@ -31,48 +31,42 @@ class ProductDetail extends React.Component {
 		document.querySelector(".img").src = this.props.productData.imageUrl[idx];
 	};
 	
-	pulsaCesta () {
+	meteCesta (_id) {
 		
-		const cart = {...this.props.cart}; // clono todo el obj de redux
-		let nuevaId = this.props.productData._id; // pillo la id del product que estamos viendo en detalle
+		// Clono el objeto del producto
+		let productData = {...this.props.productData};
 		
 		
-		if (! cart[nuevaId]) { // no existe ese producto
-			
-			cart[nuevaId] = this.props.productData; // lo añado
-			cart[nuevaId].cartQuantity = +this.state.quantity; // añado la cantidad
-			
-		} else { // ya existe
-			
-			cart[nuevaId].cartQuantity = cart[nuevaId].cartQuantity + +this.state.quantity; // sumo cantidad
-			
+		// Busco si ya existe en el carrito
+		const encontrado = this.props.cart.find(_x => _x === productData._id);
+		
+		if (! encontrado) { // NO existe ese producto
+			productData.cartQuantity = +this.state.quantity; // pongo cantidad
+		} else { // ya existía
+			productData.cartQuantity = productData.cartQuantity + +this.state.quantity; // sumo cantidad
 		};
 		
 		
+		// Envío a redux
 		store.dispatch({
 			type: 'CART_ADD',
-			payload: cart[nuevaId]
+			payload: productData // OBJ con la info del producto
 		});
 		
 	}
 	
 	
 	componentDidMount() {
-
-		// console.log(this.props.productData.category);
+		
+		// Guardo la última categoría que he mirado
 		localStorage.setItem("categoriaBuscada", this.props.productData.category);
-
-		if(!this.props.productData){
-			//axios
-		}
-		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
-		
-		console.log( this.props.match.params );
 		
 		
-		if (! this.props.productData) {
-			// axios
+		if (! this.props.productData) { // no tengo el prop
+			// Llamar a axios pidiendo info del producto con la _id:
+			// this.props.match.params
 		};
+		
 		
 		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
 		
@@ -83,7 +77,7 @@ class ProductDetail extends React.Component {
 		for (let i= 1; i<4; i++){
 			document.querySelector("#img" + i).classList.remove("hide");
 		} 
-
+		
 		//Se la pongo en caso de que la url tenga el valor "".
 		for (let i= 1; i<4; i++){
 			if(this.props.productData.imageUrl[i] === ""){
@@ -161,7 +155,7 @@ class ProductDetail extends React.Component {
 								
 							</div>
 							
-							<button className="purchaseButton" onClick={ () => {this.pulsaCesta()} }>Añadir a la cesta</button>
+							<button className="purchaseButton" onClick={ () => {this.meteCesta(this.props.productData._id)} }>Añadir a la cesta</button>
 							<button className="purchaseButton">Comprar</button>
 						</div>
 					</div>
