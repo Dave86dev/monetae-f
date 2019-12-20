@@ -19,7 +19,6 @@ class Header extends React.Component {
 		
 		this.state = {
 			
-			
 		}
 		
 	}
@@ -28,7 +27,7 @@ class Header extends React.Component {
 	
 	BotonesHeader() {
 		
-		let nCesta = Object.keys(this.props.cart).length;
+		let nCesta = this.props.cart ? Object.keys(this.props.cart).length : 0;
 		let strNCesta = nCesta === 0 ? "" : `(${nCesta})`;
 		
 		if (this.props.isLoggedIn) { // si estoy logeado...

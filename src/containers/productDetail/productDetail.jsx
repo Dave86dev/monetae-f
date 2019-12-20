@@ -42,7 +42,7 @@ class ProductDetail extends React.Component {
 		
 		
 		// Busco si ya existe en el carrito
-		const encontrado = this.props.cart.find(_x => _x._id === productData._id);
+		const encontrado = this.props.cart ? this.props.cart.find(_x => _x._id === productData._id) : false;
 		
 		if (! encontrado) { // NO existe ese producto
 			
