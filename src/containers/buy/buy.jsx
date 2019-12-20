@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import axios from "axios";
 import { getUrl, session, userBillingOptions } from "../../utils/uti";
@@ -9,9 +10,21 @@ class Buy extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userData: []
+            userData: [],
+            username: "",
+            address: "",
+            country: "",
+            phone: ""
+
+            // message: "",
+            // errorTime: 0,
+            // messageClassName: "error"
         };
     }
+
+    handleChange = ev => {
+        this.setState({ [ev.target.name]: ev.target.type === "number" ? +ev.target.value : ev.target.value });
+    };
 
     async componentDidMount() {
         try {
@@ -32,13 +45,11 @@ class Buy extends React.Component {
 
         let userBilling = userBillingOptions(userCard, userPaypal);
 
-        let hasCard = (userBilling !== 1) && (userBilling !== 3);
-        let hasPaypal = (userBilling !== 2) && (userBilling !== 3);
-        
-        
+        let hasCard = userBilling !== 1 && userBilling !== 3;
+        let hasPaypal = userBilling !== 2 && userBilling !== 3;
+
         return (
             <div className="userBillField">
-                
                 <div className="userBillPayField mt3">
                     <input type="radio" id="huey" name="payment" value="huey" disabled={hasCard} />
                     <img alt="card" className="imgCard ml2 mr2 mb2" src="./img/card.png"></img>
@@ -49,7 +60,6 @@ class Buy extends React.Component {
                     <img alt="paypal" className="imgPaypal ml2 mr2 mb2" src="./img/paypal.png"></img>
                     <div className="userPayInfo mb2">{this.state.userData.billing?.paypal}</div>
                 </div>
-                
             </div>
         );
     }
@@ -57,6 +67,7 @@ class Buy extends React.Component {
     render() {
         return (
             <div className="mainBuy mt3">
+                {/* <pre>{JSON.stringify(this.state.address, null,2)}</pre> */}
                 <div className="Data">
                     <div className="card">
                         <div className="cardHeader">
@@ -64,10 +75,28 @@ class Buy extends React.Component {
                         </div>
                         <div className="cardBody">
                             <div className="userDataField">
-                                <div className="userDataFieldContent">{this.state.userData.username}</div>
+                                <input
+                                    className="inputShipping"
+                                    type="text"
+                                    placeholder={this.state.userData.username}
+                                    name="username"
+                                    value={this.state.username}
+                                    onChange={ev => {
+                                        this.handleChange(ev);
+                                    }}
+                                ></input>
                             </div>
                             <div className="userDataField">
-                                <div className="userDataFieldContent">{this.state.userData.billing?.address}</div>
+                                <input
+                                    className="inputShipping"
+                                    type="text"
+                                    placeholder={this.state.userData.billing?.address}
+                                    name="address"
+                                    value={this.state.address}
+                                    onChange={ev => {
+                                        this.handleChange(ev);
+                                    }}
+                                ></input>
                             </div>
                             <div className="userDataField">
                                 <div className="userDataFieldContent">
@@ -91,14 +120,19 @@ class Buy extends React.Component {
                 <div className="Shipping ml5">
                     <div className="card">
                         <div className="cardHeader">
-                            <h1 className="cardTitle"> Titulo </h1>
+                            <h1 className="cardTitle"> Productos y envío: </h1>
                         </div>
-                        <div className="cardBody">body</div>
+                        <div className="cardBody">{this.props.cart}</div>
                     </div>
                 </div>
             </div>
         );
     }
 }
-
-export default Buy;
+const mapStateToProps = state => {
+    // ese state es de redux
+    return {
+        cart: state.cart
+    };
+};
+export default connect(mapStateToProps)(Buy);
