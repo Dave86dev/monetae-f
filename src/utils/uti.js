@@ -181,3 +181,25 @@ export const listaCategorias = {
 	"cos": "Cosmética",
 	"otr": "Otros"
 }
+
+
+export const userBillingOptions = (userCard,userPaypal) => {
+
+	let userBilling = 0;
+
+	if (userCard && !userPaypal) {
+		//Comprobamos si el usuario disponde de tarjeta de crédito pero no de paypal.
+		userBilling = 1;
+	  }
+	  if (!userCard && userPaypal) {
+		//Comprobamos si el usuario disponde de paypal pero no de tarjeta de crédito.
+		userBilling = 2;
+	  }
+	  if (userCard && userPaypal) {
+		//Comprobamos si el usuario disponde de ambos sistemas de pago.
+		userBilling = 3;
+	  }
+
+	  return userBilling;
+
+}

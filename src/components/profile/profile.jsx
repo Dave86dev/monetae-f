@@ -1,7 +1,7 @@
 import React from "react";
 
 import axios from "axios";
-import { getUrl, session } from "../../utils/uti";
+import { getUrl, session, userBillingOptions } from "../../utils/uti";
 
 import "./profile.scss";
 
@@ -34,20 +34,11 @@ class Profile extends React.Component {
   }
 
   muestraBilling() {
-    let userBilling = 0;
+    
+    let userCard = this.state.userData.billing?.card.number;
+    let userPaypal = this.state.userData.billing?.paypal;
 
-    if (this.state.userData.billing?.card.number && !this.state.userData.billing?.paypal) {
-      //Comprobamos si el usuario disponde de tarjeta de crédito pero no de paypal.
-      userBilling = 1;
-    }
-    if (!this.state.userData.billing?.card.number && this.state.userData.billing?.paypal) {
-      //Comprobamos si el usuario disponde de paypal pero no de tarjeta de crédito.
-      userBilling = 2;
-    }
-    if (this.state.userData.billing?.card.number && this.state.userData.billing?.paypal) {
-      //Comprobamos si el usuario disponde de ambos sistemas de pago.
-      userBilling = 3;
-    }
+    let userBilling = userBillingOptions(userCard,userPaypal);
 
     switch (userBilling) {
       case 1:
@@ -82,14 +73,14 @@ class Profile extends React.Component {
   }
 
   render() {
-    // this.state.userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
+    
     let userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
     return (
       <div className="main mainProfile">
         <div className="card mt3">
           <div className="cardHeader">
             <h1 className="cardTitle"> {this.state.userData.username} </h1>
-            {/* <div className="userTypeClass">{this.state.userType}</div> */}
+            
             <div className="userTypeClass">{userType}</div>
           </div>
           <div className="cardBody">
