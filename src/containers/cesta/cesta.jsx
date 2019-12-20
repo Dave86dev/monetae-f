@@ -13,9 +13,14 @@ import { minMax } from "../../utils/uti";
 
 class Cesta extends React.Component {
 	
-	// constructor (props) {
-	// 	super(props);
-	// };
+	constructor (props) {
+		super(props);
+		
+		this.state = {
+			total: 0,
+			
+		}
+	};
 	
 	
 	
@@ -72,7 +77,24 @@ class Cesta extends React.Component {
 			}
 		});
 		
-	}
+	};
+	
+	
+	pulsaBotonEliminar(_id) {
+		
+		// Busco si ya existe en el carrito
+		const encontrado = this.props.cart.find(_x => _x._id === _id);
+		
+		
+		// Si lo encuentro, lo borro
+		if (encontrado) {
+			store.dispatch({
+				type: 'CART_REMOVE',
+				payload: encontrado._id
+			});			
+		};	
+		
+	};
 	
 	
 	
@@ -97,8 +119,9 @@ class Cesta extends React.Component {
 								</div>
 								
 								<div className="cardBody">
-									<h1 className="cardPrice">{_x.price} €</h1>
-									<h2 className="cardTitle">{_x.title}</h2>
+									<h1 className="totalPrice">{_x.price * _x.cartQuantity} €</h1>
+									<h3 className="price mb2">{_x.price} €/u</h3>
+									<h2 className="title mb2">{_x.title}</h2>
 									
 								</div>
 								
@@ -107,6 +130,8 @@ class Cesta extends React.Component {
 									<span className="cantidad">{_x.cartQuantity}</span>
 									<button className="botonMas" onClick={() => {this.pulsaBotonMasMenos(_x._id, 1) } } >+</button>
 								</div>
+								
+								<button className="botonEliminar" onClick={() => {this.pulsaBotonEliminar(_x._id) } } >Eliminar</button>
 								
 							</div>
 						)
@@ -121,12 +146,48 @@ class Cesta extends React.Component {
 	
 	
 	
+	// componentDidMount() {
+		
+	// 	// Calculo suma total
+	// 	let sumaTotal = 0;
+		
+	// 	this.props.cart.map( _x => {
+	// 		sumaTotal += (_x.price * _x.cartQuantity);
+	// 	});
+		
+		
+	// 	// Pongo estado
+	// 	this.setState({ total: sumaTotal });
+		
+		
+	// };
+	
+	
+	
 	render() {
+		
+		// Calculo suma total
+		let sumaTotal = 0;
+				
+		this.props.cart.map( _x => {
+			sumaTotal += (_x.price * _x.cartQuantity);
+		});
+		
+		
 		return (
 			<div className="mainSearch">
+				
+				<div className="total mt3 mr5">
+					<button className="botonComprar">
+						<h2>PROCEDER CON LA COMPRA</h2>
+						<he>Total: {sumaTotal} €</he>
+					</button>
+				</div>
+				
 				<div className="mainResults pt3 pb3">
 					{this.muestraResultados()}
 				</div>
+				
 			</div>
 			
 		);
