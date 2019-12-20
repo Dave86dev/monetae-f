@@ -13,6 +13,7 @@ import Register from "./containers/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
 import AddProduct from "./containers/addProduct/addProduct";
 import Cesta from "./containers/cesta/cesta";
+import Buy from "./containers/buy/buy";
 
 // CSS
 import "./global.css";
@@ -35,6 +36,7 @@ export default function App() {
 					<Route path="/search" exact component={SearchResults} />
 					<Route path="/detail" exact component={ProductDetail} />
 					<Route path="/cart" exact component={Cesta} />
+					<Route path="/buy" exact component={Buy} />
 					
 					<Route path="/addProduct" exact component={AddProduct} />
 					

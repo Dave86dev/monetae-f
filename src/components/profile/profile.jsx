@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import axios from "axios";
 import { getUrl, session } from "../../utils/uti";
@@ -22,7 +22,12 @@ class Profile extends React.Component {
 
       const res = await axios.get(getUrl(`/user/${id}?token=${token}`));
 
-      this.setState({ userData: res.data });
+      this.setState({ userData: res.data }, () => {
+
+        // this.state.userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
+
+      });
+      
     } catch (err) {
       console.log(err);
     }
@@ -77,14 +82,15 @@ class Profile extends React.Component {
   }
 
   render() {
-    this.state.userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
-
+    // this.state.userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
+    let userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
     return (
       <div className="main mainProfile">
         <div className="card mt3">
           <div className="cardHeader">
             <h1 className="cardTitle"> {this.state.userData.username} </h1>
-            <div className="userTypeClass">{this.state.userType}</div>
+            {/* <div className="userTypeClass">{this.state.userType}</div> */}
+            <div className="userTypeClass">{userType}</div>
           </div>
           <div className="cardBody">
             

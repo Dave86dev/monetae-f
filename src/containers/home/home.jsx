@@ -32,7 +32,7 @@ class Home extends Component {
 		
 			let numRand = Math.floor (Math.random() * ((lengthObj + 1) - 0) + 0);
 	
-			this.state.categoriaSugerida = arrCategorias [numRand];
+			this.setState({ categoriaSugerida: arrCategorias[numRand] });
 		}
 	}
 
