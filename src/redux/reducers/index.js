@@ -1,8 +1,14 @@
 import { session } from "../../utils/uti";
 
-const reducer = (state = {
-	isLoggedIn: !!session.get()
-}, action) => {
+const reducer = (
+	
+	state = {
+		isLoggedIn: !!session.get(),
+		cart: [],
+	},
+	action
+	
+) => {
 	
 	switch (action.type) {
 		
@@ -23,7 +29,49 @@ const reducer = (state = {
 			...state,
 			productSearchResults: action.payload
 		};
-
+		
+		
+		
+		case "CART_ADD":
+		return {
+			...state,
+			cart: [...state.cart, action.payload]
+		};
+		
+		
+		
+		case "CART_EDIT":
+			
+			let newCart = state.cart.map( (_x) => {
+				
+				if (_x._id === action.payload._id) { // si ya existe
+					_x.cartQuantity = action.payload.newQuantity; // lo modifico
+				};
+				
+				return _x;
+				
+			});
+			
+			console.log( newCart );
+		
+		return {
+			...state,
+			cart: newCart
+		};
+		
+		case "CART_REMOVE":
+			
+			let newChart = state.cart.filter( (_x, index, arr) => {
+				return _x._id !== action.payload;
+			});
+			
+		return {
+			...state,
+			cart: newChart
+		};
+		
+		
+		
 		default:
 		return state;
 		

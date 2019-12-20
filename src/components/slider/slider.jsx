@@ -46,7 +46,8 @@ class Slider extends React.Component {
 		rdx_productDetail(productData);
 
 		//Redirijo 
-		this.props.history.push("/detail");
+		this.props.history.push(`/detail?id=${productData._id}`);
+		
 	}
     
     render() {

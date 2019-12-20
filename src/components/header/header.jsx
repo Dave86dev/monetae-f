@@ -28,6 +28,9 @@ class Header extends React.Component {
 	
 	BotonesHeader() {
 		
+		let nCesta = Object.keys(this.props.cart).length;
+		let strNCesta = nCesta === 0 ? "" : `(${nCesta})`;
+		
 		if (this.props.isLoggedIn) { // si estoy logeado...
 			
 			return (
@@ -46,7 +49,7 @@ class Header extends React.Component {
 					</button>
 					<button>
 						<NavLink exact to="/cart">
-							Cesta
+							Cesta {strNCesta}
 						</NavLink>
 					</button>
 					<button className="logoutButton" onClick={ () => this.pulsaLogout() }>
@@ -198,7 +201,8 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => { // ese state es de redux
 	return ({
-		isLoggedIn: state.isLoggedIn //creamos la prop user a partir de la key user del state
+		isLoggedIn: state.isLoggedIn, //creamos la prop user a partir de la key user del state
+		cart: state.cart
 	})
 }
 

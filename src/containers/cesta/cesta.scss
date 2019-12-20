@@ -1,0 +1,30 @@
+
+.cajaCantidad {
+	
+	display: flex;
+	justify-content: center;
+	
+	background-color: var(--pri1);
+	width: 5em;
+	
+	.cantidad {
+		padding: 0 1.5em;
+	}
+	
+	button {
+		height: 1.5em;
+		width: 1.5em;
+		
+		background-color: var(--pri2);
+		text-align: center;
+		
+	}
+	
+	.botonMenos {
+		
+	}
+	.botonMas {
+		
+	}
+	
+}

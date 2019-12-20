@@ -135,10 +135,33 @@ export const muestraError = (message, timeout = 3, isError = true) => {
 	
 };
 
-/*Lista de las categorías. 
+
+
+/*
+	Limita un número por arriba y por abajo.
+	
+	Return:
+		number
+		
 	Import:
 		import { listaCategorias } from "./utils/uti"
+	Ejemplo: 	
+		uti.minMax (15, 0, 10); // devuelve 10
+	.
+*/
 
+export const minMax = (n, min, max) => {
+	return Math.max (Math.min (n, max), min);
+};
+
+
+
+/*
+	Lista de las categorías. 
+	
+	Import:
+		import { listaCategorias } from "./utils/uti"
+	.
 */
 
 export const listaCategorias = {

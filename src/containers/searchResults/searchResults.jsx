@@ -82,7 +82,7 @@ class SearchResults extends React.Component {
 		
 		
 		// Redirijo
-		this.props.history.push("/detail");
+		this.props.history.push(`/detail?id=${productData._id}`);
 		
 	};
 	
