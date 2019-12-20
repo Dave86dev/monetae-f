@@ -2,11 +2,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import queryString from 'query-string';
+
+import "./productDetail.scss";
 
 import Slider from "../../components/slider/slider";
 import store from "../../redux/store";
-
-import "./productDetail.scss";
+import axios from "axios";
+import { getUrl } from "../../utils/uti";
+import { rdx_productDetail } from "../../redux/actions/products";
 
 
 
@@ -70,23 +74,41 @@ class ProductDetail extends React.Component {
 	}
 	
 	
-	componentDidMount() {
+	async componentDidMount() {
 		
 		// Guardo la última categoría que he mirado
-		localStorage.setItem("categoriaBuscada", this.props.productData.category);
+		localStorage.setItem("categoriaBuscada", this.props.productData?.category);
 		
 		
-		if (! this.props.productData) { // no tengo el prop
-			// Llamar a axios pidiendo info del producto con la _id:
-			// this.props.match.params
+		// Busco query
+		const queries = queryString.parse(this.props.location.search);
+		
+		if (! this.props.productData && queries.id) { // no tengo el prop y tengo param
+			
+			try {
+				
+				// Pido info
+				let res = await axios.get( getUrl(`/product/get?id=${queries.id}`) );
+				
+				// Guardo en redux
+				rdx_productDetail(res.data[0]);
+				
+			} catch (err) {
+				console.log( err );
+			};
+			
 		};
 		
 		
+		// Pongo estado por defecto
 		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
 		
 	}
 	
 	componentDidUpdate () {
+		
+		// PENDIENTE
+		/*
 		//Quito la clase hide a todos para reinicializar.
 		for (let i= 1; i<4; i++){
 			document.querySelector("#img" + i).classList.remove("hide");
@@ -98,6 +120,7 @@ class ProductDetail extends React.Component {
 				document.querySelector("#img" + i).classList.add("hide");
 			}
 		}
+		*/
 	}
 	
 	render() {

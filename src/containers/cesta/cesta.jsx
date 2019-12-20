@@ -72,7 +72,6 @@ class Cesta extends React.Component {
 			}
 		});
 		
-		
 	}
 	
 	
