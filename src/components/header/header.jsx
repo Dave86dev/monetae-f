@@ -43,7 +43,7 @@ class Header extends React.Component {
 					</button>
 					<button>
 						<NavLink exact to="/storage">
-							Mi almacén
+							Mi inventario
 						</NavLink>
 					</button>
 					<button>
