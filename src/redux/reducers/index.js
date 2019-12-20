@@ -51,8 +51,6 @@ const reducer = (
 				return _x;
 				
 			});
-			
-			console.log( newCart );
 		
 		return {
 			...state,

@@ -38,20 +38,34 @@ class ProductDetail extends React.Component {
 		
 		
 		// Busco si ya existe en el carrito
-		const encontrado = this.props.cart.find(_x => _x === productData._id);
+		const encontrado = this.props.cart.find(_x => _x._id === productData._id);
 		
 		if (! encontrado) { // NO existe ese producto
+			
 			productData.cartQuantity = +this.state.quantity; // pongo cantidad
+			
+			
+			// Envío a redux
+			store.dispatch({
+				type: 'CART_ADD',
+				payload: productData // OBJ con la info del producto
+			});	
+			
 		} else { // ya existía
-			productData.cartQuantity = productData.cartQuantity + +this.state.quantity; // sumo cantidad
+			
+			let newQuantity = encontrado.cartQuantity + +this.state.quantity; // sumo cantidad
+			
+			
+			// Envío a redux
+			store.dispatch({
+				type: 'CART_EDIT',
+				payload: {
+					_id: productData._id,
+					newQuantity: newQuantity
+				}
+			});
+			
 		};
-		
-		
-		// Envío a redux
-		store.dispatch({
-			type: 'CART_ADD',
-			payload: productData // OBJ con la info del producto
-		});
 		
 	}
 	

@@ -51,8 +51,8 @@ class SearchResults extends React.Component {
 		let queryTitle = `title=${this.props.productSearchResults?.keywords}`;
 		let querySort = `sort=${this.state.sort}`;
 		let queryCategory = `category=${this.state.category}`;
-		let queryMinPrice = `minPrice=${this.state.minPrice}`;
-		let queryMaxPrice = `minPrice=${this.state.maxPrice}`;
+		// let queryMinPrice = `minPrice=${this.state.minPrice}`;
+		// let queryMaxPrice = `minPrice=${this.state.maxPrice}`;
 		
 		
 		axios.get( getUrl(`/product/get?${queryTitle}&${querySort}&${queryCategory}`) ).then( (res) => {
