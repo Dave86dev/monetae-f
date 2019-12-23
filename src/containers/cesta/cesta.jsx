@@ -7,7 +7,7 @@ import "./cesta.scss";
 
 import store from "../../redux/store";
 import { rdx_productDetail } from "../../redux/actions/products";
-import { minMax } from "../../utils/uti";
+import { minMax, numToStr } from "../../utils/uti";
 
 
 
@@ -119,8 +119,8 @@ class Cesta extends React.Component {
 								</div>
 								
 								<div className="cardBody">
-									<h1 className="totalPrice">{_x.price * _x.cartQuantity} €</h1>
-									<h3 className="price mb2">{_x.price} €/u</h3>
+									<h1 className="totalPrice">{ numToStr(_x.price * _x.cartQuantity) } €</h1>
+									<h3 className="price mb2">{ numToStr(_x.price)} €/u</h3>
 									<h2 className="title mb2">{_x.title}</h2>
 									
 								</div>
@@ -180,7 +180,7 @@ class Cesta extends React.Component {
 				<div className="total mt3 mr5">
 					<button className="botonComprar">
 						<h2>PROCEDER CON LA COMPRA</h2>
-						<he>Total: {sumaTotal} €</he>
+						<he>Total: { numToStr(sumaTotal) } €</he>
 					</button>
 				</div>
 				

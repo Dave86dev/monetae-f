@@ -183,6 +183,18 @@ export const listaCategorias = {
 }
 
 
+
+/*
+	Devuelve un número en función de lo que tenga el usuario:
+		1: Sólo tarjeta de crédito
+		2: Sólo paypal
+		3: Ambos
+	
+	Import:
+		import { userBillingOptions } from "./utils/uti"
+	.
+*/
+
 export const userBillingOptions = (userCard,userPaypal) => {
 
 	let userBilling = 0;
@@ -203,3 +215,51 @@ export const userBillingOptions = (userCard,userPaypal) => {
 	  return userBilling;
 
 }
+
+
+
+/*
+	Convierte un número de más de 3 dígitos en un string que separa las centenas con un punto.
+	
+	Import 
+		import { numToStr } from "./utils/uti"
+	
+	Ejemplo:
+		numToStr(1000);			// "1.000"
+		numToStr(1000, ",");	// "1,000"
+	.
+*/
+
+export const numToStr = (numero, separador = ".") => {
+	
+	// Convierto
+	let strNum = numero.toString();
+	
+	
+	// Pregunto
+	if (strNum.length <= 3) {
+		return strNum;
+	};
+	
+	
+	// Itero
+	let arrNumeros = [];
+	let digitos = 0;
+	
+	for (let _i = strNum.length - 1; _i >= 0; _i --) {
+		
+		arrNumeros.unshift( strNum.charAt(_i) );
+		digitos ++;
+		
+		if (digitos === 3) {
+			if (_i === 0) {break};
+			arrNumeros.unshift( separador );
+			digitos = 0;
+		};
+		
+	};
+	
+	
+	return arrNumeros.join("");
+	
+};

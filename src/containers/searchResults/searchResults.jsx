@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 import { rdx_productDetail, rdx_productSearchResults } from "../../redux/actions/products";
-import { getUrl } from "../../utils/uti";
+import { getUrl, numToStr } from "../../utils/uti";
 import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
 
 import "./searchResults.scss";
@@ -105,7 +105,7 @@ class SearchResults extends React.Component {
 								</div>
 								
 								<div className="cardBody">
-									<h1 className="cardPrice">{_x.price} €</h1>
+									<h1 className="cardPrice">{ numToStr(_x.price)} €</h1>
 									<h2 className="cardTitle">{_x.title}</h2>
 									<p className="cardDescription">
 										{_x.description}

@@ -9,7 +9,7 @@ import "./productDetail.scss";
 import Slider from "../../components/slider/slider";
 import store from "../../redux/store";
 import axios from "axios";
-import { getUrl } from "../../utils/uti";
+import { getUrl, numToStr } from "../../utils/uti";
 import { rdx_productDetail } from "../../redux/actions/products";
 
 
@@ -167,7 +167,7 @@ class ProductDetail extends React.Component {
 						
 						
 						<div className="purchase">
-							<h1 className="price">{this.state.quantity * this.props.productData.price } €</h1>
+							<h1 className="price">{ numToStr(this.state.quantity * this.props.productData.price) } €</h1>
 							
 							<p></p>
 							
