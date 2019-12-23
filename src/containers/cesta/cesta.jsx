@@ -7,7 +7,7 @@ import "./cesta.scss";
 
 import store from "../../redux/store";
 import { rdx_productDetail } from "../../redux/actions/products";
-import { minMax, numToStr} from "../../utils/uti";
+import { minMax, numToStr } from "../../utils/uti";
 
 
 
@@ -35,7 +35,7 @@ class Cesta extends React.Component {
 		
 	};
 	
-
+	
 	
 	pulsaBotonMasMenos(_id, cantidad) {
 		
@@ -51,20 +51,23 @@ class Cesta extends React.Component {
 		
 		
 		let nuevaCantidad = minMax( encontrado.cartQuantity + cantidad, 0, 100 ); // sumo o resto cantidad
-		// encontrado.cartQuantity = nuevaCantidad;  // se la pongo
 		
 		
 		// Estoy aplicando cantidad 0, llamo a borrar
 		if (nuevaCantidad === 0) {
-			
-			console.log( "borrando" );
 			
 			store.dispatch({
 				type: 'CART_REMOVE',
 				payload: encontrado._id
 			});
 			
+			
+			// Actualizo
+			this.calculaPrecioTotal();
+			
+			
 			return;
+			
 		};
 		
 		
@@ -77,7 +80,12 @@ class Cesta extends React.Component {
 			}
 		});
 		
+		
+		// Actualizo
+		this.calculaPrecioTotal();
+		
 	};
+	
 	
 	
 	pulsaBotonEliminar(_id) {
@@ -88,11 +96,16 @@ class Cesta extends React.Component {
 		
 		// Si lo encuentro, lo borro
 		if (encontrado) {
+			
 			store.dispatch({
 				type: 'CART_REMOVE',
 				payload: encontrado._id
-			});			
-		};	
+			});
+			
+			// Actualizo
+			this.calculaPrecioTotal();
+			
+		};
 		
 	};
 	
@@ -142,45 +155,54 @@ class Cesta extends React.Component {
 			</Fragment>
 		)
 		
-	}
+	};
 	
 	
 	
-	// componentDidMount() {
+	calculaPrecioTotal() {
 		
-	// 	// Calculo suma total
-	// 	let sumaTotal = 0;
+		// Calculo suma total
+		let precioTotal = 0;
 		
-	// 	this.props.cart.map( _x => {
-	// 		sumaTotal += (_x.price * _x.cartQuantity);
-	// 	});
-		
-		
-	// 	// Pongo estado
-	// 	this.setState({ total: sumaTotal });
+		this.props.cart.map( _x => {
+			precioTotal += (_x.price * _x.cartQuantity);
+		});
 		
 		
-	// };
+		// Envío a redux
+		store.dispatch({
+			type: 'CART_TOTAL_PRICE',
+			payload: precioTotal
+		});
+		
+		
+		console.log( "preciototal :", precioTotal );
+		
+	};
+	
+	
+	
+	componentDidUpdate() {
+		this.calculaPrecioTotal();
+	};
+	
+	
+	
+	componentDidMount() {
+		this.calculaPrecioTotal();
+	};
 	
 	
 	
 	render() {
 		
-		// Calculo suma total
-		let sumaTotal = 0;
-				
-		this.props.cart.map( _x => {
-			sumaTotal += (_x.price * _x.cartQuantity);
-		});
-		
-		
 		return (
 			<div className="mainSearch">
 				
 				<div className="total mt3 mr5">
-					<button className="botonComprar" onClick={() => {this.pulsaComprar()}}>
+					<button className="botonComprar">
 						<h2>PROCEDER CON LA COMPRA</h2>
-						<he>Total: { numToStr(sumaTotal) } €</he>
+						<h2>Total: { numToStr(this.props.totalPrice) } €</h2>
 					</button>
 				</div>
 				
@@ -198,8 +220,8 @@ class Cesta extends React.Component {
 
 const mapStateToProps = (state) => { // ese state es de redux
 	return ({
-		isLoggedIn: state.isLoggedIn,
-		cart: state.cart
+		cart: state.cart,
+		totalPrice: state.totalPrice
 	})
 }
 export default connect(mapStateToProps) (Cesta);
