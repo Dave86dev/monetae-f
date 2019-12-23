@@ -77,6 +77,12 @@ class Home extends Component {
 					
 			
 					<Slider url={`/product/category?cat=${this.state.categoriaSugerida}&limit=10`} />
+
+					
+					<div className="sliderProductosHome">Los más económicos</div>
+					
+			
+       				<Slider url="/product/econ?limit=10" />
 			
 			</div>
 		</div>

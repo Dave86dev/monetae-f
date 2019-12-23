@@ -6,6 +6,12 @@
         
     }
 
+    .userBothBilling {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .userDataField {
         margin-top: 1em;
         color: var(--pri9);

@@ -76,7 +76,7 @@ class Buy extends React.Component {
                         <div className="cardBody">
                             <div className="userDataField">
                                 <input
-                                    className="inputShipping"
+                                    className="inputShipping mt3"
                                     type="text"
                                     placeholder={this.state.userData.username}
                                     name="username"
@@ -99,12 +99,40 @@ class Buy extends React.Component {
                                 ></input>
                             </div>
                             <div className="userDataField">
-                                <div className="userDataFieldContent">
-                                    {this.state.userData.billing?.city},{this.state.userData.billing?.country}
-                                </div>
+                                <input
+                                    className="inputShipping"
+                                    type="text"
+                                    placeholder={this.state.userData.billing?.city}
+                                    name="city"
+                                    value={this.state.city}
+                                    onChange={ev => {
+                                        this.handleChange(ev);
+                                    }}
+                                ></input>
                             </div>
                             <div className="userDataField">
-                                <div className="userDataFieldContent">{this.state.userData?.phone}</div>
+                                <input
+                                    className="inputShipping"
+                                    type="text"
+                                    placeholder={this.state.userData.billing?.country}
+                                    name="country"
+                                    value={this.state.country}
+                                    onChange={ev => {
+                                        this.handleChange(ev);
+                                    }}
+                                ></input>
+                            </div>
+                            <div className="userDataField">
+                                <input
+                                    className="inputShipping"
+                                    type="text"
+                                    placeholder={this.state.userData?.phone}
+                                    name="phone"
+                                    value={this.state.phone}
+                                    onChange={ev => {
+                                        this.handleChange(ev);
+                                    }}
+                                ></input>
                             </div>
                         </div>
                     </div>
@@ -122,7 +150,23 @@ class Buy extends React.Component {
                         <div className="cardHeader">
                             <h1 className="cardTitle"> Productos y envío: </h1>
                         </div>
-                        <div className="cardBody">{this.props.cart}</div>
+                        <div className="cardBody">
+                            <div className="totalDisplay">
+                                <div className="totalTextDisplay mt3">
+                                    <div className="totalTitle">Productos:</div>
+                                    <div className="totalNum">{this.props.precioTotal}€</div>
+                                    {/* <div className="totalNum">1.000.000€</div> */}
+                                </div>
+                                <div className="totalTextDisplay">
+                                    <div className="totalTitle mt3">Gastos de envío:</div>
+                                    <div className="totalNum mt3">6,00€</div>
+                                </div>
+                                <div className="totalTextDisplay">
+                                    <div className="totalTitle mt5">Total:</div>
+                                    <div className="totalNum mt5">100€</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,7 +176,7 @@ class Buy extends React.Component {
 const mapStateToProps = state => {
     // ese state es de redux
     return {
-        cart: state.cart
+        cart: state.precioTotal
     };
 };
 export default connect(mapStateToProps)(Buy);
