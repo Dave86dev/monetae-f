@@ -22,6 +22,15 @@ class Cesta extends React.Component {
 		}
 	};
 	
+	pulsaComprar() {
+		//Comprobamos si está logeado el usuario, en caso contrario redirijimos a Login
+        if (!this.props.isLoggedIn) {
+			//Redireccionando.. 
+			return setTimeout( () => {
+				this.props.history.push("/login");
+			}, 1000);
+        }
+    }
 	
 	
 	pulsaResultado(productData) {
@@ -200,7 +209,7 @@ class Cesta extends React.Component {
 			<div className="mainSearch">
 				
 				<div className="total mt3 mr5">
-					<button className="botonComprar">
+					<button className="botonComprar" onClick={() => {this.pulsaComprar()}}>
 						<h2>PROCEDER CON LA COMPRA</h2>
 						<h2>Total: { numToStr(this.props.totalPrice) } €</h2>
 					</button>
@@ -221,6 +230,7 @@ class Cesta extends React.Component {
 const mapStateToProps = (state) => { // ese state es de redux
 	return ({
 		cart: state.cart,
+		isLoggedIn: state.isLoggedIn,
 		totalPrice: state.totalPrice
 	})
 }
