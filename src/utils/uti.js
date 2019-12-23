@@ -232,6 +232,12 @@ export const userBillingOptions = (userCard,userPaypal) => {
 
 export const numToStr = (numero, separador = ".") => {
 	
+	// Existe?
+	if (! numero) {
+		return 0
+	};
+	
+	
 	// Convierto
 	let strNum = numero.toString();
 	

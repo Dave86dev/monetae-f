@@ -32,13 +32,20 @@ const reducer = (
 		
 		
 		
+		case "CART_TOTAL_PRICE":
+			return {
+				...state,
+				totalPrice: action.payload
+			};		
+		
 		case "CART_ADD":
+		
+		
+		
 		return {
 			...state,
 			cart: [...state.cart, action.payload]
 		};
-		
-		
 		
 		case "CART_EDIT":
 			
