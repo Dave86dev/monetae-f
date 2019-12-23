@@ -4,11 +4,12 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 
+import "./searchResults.scss";
+
 import { rdx_productDetail, rdx_productSearchResults } from "../../redux/actions/products";
 import { getUrl, numToStr } from "../../utils/uti";
 import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
 
-import "./searchResults.scss";
 
 
 class SearchResults extends React.Component {
@@ -38,6 +39,14 @@ class SearchResults extends React.Component {
 	
 	
 	
+	handleChangePrice = (ev, nombreEstado) => {
+		this.setState({[nombreEstado]: ev.target.type === 'number' ? +ev.target.value : ev.target.value}, () => {
+			this.llamaAxios();
+		});
+	};
+	
+	
+	
 	pulsaSort(tipo) {
 		this.setState({ sort: tipo }, () => {
 			this.llamaAxios();
@@ -51,11 +60,11 @@ class SearchResults extends React.Component {
 		let queryTitle = `title=${this.props.productSearchResults?.keywords}`;
 		let querySort = `sort=${this.state.sort}`;
 		let queryCategory = `category=${this.state.category}`;
-		// let queryMinPrice = `minPrice=${this.state.minPrice}`;
-		// let queryMaxPrice = `minPrice=${this.state.maxPrice}`;
+		let queryMinPrice = `minPrice=${this.state.minPrice}`;
+		let queryMaxPrice = `maxPrice=${this.state.maxPrice}`;
 		
 		
-		axios.get( getUrl(`/product/get?${queryTitle}&${querySort}&${queryCategory}`) ).then( (res) => {
+		axios.get( getUrl(`/product/get?${queryTitle}&${querySort}&${queryCategory}&${queryMinPrice}&${queryMaxPrice}`) ).then( (res) => {
 			
 			rdx_productSearchResults({
 				keywords: this.props.productSearchResults.keywords,
@@ -73,6 +82,7 @@ class SearchResults extends React.Component {
 	componentDidUpdate() {
 		this.render();
 	};
+	
 	
 	
 	pulsaResultado(productData) {
@@ -131,7 +141,19 @@ class SearchResults extends React.Component {
 				<div className="filters pt3 pb3">
 					
 					<div className="precio">
-						Precio: <input type="text" className="ml2" placeholder="Mín." /> - <input type="text" placeholder="Máx." />
+						Precio:
+						<input
+							type="text"
+							className="ml2"
+							placeholder="Mín."
+							onChange={ (ev) => {this.handleChangePrice(ev, "minPrice")} }
+						/>
+						-
+						<input
+							type="text"
+							placeholder="Máx."
+							onChange={ (ev) => {this.handleChangePrice(ev, "maxPrice")} }
+						/>
 					</div>
 					
 					<div className="sort ml3">
@@ -163,7 +185,8 @@ class SearchResults extends React.Component {
 				
 				<div className="mainResults pt3 pb3">
 					{this.muestraResultados()}
-				</div>		
+				</div>
+				
 			</div>
 			
 		);
