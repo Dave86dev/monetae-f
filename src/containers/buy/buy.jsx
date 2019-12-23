@@ -65,6 +65,9 @@ class Buy extends React.Component {
     }
 
     render() {
+
+        
+
         return (
             <div className="mainBuy mt3">
                 {/* <pre>{JSON.stringify(this.state.address, null,2)}</pre> */}
@@ -175,8 +178,10 @@ class Buy extends React.Component {
 }
 const mapStateToProps = state => {
     // ese state es de redux
+    console.log(state);
     return {
-        cart: state.precioTotal
+        cart: state.cart,
+        precioTotal: state.totalPrice
     };
 };
 export default connect(mapStateToProps)(Buy);

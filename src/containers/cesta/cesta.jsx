@@ -29,7 +29,10 @@ class Cesta extends React.Component {
 			return setTimeout( () => {
 				this.props.history.push("/login");
 			}, 1000);
-        }
+        }else{
+			//Al estar logeado, redireccionamos al a fase final de compra
+			this.props.history.push("/buy");
+		}
     }
 	
 	
