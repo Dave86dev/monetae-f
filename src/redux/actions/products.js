@@ -17,6 +17,7 @@ export const rdx_productSearchResults = (productSearchResults) => {
 };
 
 
+
 export const rdx_cartAdd = (product) => {
     store.dispatch({
 		type: 'CART_ADD',

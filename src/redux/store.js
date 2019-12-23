@@ -27,8 +27,12 @@ const store = createStoreWithMiddleware(
 	reducer,
 	load({
 		preloadedState:{
+			
 			isLoggedIn: !!session.get(),
-			cart:[]
+			
+			cart:[],
+			totalPrice: 0,
+			
 		},
 		states: ["cart"] }),
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
