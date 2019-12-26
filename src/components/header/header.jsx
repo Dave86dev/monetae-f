@@ -18,6 +18,8 @@ class Header extends React.Component {
 		super(props);
 		
 		this.state = {
+			keywords: "",
+			debounce_timeout: null,
 			
 		}
 		
@@ -92,8 +94,9 @@ class Header extends React.Component {
 	
 	
 	
-	buscaResultados(keywords = "") {
+	buscaResultados() {
 		
+		let keywords = this.state.keywords;
 		let query = keywords !== "" ? `?title=${keywords}` : "";
 		
 		
@@ -115,6 +118,28 @@ class Header extends React.Component {
 	
 	
 	
+	debounce() {
+		
+		// Si ya estoy en un timeout, salgo y cancelo
+		if (this.state.debounce_timeout) {
+			clearTimeout(this.state.debounce_timeout); // quito el loop
+			this.setState({ debounce_timeout: null }); // y su referencia
+		};
+		
+		
+		// Empiezo un timeout
+		const loop = setTimeout( () => {
+			this.buscaResultados();
+		}, 500);
+		
+		
+		// Guardo la referencia de timeout
+		this.setState({ debounce_timeout: loop }); 
+		
+	};
+	
+	
+	
 	pulsaTecla(ev) {
 		
 		let busqueda = ev.target.value;
@@ -127,8 +152,11 @@ class Header extends React.Component {
 			
 		} else {
 			
+			// Guardo resultados
+			this.setState({ keywords: busqueda });
+			
 			// Busco resultados
-			this.buscaResultados(busqueda);
+			this.debounce();
 			
 			// Redirijo
 			this.props.history.push("/search");
