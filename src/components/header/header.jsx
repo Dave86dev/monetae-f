@@ -76,6 +76,11 @@ class Header extends React.Component {
 							Registrarse
 						</NavLink>
 					</button>
+					<button>
+						<NavLink exact to="/cart">
+							Cesta {strNCesta}
+						</NavLink>
+					</button>
 					
 				</Fragment>
 						

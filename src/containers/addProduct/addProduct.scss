@@ -16,6 +16,30 @@
         margin-top: 1em;
     }
 
+    .previewCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 30em;
+        width: 50em;
+        border-radius: 3px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: var(--pri0);
+        margin-top: 1em;
+        
+        .preTitle {
+            width: 50em;
+            text-align: left;
+        }
+
+        .preDescription {
+            width: 30em;
+            text-align: left;
+        }
+
+        
+    }
+
     .productRegisterFieldsA{
         display: flex;
         flex-direction: column;

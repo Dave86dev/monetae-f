@@ -237,7 +237,7 @@ class AddProduct extends React.Component {
 		
 		return(
 			<div className="addProductMain">
-            {/* <pre>{JSON.stringify(this.state, null,2)}</pre> */}
+            
 
 				<div className="addProductCard">
 					<h2>Añade un nuevo producto</h2>
@@ -247,26 +247,7 @@ class AddProduct extends React.Component {
                         <input className="inputaddProduct" type="text" placeholder="Stock"  name="stock" value={this.state.stock}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Stock Activo"  name="stockActivo" value={this.state.stockActivo}  onChange={this.handleChange} ></input>
                         <input className="inputaddProduct" type="text" placeholder="Localizacion"  name="location" value={this.state.location}  onChange={this.handleChange} ></input>
-                        {/* <input className="inputaddProduct" type="text" placeholder="Categoría"  name="category" value={this.state.category}  onChange={this.handleChange} ></input> */}
-                        {/* <select className="categoryDropdown br" name="category" value={this.state.category} onChange={this.handleChange}>
-					        	<option value="">Elige una categoría</option>
-					        	<option value="aut">Automóvil</option>
-					        	<option value="ali">Alimentación</option>
-					        	<option value="bri">Bricolaje</option>
-					        	<option value="cul">Cultura</option>
-					        	<option value="dep">Deporte</option>
-					        	<option value="electrod">Electrodomésticos</option>
-					        	<option value="electron">Electrónica</option>
-                                <option value="hog">Hogar</option>
-					        	<option value="jug">Juguetes</option>
-					        	<option value="vid">Videojuegos</option>
-					        	<option value="mod">Moda</option>
-					        	<option value="ofi">Oficina</option>
-					        	<option value="par">Parafarmacia</option>
-					        	<option value="cos">Cosmética</option>
-					        	<option value="otr">Otros</option>
-					    </select> */}
-						
+                        
 						<DropdownCategories
 							category={this.state.category}
 							handleChange={this.handleChange}
@@ -291,6 +272,13 @@ class AddProduct extends React.Component {
                     
                     <button onClick={this.pulsaProduct}>Añadir</button>
                     <p className={this.state.messageClassName}> {this.state.message} </p>
+                </div>
+
+                <div className="previewCard ml5">
+                    {/* <pre>{JSON.stringify(this.state, null,2)}</pre> */}
+                    <pre><div className="preTitle mt5 ml5"><h2>{this.state.titulo}</h2></div></pre>
+                    <pre><div className="preTitle mt5 ml5"><h2>{this.state.precio}</h2></div></pre>
+                    <pre><div className="preDescription mt5 ml5"><textarea className="textAddProduct" rows="5" cols="60" maxLength="400" disabled="true" value={this.state.description} ></textarea></div></pre>
                 </div>
 				
 			</div>
