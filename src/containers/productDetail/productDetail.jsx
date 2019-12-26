@@ -21,6 +21,7 @@ class ProductDetail extends React.Component {
 		
 		this.state = {
 			quantity: 0,
+			imageIdx: 0,
 			
 		}
 	};
@@ -32,7 +33,7 @@ class ProductDetail extends React.Component {
 	};
 	
 	pulsaFoto (ev, idx) {
-		document.querySelector(".img").src = this.props.productData.imageUrl[idx];
+		this.setState({ imageIdx: idx });
 	};
 	
 	meteCesta (_id) {
@@ -122,23 +123,7 @@ class ProductDetail extends React.Component {
 		
 	}
 	
-	componentDidUpdate () {
-		
-		// PENDIENTE
-		/*
-		//Quito la clase hide a todos para reinicializar.
-		for (let i= 1; i<4; i++){
-			document.querySelector("#img" + i).classList.remove("hide");
-		} 
-		
-		//Se la pongo en caso de que la url tenga el valor "".
-		for (let i= 1; i<4; i++){
-			if(this.props.productData.imageUrl[i] === ""){
-				document.querySelector("#img" + i).classList.add("hide");
-			}
-		}
-		*/
-	}
+	
 	
 	render() {
 		
@@ -151,14 +136,14 @@ class ProductDetail extends React.Component {
 					
 						<div className="images">
 							<div className="bigImage br">
-								<img className="img" src={this.props.productData.imageUrl[0]} alt=""/>
+								<img className="img" src={this.props.productData.imageUrl[this.state.imageIdx]} alt=""/>
 							</div>
 							
 							<div className="gallery">
-								<img className="miniImg" id="img0" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt=""/>
-								<img className="miniImg" id="img1" onClick={ (ev) => this.pulsaFoto(ev, 1) } src={this.props.productData.imageUrl[1]} alt=""/>
-								<img className="miniImg" id="img2" onClick={ (ev) => this.pulsaFoto(ev, 2) } src={this.props.productData.imageUrl[2]} alt=""/>
-								<img className="miniImg" id="img3" onClick={ (ev) => this.pulsaFoto(ev, 3) } src={this.props.productData.imageUrl[3]} alt=""/>
+								<img className={ this.props.productData.imageUrl[0] ? "miniImg" : "hide" } id="img0" onClick={ (ev) => this.pulsaFoto(ev, 0) } src={this.props.productData.imageUrl[0]} alt="" />
+								<img className={ this.props.productData.imageUrl[1] ? "miniImg" : "hide" } id="img1" onClick={ (ev) => this.pulsaFoto(ev, 1) } src={this.props.productData.imageUrl[1]} alt="" />
+								<img className={ this.props.productData.imageUrl[2] ? "miniImg" : "hide" } id="img2" onClick={ (ev) => this.pulsaFoto(ev, 2) } src={this.props.productData.imageUrl[2]} alt="" />
+								<img className={ this.props.productData.imageUrl[3] ? "miniImg" : "hide" } id="img3" onClick={ (ev) => this.pulsaFoto(ev, 3) } src={this.props.productData.imageUrl[3]} alt="" />
 							</div>
 							
 						</div>
