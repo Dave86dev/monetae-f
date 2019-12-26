@@ -26,6 +26,10 @@ class Buy extends React.Component {
         this.setState({ [ev.target.name]: ev.target.type === "number" ? +ev.target.value : ev.target.value });
     };
 
+    pulsaBuy () {
+        console.log("hemos pulsado el botón de compra");
+    }
+
     async componentDidMount() {
         try {
             let token = session.get().token;
@@ -65,9 +69,6 @@ class Buy extends React.Component {
     }
 
     render() {
-
-        
-
         return (
             <div className="mainBuy mt3">
                 {/* <pre>{JSON.stringify(this.state.address, null,2)}</pre> */}
@@ -162,12 +163,15 @@ class Buy extends React.Component {
                                 </div>
                                 <div className="totalTextDisplay">
                                     <div className="totalTitle mt3">Gastos de envío:</div>
-                                    <div className="totalNum mt3">6,00€</div>
+                                    <div className="totalNum mt3">6€</div>
                                 </div>
                                 <div className="totalTextDisplay">
                                     <div className="totalTitle mt5">Total:</div>
-                                    <div className="totalNum mt5">100€</div>
+                                    <div className="totalNum mt5">{this.props.precioTotal + 6}€</div>
                                 </div>
+                            </div>
+                            <div className="buttonContainer">
+                                <button onClick={() => {this.pulsaBuy()}}>Comprar</button>
                             </div>
                         </div>
                     </div>

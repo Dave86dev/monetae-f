@@ -72,6 +72,23 @@ class ProductDetail extends React.Component {
 		};
 		
 	}
+
+	pulsaComprar (_id) {
+		//Comprobamos si está logeado el usuario, en caso contrario redirijimos a Login
+        if (!this.props.isLoggedIn) {
+			//Redireccionando.. 
+			return setTimeout( () => {
+				this.props.history.push("/login");
+			}, 1000);
+        }else{
+
+			//Introducimos el producto en el carrito..
+			this.meteCesta(_id);
+
+			//Al estar logeado, redireccionamos al a fase final de compra
+			this.props.history.push("/cart");
+		}
+	}
 	
 	
 	async componentDidMount() {
@@ -193,7 +210,7 @@ class ProductDetail extends React.Component {
 							</div>
 							
 							<button className="purchaseButton" onClick={ () => {this.meteCesta(this.props.productData._id)} }>Añadir a la cesta</button>
-							<button className="purchaseButton">Comprar</button>
+							<button className="purchaseButton" onClick={ () => {this.pulsaComprar(this.props.productData._id)}}>Comprar</button>
 						</div>
 					</div>
 				}
@@ -214,6 +231,7 @@ class ProductDetail extends React.Component {
 const mapStateToProps = (state) => { // ese state es de redux
 	return ({
 		productData: state.productData,
+		isLoggedIn: state.isLoggedIn,
 		cart: state.cart
 	})
 }

@@ -64,5 +64,19 @@
         width: 5em;
     }
 
+    .buttonContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        
+        button {
+            margin-top: 1.5em;
+            font-size: 1em;
+        }
+
+    }
+    
+    
+
 }
 
