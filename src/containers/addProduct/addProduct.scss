@@ -18,7 +18,7 @@
 
     .previewCard {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         height: 30em;
         width: 50em;
@@ -27,8 +27,19 @@
         background: var(--pri0);
         margin-top: 1em;
         
+        .previewImage .imagePreOne {
+            max-height: 18.48em;
+	        max-width: 20em;
+        }
+
+        .previewText {
+            display: flex;
+            flex-direction: column;
+            align-items:left;
+        }
+
         .preTitle {
-            width: 50em;
+            width: 20em;
             text-align: left;
         }
 
@@ -117,6 +128,14 @@
         font-size: 1em;
         border-width: 0.5px;
         border-color: var(--pri9);
+    }
+
+    .textAddProductTwo {
+        background: var(--pri0);
+        resize: none;
+        font-size: 1em;
+        border: none;
+        
     }
 
     .textAddProduct:focus{
