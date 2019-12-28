@@ -252,7 +252,7 @@ class AddProduct extends React.Component {
                         </pre>
                         <pre>
                             <div className="preDescription mt5 ml5">
-                                <textarea className="textAddProductTwo" rows="5" cols="50" maxLength="400" disabled="true" value={this.state.description}></textarea>
+                                <textarea className="textAddProductTwo" rows="5" cols="50" maxLength="400" disabled={true} value={this.state.description}></textarea>
                             </div>
                         </pre>
                     </div>

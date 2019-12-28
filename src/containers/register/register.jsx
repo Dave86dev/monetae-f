@@ -213,9 +213,12 @@ class Register extends React.Component {
 			// Muestro
             this.muestraError("Usuario registrado con éxito.", 2, false);
             
-            setTimeout( () => {
+            setTimeout ( () => {
+                //reseteamos los valores de los input
                 this.resetState();
-            }, 2000)
+                //redireccionamos a login
+                this.props.history.push("/login");
+            },1500)
             
 			
 		} catch (err) {
