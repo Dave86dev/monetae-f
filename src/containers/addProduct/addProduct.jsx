@@ -237,7 +237,7 @@ class AddProduct extends React.Component {
                 <div className="previewCard ml5">
                     {/* <pre>{JSON.stringify(this.state, null,2)}</pre> */}
                     <div className="previewImage">
-                        <img className="ml5 imagePreOne" src={this.state.image1} name="imagenUser"></img>
+                        <img className="ml5 imagePreOne" src={this.state.image1} name="imagenUser" alt="" ></img>
                     </div>
                     <div className="previewText">
                         <pre>

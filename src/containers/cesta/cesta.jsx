@@ -177,7 +177,7 @@ class Cesta extends React.Component {
 		let precioTotal = 0;
 		
 		this.props.cart.map( _x => {
-			precioTotal += (_x.price * _x.cartQuantity);
+			return precioTotal += (_x.price * _x.cartQuantity);
 		});
 		
 		
