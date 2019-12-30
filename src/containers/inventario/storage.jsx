@@ -97,11 +97,10 @@ class Storage extends React.Component {
 		
 		// Guardo en redux
 		rdx_productDetail(productData);
-		console.log( productData );
-		
+		console.log(productData);
 		
 		// Redirijo
-		this.props.history.push(`/detail?id=${productData._id}`);
+		this.props.history.push(`/editProduct?id=${productData._id}`);
 		
 	};
 	
@@ -117,19 +116,17 @@ class Storage extends React.Component {
 							<div
 								className="card"
 								key={_x._id}
-								onClick={ () => { this.pulsaResultado(_x)} }
+								// onClick={ () => { this.pulsaResultado(_x)} }
 							>
-								<div className="cardHeader">
-									<img className="cardImage" src={_x.imageUrl[0]} alt="producto"/>
-								</div>
-								
-								<div className="cardBody">
-									<h1 className="cardPrice">{ numToStr(_x.price)} €</h1>
-									<h2 className="cardTitle">{_x.title}</h2>
-									<p className="cardDescription">
-										{_x.description}
-									</p>
-								</div>
+								<img className="cardImage mr1" src={_x.imageUrl[0]} alt="producto"/>
+								<h1 className="cardText">{_x.title}</h1>
+								<h1 className="cardText mr1">{ numToStr(_x.price)} €</h1>
+								<h1 className="cardText mr1">Almacen: { _x.location}</h1>
+								<h1 className="cardText mr1">Stock Total: { _x.stock}</h1>
+								<h1 className="cardText mr1">Stock Activo: { _x.activeStock}</h1>
+								<button onClick={ () => { this.pulsaResultado(_x)}}>
+									Editar
+								</button>
 							</div>					
 						)
 					})
@@ -201,3 +198,4 @@ const mapStateToProps = (state) => { // ese state es de redux
 
 
 export default connect(mapStateToProps) (withRouter(Storage));
+

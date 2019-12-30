@@ -12,6 +12,7 @@ import Profile from "./components/profile/profile";
 import Register from "./containers/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
 import AddProduct from "./containers/addProduct/addProduct";
+import editProduct from "./containers/editProduct/editProduct";
 import Cesta from "./containers/cesta/cesta";
 import Buy from "./containers/buy/buy";
 import Storage from "./containers/inventario/storage";
@@ -39,6 +40,7 @@ export default function App() {
 					<Route path="/cart" exact component={Cesta} />
 					<Route path="/buy" exact component={Buy} />
 					<Route path="/storage" exact component={Storage} />
+					<Route path="/editProduct" exact component={editProduct} />
 					
 					<Route path="/addProduct" exact component={AddProduct} />
 					
