@@ -19,7 +19,7 @@ class SearchResults extends React.Component {
 		
 		this.state = {
 			
-			sort: "vd",
+			sort: "ra",
 			minPrice: "",
 			maxPrice: "",
 			category: "",
@@ -101,6 +101,14 @@ class SearchResults extends React.Component {
 	
 	muestraResultados() {
 		
+		if (! this.props.productSearchResults?.data || this.props.productSearchResults?.data?.length === 0) {
+			return (
+				<Fragment>
+					<p>No hay resultados para tu búsqueda.</p>
+				</Fragment>
+			);
+		};
+		
 		return (
 			<Fragment>
 				{
@@ -164,10 +172,10 @@ class SearchResults extends React.Component {
 						<button onClick={() => {this.pulsaSort("pd")}} >
 							<img src="/img/filter_price_des.png" alt="filtro precio des"/>
 						</button>
-						<button onClick={() => {this.pulsaSort("va")}} >
+						<button onClick={() => {this.pulsaSort("ra")}} >
 							<img src="/img/filter_votes_asc.png" alt="filtro votos asc"/>
 						</button>
-						<button onClick={() => {this.pulsaSort("vd")}} className="lastBtn">
+						<button onClick={() => {this.pulsaSort("rd")}} className="lastBtn">
 							<img src="/img/filter_votes_des.png" alt="filtro votos des"/>
 						</button>
 						
