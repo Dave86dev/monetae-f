@@ -154,7 +154,7 @@ class ProductDetail extends React.Component {
 							<h2 className="title">{this.props.productData.title}</h2>
 							<p className="seller">Vendedor: <a href="/">{this.props.productData._ownerUsername}</a> </p>
 							<p className="sellerRating">
-							Karma: {this.props.productData._totalKarma}
+							Karma: {this.props.productData._ownerKarma}
 								{/* <img className="ratingStar" src="/img/star.png" alt=""/>
 								<img className="ratingStar" src="/img/star.png" alt=""/>
 								<img className="ratingStar" src="/img/star.png" alt=""/>

@@ -53,37 +53,40 @@ class Home extends Component {
     	// });
 		
 	}
-
+	
 	
 	render() {
 		return (
-
+		
 		<div className="home">
 			<div className="mainHome">
-				
+					
 					<div className="sliderProductosHome">Los más vendidos</div>
 					
-			
-       				<Slider url="/product/best?limit=10" />
-			
+					
+       				{/* <Slider url="/product/best?limit=10" /> */}
+       				<Slider url="/product/get?isActive=true&sort=tsd&limit=10" />
+					
 					
 					<div className="sliderProductosHome">Los más votados</div>
-				
-			
-					<Slider url="/product/voted?limit=10" />
-			
+					
+					
+					{/* <Slider url="/product/voted?limit=10" /> */}
+					<Slider url="/product/get?isActive=true&sort=rd&limit=10" />
 					
 					<div className="sliderProductosHome">Sugerencias para ti</div>
 					
-			
-					<Slider url={`/product/category?cat=${this.state.categoriaSugerida}&limit=10`} />
-
+					
+					{/* <Slider url={`/product/category?cat=${this.state.categoriaSugerida}&limit=10`} /> */}
+					<Slider url={`/product/get?category=${this.state.categoriaSugerida}&limit=10`} />
+					
 					
 					<div className="sliderProductosHome">Los más económicos</div>
 					
-			
-       				<Slider url="/product/econ?limit=10" />
-			
+					
+       				{/* <Slider url="/product/econ?limit=10" /> */}
+       				<Slider url="/product/get?isActive=true&sort=pa&limit=10" />
+					
 			</div>
 		</div>
 		)
