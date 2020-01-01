@@ -168,7 +168,7 @@ class Header extends React.Component {
             <header>
                 <div className="logo">
                     <NavLink to="/">
-                        <img src="https://trello-attachments.s3.amazonaws.com/5de522b655e9ad63df7441fb/5def57a617949c786fc8ec01/261e294ef093b2db52c2bf6d093c2bd1/logoMonetae_3.png" alt="logo" />
+                        <img src="https://trello-attachments.s3.amazonaws.com/5def57a617949c786fc8ec01/128x128/b7e4b100119342c9fa696e34ec5e9621/logoMonetae_3lit.png" alt="logo" />
                     </NavLink>
                 </div>
 
