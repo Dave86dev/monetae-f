@@ -110,7 +110,54 @@ class Storage extends React.Component {
 		
 		return (
 			<Fragment>
-				{
+				
+				<table>
+					
+					<thead>
+						<tr>
+							<th>Imagen</th>
+							<th>Activo</th>
+							<th>Almacén</th>
+							<th>Título</th>
+							<th>Precio</th>
+							<th>Stock activo</th>
+							<th>Stock</th>
+							<th>Valor total</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					
+					
+					<tbody>
+						{
+							this.props.productSearchResults?.data?.map(_x => {
+								return (
+									<tr>
+										<th>
+											<img className="image" src={_x.imageUrl[0]} alt="producto"/>
+										</th>
+										<th>{_x.isActive ? "Sí" : "No"}</th>
+										<th>{_x.location}</th>
+										<th>{_x.title}</th>
+										<th>{ numToStr(_x.price) }€</th>
+										<th>{_x.activeStock}</th>
+										<th>{_x.stock}</th>
+										<th>{ numToStr(_x.activeStock * _x.price) }€</th>
+										<th>
+											<button onClick={ () => { this.pulsaResultado(_x)}}>
+												Editar
+											</button>
+										</th>
+									</tr>
+								)
+							})
+							
+						}
+					</tbody>
+						
+				</table>
+				
+				{/* {
 					this.props.productSearchResults?.data?.map(_x => {
 						return (
 							<div
@@ -131,7 +178,7 @@ class Storage extends React.Component {
 						)
 					})
 					
-				}
+				} */}
 			</Fragment>
 		)
 		
@@ -142,7 +189,7 @@ class Storage extends React.Component {
 	render() {
 		
 		return (
-			<div className="mainSearch">
+			<div className="mainStorage">
 				
 				<div className="filters pt3 pb3">
 					
