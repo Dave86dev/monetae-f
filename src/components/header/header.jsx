@@ -25,10 +25,10 @@ class Header extends React.Component {
 
         const userType = session.get()?.userType;
 
-        if (this.props.isLoggedIn) {
+        if (this.props.isLoggedIn && userType) {
             // si estoy logeado...
 
-            //si soy vendedor..
+            //en el caso de que sea vendedor..
 			if (userType === 1) {
                 return (
                     <Fragment>
@@ -53,7 +53,7 @@ class Header extends React.Component {
                     </Fragment>
                 );
             } else {
-                //si sólo soy comprador..
+                //en el caso de que sea sólo comprador..
                 return (
                     <Fragment>
                         <button>
@@ -73,6 +73,7 @@ class Header extends React.Component {
                 );
             }
         } else {
+            //visito la página de forma anónima..
             return (
                 <Fragment>
                     <button>
