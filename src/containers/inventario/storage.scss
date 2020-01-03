@@ -19,6 +19,12 @@
 			width: 5em;
 			height: 2em;
 		}
+		
+		.reiniciarFiltros {
+			font-size: 1em;
+			height: 1.45em;
+		}		
+		
 	}
 	
 	table {
@@ -51,7 +57,7 @@
 			top: 50%;
 			position: absolute;
 			width: 0;
-		}s
+		}
 		th.sort-by:before {
 			border-bottom-color: #666;
 			margin-top: -9px;
@@ -63,8 +69,7 @@
 		
 		button {
 			font-size: 1em;
-		}
-			
+		}	
 		
 	}
 	

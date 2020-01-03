@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import axios from "axios";
 
 import "./storage.scss";
 
-import { rdx_productDetail, rdx_productSearchResults } from "../../redux/actions/products";
-import { getUrl, numToStr, session } from "../../utils/uti";
+import { rdx_productDetail } from "../../redux/actions/products";
+import { getUrl, numToStr, session, listaCategorias } from "../../utils/uti";
 import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
 
 
@@ -19,11 +19,15 @@ class Storage extends React.Component {
 		this.state = {
 			
 			sort: "vd",
-			minPrice: "",
-			maxPrice: "",
-			category: "",
 			
-			productList: [],
+			filtro_categoria: "",
+			filtro_titulo: "",
+			filtro_almacen: "",
+			
+			storageProducts: [],
+			storageProducts_filtered: [],
+			
+			
 		}
 		
 	};
@@ -31,66 +35,88 @@ class Storage extends React.Component {
 	
 	
     handleChangeDropdown = (ev) =>{
-		this.setState({[ev.target.name]: ev.target.type === 'number' ? +ev.target.value : ev.target.value}, () => {
-			this.llamaAxios();
+		this.setState({filtro_categoria: ev.target.type === 'number' ? +ev.target.value : ev.target.value}, () => {
+			this.applyFilters();
 		});
 	};
 	
 	
 	
-	handleChangeStorage = (ev, nombreEstado) => {
+	handleChange = (ev, nombreEstado) => {
 		this.setState({[nombreEstado]: ev.target.type === 'number' ? +ev.target.value : ev.target.value}, () => {
-			this.llamaAxios();
+			this.applyFilters();
 		});
 	};
 	
 	
 	
-	llamaAxios() {
+	applyFilters() {
 		
-		// let queryTitle = `title=${this.props.productSearchResults?.keywords}`;
-		// let querySort = `sort=${this.state.sort}`;
-		// let queryCategory = `category=${this.state.category}`;
-        // let token = session.get().token;
-        // let id = session.get().userId;
-
-        
-		// axios.get( getUrl(`/product/getByOwner?ownerId=${id}&token=${token}`) ).then( (res) => {
+		let newArr = this.state.storageProducts.filter( _x => {
 			
-		// 	rdx_productSearchResults({
-		// 		keywords: this.props.productSearchResults?.keywords,
-		// 		data: res.data
-		// 	});
+			console.log( 
+				!!(this.state.filtro_categoria)
+			);
 			
-		// }).catch( (err) => {
-		// 	console.log( err );
-		// });		
+			return (
+				
+				_x.title.toLowerCase().includes(
+					this.state.filtro_titulo.toLowerCase()
+				)
+				
+				&&
+				
+				_x.location.toLowerCase().includes(
+					this.state.filtro_almacen.toLowerCase()
+				)
+				
+				&& 
+				
+				(_x.category[0] === this.state.filtro_categoria || this.state.filtro_categoria === "")
+				
+			);
+		});
 		
-    };
-    
+		
+		// Guardo
+		this.setState({ storageProducts_filtered: newArr });
+		
+		
+	};
+	
+	
+	
+	resetFilters() {
+		
+		this.setState({
+			filtro_categoria: "",
+			filtro_almacen: "",
+			filtro_titulo: ""
+		}, () => this.applyFilters() );		
+		
+	};
+	
+	
+	
     componentDidMount() {
-
+		
         let token = session.get().token;
         let id = session.get().userId;
-
+		
         
 		axios.get( getUrl(`/product/getByOwner?ownerId=${id}&token=${token}`) ).then( (res) => {
 			
-			rdx_productSearchResults({
-				keywords: this.props.productSearchResults?.keywords,
-				data: res.data
+			this.setState({
+				storageProducts: res.data,
+				storageProducts_filtered: res.data
 			});
 			
 		}).catch( (err) => {
 			console.log( err );
 		});	
-
+		
     };
 	
-    
-    componentDidUpdate() {
-		this.render();
-	};
 	
 	
 	pulsaResultado(productData) {
@@ -108,6 +134,10 @@ class Storage extends React.Component {
 	
 	muestraResultados() {
 		
+		let storageData = this.state.storageProducts_filtered.length > 0 ? this.state.storageProducts_filtered : this.state.storageProducts;
+		storageData = this.state.storageProducts_filtered;
+		
+		
 		return (
 			<Fragment>
 				
@@ -119,6 +149,7 @@ class Storage extends React.Component {
 							<th>Activo</th>
 							<th>Almacén</th>
 							<th>Título</th>
+							<th>Categoría</th>
 							<th>Precio</th>
 							<th>Stock activo</th>
 							<th>Stock</th>
@@ -130,15 +161,16 @@ class Storage extends React.Component {
 					
 					<tbody>
 						{
-							this.props.productSearchResults?.data?.map(_x => {
+							storageData?.map(_x => {
 								return (
-									<tr>
+									<tr key={_x._id}>
 										<th>
 											<img className="image" src={_x.imageUrl[0]} alt="producto"/>
 										</th>
 										<th>{_x.isActive ? "Sí" : "No"}</th>
 										<th>{_x.location}</th>
 										<th>{_x.title}</th>
+										<th>{listaCategorias[_x.category] }</th>
 										<th>{ numToStr(_x.price) }€</th>
 										<th>{_x.activeStock}</th>
 										<th>{_x.stock}</th>
@@ -168,7 +200,7 @@ class Storage extends React.Component {
 								<img className="cardImage mr1" src={_x.imageUrl[0]} alt="producto"/>
 								<h1 className="cardText">{_x.title}</h1>
 								<h1 className="cardText mr1">{ numToStr(_x.price)} €</h1>
-								<h1 className="cardText mr1">Almacen: { _x.location}</h1>
+								<h1 className="cardText mr1">filtro_almacen: { _x.location}</h1>
 								<h1 className="cardText mr1">Stock Total: { _x.stock}</h1>
 								<h1 className="cardText mr1">Stock Activo: { _x.activeStock}</h1>
 								<button onClick={ () => { this.pulsaResultado(_x)}}>
@@ -193,33 +225,42 @@ class Storage extends React.Component {
 				
 				<div className="filters pt3 pb3">
 					
-				    <div className="almacen">
+                    <div className="filtro_titulo">
 						<input
 							type="text"
 							className="ml2 mr5"
-							placeholder="Almacen"
-							onChange={ (ev) => {this.handleChangeStorage(ev, "minPrice")} }
+							placeholder="Título"
+							value={this.state.filtro_titulo}
+							onChange={ (ev) => {this.handleChange(ev, "filtro_titulo")} }
 						/>
 						
 					</div>
-
-                    <div className="titulo">
+					
+				    <div className="filtro_almacen">
 						<input
 							type="text"
 							className="ml2 mr5"
-							placeholder="Producto"
-							onChange={ (ev) => {this.handleChangeStorage(ev, "minPrice")} }
+							placeholder="Almacén"
+							value={this.state.filtro_almacen}
+							onChange={ (ev) => {this.handleChange(ev, "filtro_almacen")} }
 						/>
 						
 					</div>
 					
 				    <div className="categorias ml3">
 						<DropdownCategories
-							category={this.state.category}
+							category={this.state.filtro_categoria}
 							handleChange={this.handleChangeDropdown}
 							defaultCategory={"Todo"}
 						/>
 					</div>
+					
+					<button
+						className="reiniciarFiltros ml5"
+						onClick={ () => this.resetFilters() }
+					>
+						Reiniciar filtros
+					</button>
 					
 					
 				</div>
@@ -236,13 +277,14 @@ class Storage extends React.Component {
 
 
 
-const mapStateToProps = (state) => { // ese state es de redux
-	return ({
-		keywords: state.keywords,
-		productSearchResults: state.productSearchResults
-	})
-}
+// const mapStateToProps = (state) => { // ese state es de redux
+// 	return ({
+// 		keywords: state.keywords,
+// 		productSearchResults: state.productSearchResults,
+// 		productSearchResults_original: state.productSearchResults,
+// 	})
+// }
 
 
-export default connect(mapStateToProps) (withRouter(Storage));
+export default (withRouter(Storage));
 

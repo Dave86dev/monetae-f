@@ -2,7 +2,7 @@
 import React from "react";
 
 
-const DropdownCategories =props=> {
+const DropdownCategories = props=> {
 	
 		return(
 			<select className="categoryDropdown br" name="category" value={props.category} onChange={props.handleChange}>
