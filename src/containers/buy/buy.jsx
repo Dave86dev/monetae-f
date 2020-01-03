@@ -26,72 +26,46 @@ class Buy extends React.Component {
         this.setState({ [ev.target.name]: ev.target.type === "number" ? +ev.target.value : ev.target.value });
     };
 
-    async pulsaBuy () {
-        //procedemos a dar de alta la compra en la base de datos.
+    async pulsaBuy() {
+        //procedemos a dar de alta las compras en la base de datos.
 
-        //modelo de purchase......
+        for (let _y of this.props.cart) {
+            //registramos la purchase en la base de datos.
+            // Construcción del cuerpo de la purchase individualizada.
 
-        //  /*buyerId: 			ObjectId(body.buyerId), *******(lo tenemos, this.state.userData._id)
-        // 	sellerId: 			ObjectId(body.sellerId), *******(problema)
-        //  date:               sin problema, venia default en el modelo y con hacer un date now sobra
-		// 	originCity: 		body.originCity, *******(problema)
-		// 	originCountry: 		body.originCountry, *******(problema)
-		// 	destinationCity: 	body.destinationCity, *******(lo tenemos, this.state.userData.billing.city)
-		// 	destinationCountry: body.destinationCountry, *******(lo tenemos, this.state.userData.billing.country)
-		// 	items: 				body.items, *******(problema)
-		// 	values: 			body.values, *******(problema)
-		// 	totalValue: 		body.totalValue, *******(lo tenemos, this.props.precioTotal)
-		// 	status: 			body.status *******(que demonios vamos a hacer aqui???)
-			
-        
+            let body = {
+                buyerId: this.state.userData._id,
+                sellerId: _y.ownerId,
+                originLocation: _y.location,
+                destinationCity: this.state.userData.billing.city,
+                destinationCountry: this.state.userData.billing.country,
+                items: _y.title + " x " + _y.cartQuantity,
+                totalValue: _y.price * _y.cartQuantity
+            };
 
-        console.log(this.state.userData._id);
-        console.log(this.state.userData.billing.city);
-        console.log(this.state.userData.billing.country);
-        console.log(this.props.precioTotal);
-        console.log(new Date());
+            try {
+                await axios.post(getUrl(`/purchase/add`), body);
 
-        // try {
+                // Muestro
+                // this.muestraError("Compra realizada con éxito.", 2, false);
 
-        // 	// Construcción del cuerpo del producto.
-		// 	let body = {
-        //         buyerId: this.state.userData._id,
-        //         sellerId: ,
-        //         date: ,
-        //         originCity: ,
-        //         originCountry: ,
-        //         destinationCity: this.state.userData.billing.city,
-        //         destinationCountry: this.state.userData.billing.country,
-        //         items: ,
-        //         values: ,
-        //         totalValue: this.props.precioTotal
-        //     };
+                // setTimeout(() => {
+                //     //reseteamos la cesta.
 
-            
-        //     await axios.post( getUrl(`/purchase/add`), body);
-			
-		// 	// Muestro
-        //     this.muestraError("Compra realizada con éxito.", 2, false);
-            
-        //     setTimeout ( () => {
-        //         //reseteamos la cesta.
-
-
-        //         //redireccionamos a purchases
-        //         this.props.history.push("/");
-        //     },1500)
-            
-			
-		// } catch (err) {
-			
-		// 	if(err.response) {
-        //         if(err.response.data) {
-        //             this.muestraError("Ha ocurrido un error durante el registro.");
-        //         }
-        //         return;
-        //     }
-        //     console.log(err);
-		// };
+                //     //redireccionamos a purchases
+                //     this.props.history.push("/");
+                // }, 1500);
+            } catch (err) {
+                if (err.response) {
+                    if (err.response.data) {
+                        // this.muestraError("Ha ocurrido un error durante la compra.");
+                        console.log("ERROR COMPRANDO");
+                    }
+                    return;
+                }
+                console.log(err);
+            }
+        }
     }
 
     async componentDidMount() {
@@ -235,7 +209,13 @@ class Buy extends React.Component {
                                 </div>
                             </div>
                             <div className="buttonContainer">
-                                <button onClick={() => {this.pulsaBuy()}}>Comprar</button>
+                                <button
+                                    onClick={() => {
+                                        this.pulsaBuy();
+                                    }}
+                                >
+                                    Comprar
+                                </button>
                             </div>
                         </div>
                     </div>
