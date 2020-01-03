@@ -73,7 +73,12 @@ class Profile extends React.Component {
     }
 
     render() {
-        let userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
+        let userType = this.state.userData.userType === 1 ? "Cliente" : "Vendedor";
+
+        if (this.state.userData.userType === 3){
+            userType = "Administrador";
+        };
+
         return (
             <div className="main mainProfile">
                 <div className="card mt3">

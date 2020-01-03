@@ -55,7 +55,7 @@ class Register extends React.Component {
             secretQ: "",
             secretA: "",
             phone: "",
-            userType: 0,
+            userType: 1,
             address: "",
             country: "",
             city: "",
@@ -203,7 +203,7 @@ class Register extends React.Component {
                 secretQuestion: this.state.secretQ.trim(),
                 secretAnswer: this.state.secretA.trim(),
                 phone: this.state.phone.trim(),
-                userType: this.state.userType,
+                userType: this.state.userType+1,
                 billing: objectBilling
             };
 

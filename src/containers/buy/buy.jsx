@@ -26,8 +26,72 @@ class Buy extends React.Component {
         this.setState({ [ev.target.name]: ev.target.type === "number" ? +ev.target.value : ev.target.value });
     };
 
-    pulsaBuy () {
-        console.log("hemos pulsado el botón de compra");
+    async pulsaBuy () {
+        //procedemos a dar de alta la compra en la base de datos.
+
+        //modelo de purchase......
+
+        //  /*buyerId: 			ObjectId(body.buyerId), *******(lo tenemos, this.state.userData._id)
+        // 	sellerId: 			ObjectId(body.sellerId), *******(problema)
+        //  date:               sin problema, venia default en el modelo y con hacer un date now sobra
+		// 	originCity: 		body.originCity, *******(problema)
+		// 	originCountry: 		body.originCountry, *******(problema)
+		// 	destinationCity: 	body.destinationCity, *******(lo tenemos, this.state.userData.billing.city)
+		// 	destinationCountry: body.destinationCountry, *******(lo tenemos, this.state.userData.billing.country)
+		// 	items: 				body.items, *******(problema)
+		// 	values: 			body.values, *******(problema)
+		// 	totalValue: 		body.totalValue, *******(lo tenemos, this.props.precioTotal)
+		// 	status: 			body.status *******(que demonios vamos a hacer aqui???)
+			
+        
+
+        console.log(this.state.userData._id);
+        console.log(this.state.userData.billing.city);
+        console.log(this.state.userData.billing.country);
+        console.log(this.props.precioTotal);
+        console.log(new Date());
+
+        // try {
+
+        // 	// Construcción del cuerpo del producto.
+		// 	let body = {
+        //         buyerId: this.state.userData._id,
+        //         sellerId: ,
+        //         date: ,
+        //         originCity: ,
+        //         originCountry: ,
+        //         destinationCity: this.state.userData.billing.city,
+        //         destinationCountry: this.state.userData.billing.country,
+        //         items: ,
+        //         values: ,
+        //         totalValue: this.props.precioTotal
+        //     };
+
+            
+        //     await axios.post( getUrl(`/purchase/add`), body);
+			
+		// 	// Muestro
+        //     this.muestraError("Compra realizada con éxito.", 2, false);
+            
+        //     setTimeout ( () => {
+        //         //reseteamos la cesta.
+
+
+        //         //redireccionamos a purchases
+        //         this.props.history.push("/");
+        //     },1500)
+            
+			
+		// } catch (err) {
+			
+		// 	if(err.response) {
+        //         if(err.response.data) {
+        //             this.muestraError("Ha ocurrido un error durante el registro.");
+        //         }
+        //         return;
+        //     }
+        //     console.log(err);
+		// };
     }
 
     async componentDidMount() {
