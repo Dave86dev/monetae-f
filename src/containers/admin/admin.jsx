@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
 import Moment from 'react-moment';
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import axios from "axios";
 
 import "./admin.scss";
 
-import { rdx_productDetail } from "../../redux/actions/products";
 import { getUrl, numToStr, session, listaCategorias } from "../../utils/uti";
 
 class Admin extends React.Component {
@@ -27,23 +25,23 @@ class Admin extends React.Component {
 
     handleChange = (ev, nombreEstado) => {
         this.setState({ [nombreEstado]: ev.target.type === "number" ? +ev.target.value : ev.target.value }, () => {
-            // this.applyFilters();
+            this.applyFilters();
         });
     };
 
     applyFilters() {
-        let newArr = this.state.storageProducts.filter(_x => {
-            console.log(!!this.state.filtro_categoria);
+        // let newArr = this.state.productSales.filter(_x => {
+        //     console.log(!!this.state.filtro_categoria);
 
-            return (
-                _x.title.toLowerCase().includes(this.state.filtro_dias.toLowerCase()) &&
-                _x.location.toLowerCase().includes(this.state.filtro_meses.toLowerCase()) &&
-                _x.location.toLowerCase().includes(this.state.filtro_years.toLowerCase())
-            );
-        });
+        //     return (
+        //         _x.title.toLowerCase().includes(this.state.filtro_dias.toLowerCase()) &&
+        //         _x.location.toLowerCase().includes(this.state.filtro_meses.toLowerCase()) &&
+        //         _x.location.toLowerCase().includes(this.state.filtro_years.toLowerCase())
+        //     );
+        // });
 
-        // Guardo
-        this.setState({ productSales_filtered: newArr });
+        // // Guardo
+        // this.setState({ productSales_filtered: newArr });
     }
 
     resetFilters() {
@@ -67,7 +65,7 @@ class Admin extends React.Component {
             .then(res => {
                 this.setState({
                     productSales: res.data,
-                    storageProducts_filtered: res.data
+                    productSales_filtered: res.data
                 });
             })
             .catch(err => {
@@ -75,21 +73,10 @@ class Admin extends React.Component {
             });
     }
 
-    pulsaResultado(productData) {
-        // Guardo en redux
-        // rdx_productDetail(productData);
-        // console.log(productData);
-
-        // Redirijo
-        // this.props.history.push(`/editProduct?id=${productData._id}`);
-        console.log("si, has pulsado un resultado, lo se");
-    }
-
     muestraResultados() {
-        // let adminData = this.state.productSales_filtered.length > 0 ? this.state.productSales_filtered : this.state.productSales;
-        // adminData = this.state.productSales_filtered;
+        let adminData = this.state.productSales_filtered.length > 0 ? this.state.productSales_filtered : this.state.productSales;
+        adminData = this.state.productSales_filtered;
 
-        let adminData = this.state.productSales;
         let estado;
 
         return (
@@ -98,11 +85,11 @@ class Admin extends React.Component {
                     <thead>
                         <tr>
                             <th>Items</th>
-                            <th>Fecha</th>
+                            <th>Fecha de compra</th>
                             <th>Comprador</th>
                             <th>Vendedor</th>
-                            <th>Ciudad Destino</th>
-                            <th>Pais Destino</th>
+                            <th>Ciudad destino</th>
+                            <th>Pais destino</th>
                             <th>Origen</th>
                             <th>Valor total</th>
                             <th>Estado</th>
@@ -139,8 +126,8 @@ class Admin extends React.Component {
                                 <tr key={_x._id}>
                                     <th>{_x.items}</th>
                                     <th><Moment format="YYYY/MM/DD">{_x.date}</Moment></th>
-                                    <th>{_x.buyerId}</th>
-                                    <th>{_x.sellerId}</th>
+                                    <th>{_x._buyerUsername}</th>
+                                    <th>{_x._ownerUsername}</th>
                                     <th>{_x.destinationCity}</th>
                                     <th>{_x.destinationCountry}</th>
                                     <th>{_x.originLocation}</th>
@@ -152,35 +139,13 @@ class Admin extends React.Component {
                     </tbody>
                 </table>
 
-                {/* {
-					this.props.productSearchResults?.data?.map(_x => {
-						return (
-							<div
-								className="card"
-								key={_x._id}
-								// onClick={ () => { this.pulsaResultado(_x)} }
-							>
-								<img className="cardImage mr1" src={_x.imageUrl[0]} alt="producto"/>
-								<h1 className="cardText">{_x.title}</h1>
-								<h1 className="cardText mr1">{ numToStr(_x.price)} €</h1>
-								<h1 className="cardText mr1">filtro_almacen: { _x.location}</h1>
-								<h1 className="cardText mr1">Stock Total: { _x.stock}</h1>
-								<h1 className="cardText mr1">Stock Activo: { _x.activeStock}</h1>
-								<button onClick={ () => { this.pulsaResultado(_x)}}>
-									Editar
-								</button>
-							</div>					
-						)
-					})
-					
-				} */}
             </Fragment>
         );
     }
 
-    muestraFacturas() {
-        this.props.history.push("/facturas");
-    }
+    // muestraFacturas() {
+    //     this.props.history.push("/facturas");
+    // }
 
     render() {
         return (
@@ -225,9 +190,9 @@ class Admin extends React.Component {
                     <button className="reiniciarFiltros ml5" onClick={() => this.resetFilters()}>
                         Reiniciar filtros
                     </button>
-                    <button className="reiniciarFiltros ml5" onClick={() => this.muestraFacturas()}>
+                    {/* <button className="reiniciarFiltros ml5" onClick={() => this.muestraFacturas()}>
                         Facturas
-                    </button>
+                    </button> */}
                 </div>
 
                 <div className="mainResults pt3 pb3">{this.muestraResultados()}</div>
@@ -235,13 +200,5 @@ class Admin extends React.Component {
         );
     }
 }
-
-// const mapStateToProps = (state) => { // ese state es de redux
-// 	return ({
-// 		keywords: state.keywords,
-// 		productSearchResults: state.productSearchResults,
-// 		productSearchResults_original: state.productSearchResults,
-// 	})
-// }
 
 export default withRouter(Admin);
