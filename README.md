@@ -179,7 +179,7 @@ Esquema DB
 	- Detalle
 		- Con slider de productos relacionados
 		- Hasta 4 imágenes para cada producto
-		![](https://i.gyazo.com/aa44be757e0a45a392091f49a2c26c3e.png)
+		![](https://i.gyazo.com/7647a28283368875364ee96f4598e4e2.png)
 	
 - Usuarios
 	- Login
