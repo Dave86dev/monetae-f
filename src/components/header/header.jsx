@@ -19,6 +19,8 @@ class Header extends React.Component {
         };
     }
 
+	
+	
     BotonesHeader() {
         let nCesta = this.props.cart ? Object.keys(this.props.cart).length : 0;
         let strNCesta = nCesta === 0 ? "" : `(${nCesta})`;
@@ -96,6 +98,8 @@ class Header extends React.Component {
         }
     }
 
+	
+	
     buscaResultados() {
         let keywords = this.state.keywords;
         let query = keywords !== "" ? `?title=${keywords}` : "";
@@ -114,6 +118,8 @@ class Header extends React.Component {
             });
     }
 
+	
+	
     debounce() {
         // Si ya estoy en un timeout, salgo y cancelo
         if (this.state.debounce_timeout) {
@@ -130,6 +136,8 @@ class Header extends React.Component {
         this.setState({ debounce_timeout: loop });
     }
 
+	
+	
     pulsaTecla(ev) {
         let busqueda = ev.target.value;
         busqueda = busqueda.trim();
@@ -146,8 +154,25 @@ class Header extends React.Component {
             // Redirijo
             this.props.history.push("/search");
         }
-    }
-
+	};
+	
+	
+	
+	pulsaBotonBusqueda() {
+		
+		// Guardo resultados
+		this.setState({ keywords: "" });
+		
+		// Busco resultados
+		this.debounce();
+		
+		// Redirijo
+		this.props.history.push("/search");	
+		
+	};
+	
+	
+	
     pulsaLogout() {
         let token = session.get().token;
 
@@ -164,6 +189,8 @@ class Header extends React.Component {
         this.props.history.push("/");
     }
 
+	
+	
     render() {
         return (
             <header>
@@ -182,7 +209,10 @@ class Header extends React.Component {
                         }}
                     />
                     <div className="backgroundIcon">
-                        <i className="material-icons">search</i>
+						<i
+							className="material-icons"
+							onClick={ () => this.pulsaBotonBusqueda() }
+						>search</i>
                     </div>
                 </div>
 
