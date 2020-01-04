@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import axios from "axios";
 import { getUrl, session, userBillingOptions } from "../../utils/uti";
+import store from "../../redux/store";
 
 import "./buy.scss";
 
@@ -14,11 +15,11 @@ class Buy extends React.Component {
             username: "",
             address: "",
             country: "",
-            phone: ""
+            phone: "",
 
-            // message: "",
-            // errorTime: 0,
-            // messageClassName: "error"
+            message: "",
+            errorTime: 0,
+            messageClassName: "error"
         };
     }
 
@@ -46,20 +47,27 @@ class Buy extends React.Component {
             try {
                 await axios.post(getUrl(`/purchase/add`), body);
 
-                // Muestro
-                // this.muestraError("Compra realizada con éxito.", 2, false);
+                //Muestro
+                this.muestraError("Compra exitosa.", 2, false);
 
-                // setTimeout(() => {
-                //     //reseteamos la cesta.
+                setTimeout(() => {
+                    //vaciamos la cesta.
 
-                //     //redireccionamos a purchases
-                //     this.props.history.push("/");
-                // }, 1500);
+                    for(let _y of this.props.cart){
+                        store.dispatch({
+                            type: 'CART_REMOVE',
+                            payload: _y._id
+                        });
+                    }
+                    
+                    //redireccionamos a main
+                    this.props.history.push("/");
+                }, 2000);
             } catch (err) {
                 if (err.response) {
                     if (err.response.data) {
-                        // this.muestraError("Ha ocurrido un error durante la compra.");
-                        console.log("ERROR COMPRANDO");
+                        this.muestraError("Ha ocurrido un error.");
+                        
                     }
                     return;
                 }
@@ -105,6 +113,42 @@ class Buy extends React.Component {
             </div>
         );
     }
+
+    muestraError (message, timeout = 3, isError = true) {
+		
+		// Pongo la clase
+		let className = isError ? "error" : "success";
+		this.setState({messageClassName: className});
+		
+		
+		// Pongo el mensaje
+		this.setState({message: message});
+		
+		
+		// Ya estoy en loop
+		if (this.state.errorTime > 0) {
+			this.setState({errorTime: timeout});
+			return; // y salgo
+		};
+		
+		
+		this.setState({errorTime: timeout}); // Entro por primera vez, pongo tiempo
+		
+		
+		// Loop
+		let loop = setInterval( ()=> {
+			
+			if (this.state.errorTime <= 0) {
+				this.setState({message: ""});
+				clearInterval(loop); // salgo del loop
+			};
+			
+			
+			this.setState( preState => ( {errorTime: preState.errorTime - 1}) );
+			
+		}, 1000);
+		
+	};
 
     render() {
         return (
@@ -208,7 +252,7 @@ class Buy extends React.Component {
                                     <div className="totalNum mt5">{this.props.precioTotal + 6}€</div>
                                 </div>
                             </div>
-                            <div className="buttonContainer">
+                            <div className="buttonContainer mb3">
                                 <button
                                     onClick={() => {
                                         this.pulsaBuy();
@@ -217,6 +261,7 @@ class Buy extends React.Component {
                                     Comprar
                                 </button>
                             </div>
+                            <p className={this.state.messageClassName}> {this.state.message} </p>
                         </div>
                     </div>
                 </div>

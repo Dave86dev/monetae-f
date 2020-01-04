@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import axios from "axios";
 
 import "./admin.scss";
@@ -95,16 +95,21 @@ class Admin extends React.Component {
 		
         //we show all the purchases
 		// axios.get( getUrl(`/product/getByOwner?ownerId=${id}&token=${token}`) ).then( (res) => {
-			axios.get (getUrl(`purchase/get`)).then ( (res) =>{
+			
+		axios.get (getUrl(`/purchase/get`)).then ( (res) =>{
 			
 			this.setState({
+			
 				productSales: res.data,
 				storageProducts_filtered: res.data
+			
 			});
 			
 		}).catch( (err) => {
 			console.log( err );
 		});	
+		
+		
 		
     };
 	
