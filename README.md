@@ -4,6 +4,7 @@
 #### Table of Contents  
 
 - [How to run 🚀](#How-to-run-)  
+- [DB 💾](#DB-) 
 - [Backend 🔙](#Backend-) 
 	- [User endpoints](#USER)
 	- [Product endpoints](#MOVIE)
@@ -18,26 +19,34 @@
 
 # ¿Qué es? 👀
 
-Es una e-commerce hecho entre 2 personas que usa:
+Es un e-commerce hecho entre [Adrián](https://github.com/Icaruk) y [David](https://github.com/Dave86dev/) que usa:
 
-- Frontend: 🌌 React + Redux
+- Frontend: 🌌 React 16 + Redux
 - Backend: 🔸 NodeJS + Express
 - DB: 🍃 mongoDB 
 
-Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/mjg0ka7B/monetae).
+Durante el desarrollo hemos usado [este tablón de Trello](https://trello.com/b/mjg0ka7B/monetae).
 
 
 <br>
 
-# How to run 🚀
+# Cómo lanzarlo 🚀
 
-- Download [backend repo](https://github.com/Icaruk/monetae-b).
-- Download [frontend repo](https://github.com/Dave86dev/monetae-f).
-- On the backend run:
-	- `PENDIENTE`
-- On the frontend run:
-	- `PENDIENTE`
-- It should open on http://localhost:3005/
+- Descargar [backend repo](https://github.com/Icaruk/monetae-b).
+- Descargar [frontend repo](https://github.com/Dave86dev/monetae-f).
+- En el the backend ejecutar:
+	- `node app.js`
+- En el the frontend ejecutar:
+	- `set PORT=3005 && react-scripts start`
+- Debería abrirse en http://localhost:3005/
+
+
+<br>
+
+# DB 💾
+
+Esquema DB
+![](https://trello-attachments.s3.amazonaws.com/5de522b655e9ad63df7441fb/5de5436e6c2f8f69aeb07549/ca4f781e7934732b74f0808a0612a5be/monetae_DB.jpg)
 
 
 <br>
@@ -86,7 +95,56 @@ Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/mjg
 #
 ## PRODUCT
 
-- Asd
+- Get products
+	- GET /product/get?{params}
+		- Posibles params:
+		- NOTA: title, id y ownerId NO son combinables!
+			
+			* title (que contenga esas palabras)
+				title=a	
+				title=silla
+				title=silla+negra
+			
+			* id
+				id= <_id de mongo>
+			
+			* ownerId
+				id= <_id de mongo>
+			
+			* isActive (default true)
+				isActive=false
+			
+			* sort (default pa)
+				sort=pa
+				
+				- pa: price ascendant
+				- pd: price descendant
+				- ra: rating ascendant
+				- rd: rating descendant
+				- tsa: times sold ascendant
+				- tsd: times sold descendant
+			
+			* limit (default 500)
+				limit=20
+				
+			* skip (default 0)
+				skip=20
+			
+			* category
+				category=electron
+				
+			* minPrice
+				minPrice=100
+			
+			* maxPrice
+				maxPrice= 500
+				
+		- Ejemplos:	
+			- Top 10 productos más vendidos
+			`/product/get?sort=tsd&isActive=true&limit=10`
+			
+			- Top 10 productos más baratos de electrónica
+			`/product/get?sort=pa&isActive=true&limit=10&category=electron`
 
 #
 ## RATING
@@ -100,52 +158,60 @@ Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/mjg
 ## Features 📃
 
 - Homepage:
-	- Slider with best selling products
-	- Slider with most popular products
-	- Slider with custom recommended products
-- Search by title
-	- Filters:
-		- Minimum and maximum price
-		- Category
-	- Sort
-		- Price
-		- Rating
-- Users.
-- Cart
-	- asd
+	- Slider con los productos más comprados
+	- Slider con los productos mejor valorados
+	- Slider con los productos recomendados para tí
+	- Slider con los productos más económicos
+	![](https://i.gyazo.com/a456e720e93b848a44dc022d74b958d3.png)
+	
+- Búsqueda
+	- Pulsando sobre la lupa se puede hacer una búsqueda vacía, mostrando todos los productos.
+	- Filtros:
+		- Precio mínimo y/o máximo
+		- Categoría
+	- Orden
+		- Precio
+		- Valoración
+	![](https://i.gyazo.com/1602a91036f6d31bdae8346720ecc714.png)
+	![](https://i.gyazo.com/e2de0a635bf0932c94798033f5aa52a4.png)
 
+- Productos
+	- Detalle
+		- Con slider de productos relacionados
+		- Hasta 4 imágenes para cada producto
+		![](https://i.gyazo.com/aa44be757e0a45a392091f49a2c26c3e.png)
+	
+- Usuarios
+	- Login
+	![](https://i.gyazo.com/37f94d1fc7cb9a88a1ebdd4d0149ff38.png)
+	
+	- Register
+	![](https://i.gyazo.com/446850db3ba5442702765894d0098e7f.png)
+	
+	- Password reset
+	![](https://i.gyazo.com/c7167e393ec9af23676e77a9022c559f.png)
+	![](https://i.gyazo.com/e1f573578718a529d6309e27ede99f6f.png)
+	
+	- Perfil
+	![](https://i.gyazo.com/f3084c34909a723e30508ad8b27faf68.png)
+	
+- Cesta
+	- Header
+	![](https://i.gyazo.com/fe2aa02770880de44ec2cdc942d8cef2.png)
+	
+	- Productos
+	![](https://i.gyazo.com/665d95426cc1c2d1f58e67efd05ac2fb.png)
+	
+	- El precio total de la cesta se actualiza en vivo
+	https://i.gyazo.com/e275345d4c129e89349917210727717a.mp4
 
-## Preview 🔍
-
-- Home
-> ![](https://i.gyazo.com/519f71b33bde9428c3fabd660d43aa1c.jpg)
-
-
-- Register
-> ![](https://i.gyazo.com/86c7b8519bd18b50c92f71d1f41cef5b.png)
-
-- Login
-> ![](https://i.gyazo.com/d3ee62fe15b5bdee3a459cf675309432.png)
-
-- Profile
-> ![](https://i.gyazo.com/e8a56ea1f3ba321440d664e06ed93b7f.png)
-
-- Search
-> ![](https://i.gyazo.com/db65979413b9a0837926c0dde9fbde75.jpg)
-> https://i.gyazo.com/d2f07a6195ed7a330b824a178a2cf3bf.mp4
-
-- Detail
-> ![](https://i.gyazo.com/184c987c56213ccde2be076c4dfe8fbd.jpg)
-> https://i.gyazo.com/9b946615597c14a649596f5d9a8916a4.mp4
-
-- New order
-> ![](https://i.gyazo.com/62ccc27171926e9c00e34c8be21ea3d4.png)
-
-- User orders
-> ![](https://i.gyazo.com/82ed673e41059de6358875b8be871d43.png)
-> https://i.gyazo.com/c55e560de90655d3e907a99a141bf915.mp4
-
-
+- Mi inventario
+	- Productos
+	![](https://i.gyazo.com/f50c95442bf5f4f10951079908f9ca49.png)
+	
+	- Editar producto
+	![](https://i.gyazo.com/523777829396378bf2e6d64ee9812860.png)
+	
 
 <br>
 
