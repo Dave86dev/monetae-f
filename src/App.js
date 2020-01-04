@@ -11,6 +11,8 @@ import Login from "./containers/login/login";
 import Profile from "./components/profile/profile";
 import Register from "./containers/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
+import Admin from "./containers/admin/admin";
+import Facturas from "./containers/facturas/facturas";
 import AddProduct from "./containers/addProduct/addProduct";
 import editProduct from "./containers/editProduct/editProduct";
 import Cesta from "./containers/cesta/cesta";
@@ -35,6 +37,8 @@ export default function App() {
 					<Route path="/register" exact component={Register} />
 					<Route path="/profile" exact component={Profile} />
 					<Route path="/passwordRecovery" exact component={PasswordRecovery} />
+					<Route path="/admin" exact component={Admin} />
+					<Route path="/facturas" exact component={Facturas} />
 					
 					<Route path="/search" exact component={SearchResults} />
 					<Route path="/detail" exact component={ProductDetail} />

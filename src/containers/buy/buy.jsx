@@ -26,8 +26,46 @@ class Buy extends React.Component {
         this.setState({ [ev.target.name]: ev.target.type === "number" ? +ev.target.value : ev.target.value });
     };
 
-    pulsaBuy () {
-        console.log("hemos pulsado el botón de compra");
+    async pulsaBuy() {
+        //procedemos a dar de alta las compras en la base de datos.
+
+        for (let _y of this.props.cart) {
+            //registramos la purchase en la base de datos.
+            // Construcción del cuerpo de la purchase individualizada.
+
+            let body = {
+                buyerId: this.state.userData._id,
+                sellerId: _y.ownerId,
+                originLocation: _y.location,
+                destinationCity: this.state.userData.billing.city,
+                destinationCountry: this.state.userData.billing.country,
+                items: _y.title + " x " + _y.cartQuantity,
+                totalValue: _y.price * _y.cartQuantity
+            };
+
+            try {
+                await axios.post(getUrl(`/purchase/add`), body);
+
+                // Muestro
+                // this.muestraError("Compra realizada con éxito.", 2, false);
+
+                // setTimeout(() => {
+                //     //reseteamos la cesta.
+
+                //     //redireccionamos a purchases
+                //     this.props.history.push("/");
+                // }, 1500);
+            } catch (err) {
+                if (err.response) {
+                    if (err.response.data) {
+                        // this.muestraError("Ha ocurrido un error durante la compra.");
+                        console.log("ERROR COMPRANDO");
+                    }
+                    return;
+                }
+                console.log(err);
+            }
+        }
     }
 
     async componentDidMount() {
@@ -171,7 +209,13 @@ class Buy extends React.Component {
                                 </div>
                             </div>
                             <div className="buttonContainer">
-                                <button onClick={() => {this.pulsaBuy()}}>Comprar</button>
+                                <button
+                                    onClick={() => {
+                                        this.pulsaBuy();
+                                    }}
+                                >
+                                    Comprar
+                                </button>
                             </div>
                         </div>
                     </div>

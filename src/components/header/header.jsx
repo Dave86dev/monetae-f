@@ -26,53 +26,90 @@ class Header extends React.Component {
         let strNCesta = nCesta === 0 ? "" : `(${nCesta})`;
 
         const userType = session.get()?.userType;
-
+        
         if (this.props.isLoggedIn && userType) {
             // si estoy logeado...
+            
+            switch (userType) {
 
-            //en el caso de que sea vendedor..
-			if (userType === 1) {
-                return (
-                    <Fragment>
-                        <button>
-                            <NavLink exact to="/profile">
-                                Perfil
-                            </NavLink>
-                        </button>
-                        <button>
-                            <NavLink exact to="/storage">
-                                Mi inventario
-                            </NavLink>
-                        </button>
-                        <button>
-                            <NavLink exact to="/cart">
-                                Cesta {strNCesta}
-                            </NavLink>
-                        </button>
-                        <button className="logoutButton" onClick={() => this.pulsaLogout()}>
-                            Logout
-                        </button>
-                    </Fragment>
-                );
-            } else {
-                //en el caso de que sea sólo comprador..
-                return (
-                    <Fragment>
-                        <button>
-                            <NavLink exact to="/profile">
-                                Perfil
-                            </NavLink>
-                        </button>
-                        <button>
-                            <NavLink exact to="/cart">
-                                Cesta {strNCesta}
-                            </NavLink>
-                        </button>
-                        <button className="logoutButton" onClick={() => this.pulsaLogout()}>
-                            Logout
-                        </button>
-                    </Fragment>
-                );
+                case 1:
+                    //en el caso de que sea sólo comprador..
+                    
+                    return (
+                        <Fragment>
+                            <button>
+                                <NavLink exact to="/profile">
+                                    Perfil
+                                </NavLink>
+                            </button>
+                            <button>
+                                <NavLink exact to="/cart">
+                                    Cesta {strNCesta}
+                                </NavLink>
+                            </button>
+                            <button className="logoutButton" onClick={() => this.pulsaLogout()}>
+                                Logout
+                            </button>
+                        </Fragment>
+                    );
+
+                case 2:
+                    
+                    return (
+                        <Fragment>
+                            <button>
+                                <NavLink exact to="/profile">
+                                    Perfil
+                                </NavLink>
+                            </button>
+                            <button>
+                                <NavLink exact to="/storage">
+                                    Mi inventario
+                                </NavLink>
+                            </button>
+                            <button>
+                                <NavLink exact to="/cart">
+                                    Cesta {strNCesta}
+                                </NavLink>
+                            </button>
+                            <button className="logoutButton" onClick={() => this.pulsaLogout()}>
+                                Logout
+                            </button>
+                        </Fragment>
+                    );
+
+                case 3:
+                    return (
+                        <Fragment>
+                            <button>
+                                <NavLink exact to="/admin">
+                                    Admin
+                                </NavLink>
+                            </button>
+                            <button>
+                                <NavLink exact to="/profile">
+                                    Perfil
+                                </NavLink>
+                            </button>
+                            <button>
+                                <NavLink exact to="/storage">
+                                    Mi inventario
+                                </NavLink>
+                            </button>
+                            <button>
+                                <NavLink exact to="/cart">
+                                    Cesta {strNCesta}
+                                </NavLink>
+                            </button>
+                            <button className="logoutButton" onClick={() => this.pulsaLogout()}>
+                                Logout
+                            </button>
+                        </Fragment>
+                    );
+
+                default:
+                    console.log( "USERTYPE ERROR - not buyer, not seller, not admin" );
+                
             }
         } else {
             //visito la página de forma anónima..
