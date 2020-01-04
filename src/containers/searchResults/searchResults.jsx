@@ -166,16 +166,16 @@ class SearchResults extends React.Component {
 					</div>
 					
 					<div className="sort ml3">
-						<button onClick={() => {this.pulsaSort("pa")}} className="firstBtn">
+						<button onClick={() => {this.pulsaSort("pa")}} className={ this.state.sort === "pa" ? "filtroActivo" : "" }>
 							<img src="/img/filter_price_asc.png" alt="filtro precio asc"/>
 						</button>
-						<button onClick={() => {this.pulsaSort("pd")}} >
+						<button onClick={() => {this.pulsaSort("pd")}} className={ this.state.sort === "pd" ? "filtroActivo" : "" } >
 							<img src="/img/filter_price_des.png" alt="filtro precio des"/>
 						</button>
-						<button onClick={() => {this.pulsaSort("ra")}} >
+						<button onClick={() => {this.pulsaSort("ra")}} className={ this.state.sort === "ra" ? "filtroActivo" : "" } >
 							<img src="/img/filter_votes_asc.png" alt="filtro votos asc"/>
 						</button>
-						<button onClick={() => {this.pulsaSort("rd")}} className="lastBtn">
+						<button onClick={() => {this.pulsaSort("rd")}} className={ this.state.sort === "rd" ? "filtroActivo" : "" } >
 							<img src="/img/filter_votes_des.png" alt="filtro votos des"/>
 						</button>
 						

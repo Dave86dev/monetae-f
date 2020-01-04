@@ -38,15 +38,20 @@
 			}
 			
 			
-			.firstBtn {
-				border-radius: 3px 0 0 3px;
+			.filtroActivo {
+				border-style: solid;
+				border-width: 1px;
+				border-color: rgb(24, 24, 24);
 			}
-			.lastBtn {
-				border-radius: 0 3px 3px 0;
-			}
-			
 			
 		}
+		
+		.sort button:first-child {
+			border-radius: 3px 0 0 3px;
+		};
+		.sort button:last-child {
+			border-radius: 0 3px 3px 0;
+		};
 		
 		
 		
