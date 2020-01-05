@@ -1,13 +1,12 @@
 import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
-// import { connect } from "react-redux";
 import axios from "axios";
 
 import "./facturas.scss";
 
 import { rdx_productDetail } from "../../redux/actions/products";
 import { getUrl, numToStr, session, listaCategorias } from "../../utils/uti";
-// import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
+
 
 
 class Facturas extends React.Component {
@@ -122,7 +121,7 @@ class Facturas extends React.Component {
 		
 		// Guardo en redux
 		rdx_productDetail(productData);
-		console.log(productData);
+		
 		
 		// Redirijo
 		this.props.history.push(`/editProduct?id=${productData._id}`);
@@ -188,28 +187,7 @@ class Facturas extends React.Component {
 						
 				</table>
 				
-				{/* {
-					this.props.productSearchResults?.data?.map(_x => {
-						return (
-							<div
-								className="card"
-								key={_x._id}
-								// onClick={ () => { this.pulsaResultado(_x)} }
-							>
-								<img className="cardImage mr1" src={_x.imageUrl[0]} alt="producto"/>
-								<h1 className="cardText">{_x.title}</h1>
-								<h1 className="cardText mr1">{ numToStr(_x.price)} €</h1>
-								<h1 className="cardText mr1">filtro_almacen: { _x.location}</h1>
-								<h1 className="cardText mr1">Stock Total: { _x.stock}</h1>
-								<h1 className="cardText mr1">Stock Activo: { _x.activeStock}</h1>
-								<button onClick={ () => { this.pulsaResultado(_x)}}>
-									Editar
-								</button>
-							</div>					
-						)
-					})
-					
-				} */}
+				
 			</Fragment>
 		)
 		
@@ -259,15 +237,7 @@ class Facturas extends React.Component {
 						
 					</div>
 					
-				    {/* <div className="categorias ml3">
-						<DropdownCategories
-							category={this.state.filtro_categoria}
-							handleChange={this.handleChangeDropdown}
-							defaultCategory={"Todo"}
-						/>
-					</div> */}
-					
-					<button
+				    <button
 						className="reiniciarFiltros ml5"
 						onClick={ () => this.resetFilters() }
 					>
@@ -292,16 +262,6 @@ class Facturas extends React.Component {
 		);
 	}
 }
-
-
-
-// const mapStateToProps = (state) => { // ese state es de redux
-// 	return ({
-// 		keywords: state.keywords,
-// 		productSearchResults: state.productSearchResults,
-// 		productSearchResults_original: state.productSearchResults,
-// 	})
-// }
 
 
 export default (withRouter(Facturas));

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import axios from "axios";
 import { getUrl } from "../../utils/uti";

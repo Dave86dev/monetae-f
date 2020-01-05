@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "./admin.scss";
 
-import { getUrl, numToStr, session, listaCategorias } from "../../utils/uti";
+import { getUrl } from "../../utils/uti";
 
 class Admin extends React.Component {
     constructor(props) {
@@ -72,9 +72,7 @@ class Admin extends React.Component {
     }
 
     componentDidMount() {
-        let token = session.get().token;
-        let id = session.get().userId;
-
+        
         //we show all the purchases
         axios
             .get(getUrl(`/purchase/get`))

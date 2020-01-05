@@ -89,7 +89,6 @@ class SearchResults extends React.Component {
 		
 		// Guardo en redux
 		rdx_productDetail(productData);
-		console.log( productData );
 		
 		
 		// Redirijo

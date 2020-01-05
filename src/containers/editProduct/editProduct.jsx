@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { listaCategorias } from '../../utils/uti';
@@ -7,8 +7,8 @@ import queryString from 'query-string';
 
 import "./editProduct.scss";
 
-import { rdx_productDetail, rdx_productSearchResults } from "../../redux/actions/products";
-import { getUrl, numToStr, session } from "../../utils/uti";
+import { rdx_productDetail } from "../../redux/actions/products";
+import { getUrl, session } from "../../utils/uti";
 import DropdownCategories from "../../components/dropdownCategories/dropdownCategories";
 
 

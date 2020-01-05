@@ -17,7 +17,7 @@ class Home extends Component {
 		
 	}
 
-	componentWillMount () {
+	UNSAFE_componentWillMount () {
 		//Comprobamos si hay una categoría guardada en el localStorage.
 
 		if(localStorage.getItem("categoriaBuscada")) {
@@ -36,24 +36,6 @@ class Home extends Component {
 		}
 	}
 
-	async componentDidMount () {
-
-		// let item = document.querySelector('.scrolling-wrapper-flexbox');
-		
-
-    	// //we start the mouse wheel identification movement and reference it for scroll
-    	// window.addEventListener('mouse', function(e) {
-		// 	if (e.deltaY > 0) {
-		// 		item.scrollLeft += 100;
-		// 		console.log(e);
-		// 	}else {
-		// 		item.scrollLeft -= 100;
-		// 	}
-      			
-    	// });
-		
-	}
-	
 	
 	render() {
 		return (
