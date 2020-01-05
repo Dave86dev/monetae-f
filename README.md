@@ -207,10 +207,24 @@ Esquema DB
 
 - Mi inventario
 	- Productos
-	![](https://i.gyazo.com/f50c95442bf5f4f10951079908f9ca49.png)
+	![](https://i.gyazo.com/a55c940bc027484e61141891be3d12d2.png)
 	
 	- Editar producto
 	![](https://i.gyazo.com/523777829396378bf2e6d64ee9812860.png)
+
+	- Añadir producto
+		- Vista simultánea prototipica de anuncio.
+
+	![](https://i.gyazo.com/a909c1294deb997a57167df6b57ccb5e.png)
+
+- Admin
+	- Purchases
+		- Búsqueda simultánea por dia, mes y año.
+		- Posibilidad de reiniciar filtros con un solo click.
+		- Información precisa de compra.
+		- Visualización dinámica de estado.
+			
+	![](https://i.gyazo.com/9c8710326111588ba67d7d34623588be.png)
 	
 
 <br>
