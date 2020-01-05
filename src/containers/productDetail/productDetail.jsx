@@ -91,6 +91,13 @@ class ProductDetail extends React.Component {
 		}
 	}
 	
+	pulsaKarma (nKarma) {
+		
+		console.log ( `Karma pulsado ${nKarma}` ); 
+		
+	}
+	
+	
 	
 	async componentDidMount() {
 		
@@ -100,6 +107,7 @@ class ProductDetail extends React.Component {
 		
 		// Busco query
 		const queries = queryString.parse(this.props.location.search);
+		
 		
 		if (! this.props.productData && queries.id) { // no tengo el prop y tengo param
 			
@@ -196,7 +204,14 @@ class ProductDetail extends React.Component {
 							</div>
 							
 							<button className="purchaseButton" onClick={ () => {this.meteCesta(this.props.productData._id)} }>Añadir a la cesta</button>
-							<button className="purchaseButton" onClick={ () => {this.pulsaComprar(this.props.productData._id)}}>Comprar</button>
+							<button className="purchaseButton" onClick={ () => {this.pulsaComprar(this.props.productData._id)} }>Comprar</button>
+							
+							
+							<div className="cajaKarma">
+								<button className="karmaMas" onClick={ () => {this.pulsaKarma(1)} }>+ 1 karma</button>
+								<button className="karmaMenos" onClick={ () => {this.pulsaKarma(-1)} }>- 1 karma</button>
+							</div>
+							
 						</div>
 					</div>
 				}
