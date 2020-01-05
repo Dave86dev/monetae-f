@@ -30,18 +30,34 @@ class Admin extends React.Component {
     };
 
     applyFilters() {
-        // let newArr = this.state.productSales.filter(_x => {
-        //     console.log(!!this.state.filtro_categoria);
+        let newArr = this.state.productSales.filter(_x => {
+            console.log(!!this.state.filtro_categoria);
 
-        //     return (
-        //         _x.title.toLowerCase().includes(this.state.filtro_dias.toLowerCase()) &&
-        //         _x.location.toLowerCase().includes(this.state.filtro_meses.toLowerCase()) &&
-        //         _x.location.toLowerCase().includes(this.state.filtro_years.toLowerCase())
-        //     );
-        // });
+            let mesTraductor = {
+                "enero" : "01",
+                "febrero" : "02",
+                "marzo" : "03",
+                "abril" : "04",
+                "mayo" : "05",
+                "junio" : "06", 
+                "julio" : "07",
+                "agosto" : "08",
+                "septiembre" : "09",
+                "octubre" : "10",
+                "noviembre" : "11",
+                "diciembre" : "12"
+            }
 
-        // // Guardo
-        // this.setState({ productSales_filtered: newArr });
+            return (
+                _x.date.toLowerCase().includes(this.state.filtro_dias.toLowerCase(), 8) &&
+                _x.date.toLowerCase().includes(mesTraductor[this.state.filtro_meses.toLowerCase()], 5) &&
+                _x.date.toLowerCase().includes(this.state.filtro_years.toLowerCase())
+            );
+        });
+
+        //Guardo
+        this.setState({ productSales_filtered: newArr });
+        
     }
 
     resetFilters() {
@@ -88,9 +104,9 @@ class Admin extends React.Component {
                             <th>Fecha de compra</th>
                             <th>Comprador</th>
                             <th>Vendedor</th>
+                            <th>Origen</th>
                             <th>Ciudad destino</th>
                             <th>Pais destino</th>
-                            <th>Origen</th>
                             <th>Valor total</th>
                             <th>Estado</th>
                         </tr>
@@ -125,12 +141,12 @@ class Admin extends React.Component {
                             return (
                                 <tr key={_x._id}>
                                     <th>{_x.items}</th>
-                                    <th><Moment format="YYYY/MM/DD">{_x.date}</Moment></th>
+                                    <th><Moment format="DD/MM/YYYY">{_x.date}</Moment></th>
                                     <th>{_x._buyerUsername}</th>
                                     <th>{_x._ownerUsername}</th>
+                                    <th>{_x.originLocation}</th>
                                     <th>{_x.destinationCity}</th>
                                     <th>{_x.destinationCountry}</th>
-                                    <th>{_x.originLocation}</th>
                                     <th>{_x.totalValue}€</th>
                                     <th>{estado}</th>
                                 </tr>
