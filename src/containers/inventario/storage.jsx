@@ -129,6 +129,12 @@ class Storage extends React.Component {
 		this.props.history.push(`/editProduct?id=${productData._id}`);
 		
 	};
+
+	moreProducts(){
+		// Redirijo
+		this.props.history.push(`/addProduct`);
+
+	}
 	
 	
 	
@@ -260,6 +266,13 @@ class Storage extends React.Component {
 						onClick={ () => this.resetFilters() }
 					>
 						Reiniciar filtros
+					</button>
+
+					<button
+						className="reiniciarFiltros ml5"
+						onClick={ () => this.moreProducts() }
+					>
+						Añadir producto
 					</button>
 					
 					

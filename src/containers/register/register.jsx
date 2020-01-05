@@ -194,7 +194,9 @@ class Register extends React.Component {
                     "expireDate": [this.state.expireM, this.state.expireY]
                 }
             };
-			
+
+            let tipoUsuario = parseInt(this.state.userType) + 1;
+           
 			// Construcción del cuerpo del producto.
 			let body = {
                 username: this.state.username.trim(),
@@ -203,11 +205,10 @@ class Register extends React.Component {
                 secretQuestion: this.state.secretQ.trim(),
                 secretAnswer: this.state.secretA.trim(),
                 phone: this.state.phone.trim(),
-                userType: this.state.userType+1,
+                userType: tipoUsuario,
                 billing: objectBilling
             };
 
-            
             await axios.post( getUrl(`/user/register`), body);
 			
 			// Muestro
