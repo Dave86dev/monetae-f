@@ -48,9 +48,17 @@ class Admin extends React.Component {
                 "diciembre" : "12"
             }
 
+            let meses = "";
+
+            if(mesTraductor[this.state.filtro_meses.toLowerCase()]){
+                meses = mesTraductor[this.state.filtro_meses.toLowerCase()];
+            }else{
+                meses = this.state.filtro_meses.toLowerCase();
+            }
+
             return (
                 _x.date.toLowerCase().includes(this.state.filtro_dias.toLowerCase(), 8) &&
-                _x.date.toLowerCase().includes(mesTraductor[this.state.filtro_meses.toLowerCase()], 5) &&
+                _x.date.toLowerCase().includes(meses, 5) &&
                 _x.date.toLowerCase().includes(this.state.filtro_years.toLowerCase())
             );
         });
