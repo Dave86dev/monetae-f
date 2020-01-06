@@ -22,6 +22,7 @@ class ProductDetail extends React.Component {
 		this.state = {
 			quantity: 0,
 			imageIdx: 0,
+			purchaseData: ["a"],
 			
 		}
 	};
@@ -73,19 +74,22 @@ class ProductDetail extends React.Component {
 		};
 		
 	}
-
+	
 	pulsaComprar (_id) {
+		
 		//Comprobamos si está logeado el usuario, en caso contrario redirijimos a Login
         if (!this.props.isLoggedIn) {
+			
 			//Redireccionando.. 
 			return setTimeout( () => {
 				this.props.history.push("/login");
 			}, 1000);
-        }else{
-
+			
+        } else {
+			
 			//Introducimos el producto en el carrito..
 			this.meteCesta(_id);
-
+			
 			//Al estar logeado, redireccionamos al a fase final de compra
 			this.props.history.push("/cart");
 		}
@@ -120,7 +124,7 @@ class ProductDetail extends React.Component {
 				rdx_productDetail(res.data[0]);
 				
 			} catch (err) {
-				console.log( err );
+				console.error( err );
 			};
 			
 		};
@@ -128,6 +132,14 @@ class ProductDetail extends React.Component {
 		
 		// Pongo estado por defecto
 		this.setState({ quantity: 1 }); // pongo la cantidad 1 por defecto
+		
+		
+		
+		// Pido info de purchase, a ver si tengo el producto en casa
+		let res2 = await axios.get( getUrl(`/purchase/get?productId=${this.props.productData._id}&status=3`) );
+		
+		// Guardo estado según la info que me llega
+		this.setState( { purchaseData: res2.data ? (res2.data[res2.data.length - 1]) : [] } );
 		
 	}
 	
@@ -207,22 +219,27 @@ class ProductDetail extends React.Component {
 							<button className="purchaseButton" onClick={ () => {this.pulsaComprar(this.props.productData._id)} }>Comprar</button>
 							
 							
-							<div className="cajaKarma">
-								<button className="karmaMas" onClick={ () => {this.pulsaKarma(1)} }>+ 1 karma</button>
-								<button className="karmaMenos" onClick={ () => {this.pulsaKarma(-1)} }>- 1 karma</button>
-							</div>
+							{ this.state.purchaseData &&
+								<div className="cajaKarma">
+									<button className="karmaMas" onClick={ () => {this.pulsaKarma(1)} }>+ 1 karma</button>
+									<button className="karmaMenos" onClick={ () => {this.pulsaKarma(-1)} }>- 1 karma</button>
+								</div>
+							}
+							
 							
 						</div>
 					</div>
 				}
 				
 				
-				<Slider url={`/product/category?cat=${this.props.productData?.category}&excludeId=
-				${this.props.productData?._id}&limit=25`} />
+				<Slider
+					url={`/product/category?cat=${this.props.productData?.category}&excludeId=${this.props.productData?._id}&limit=25`}
+				/>
 				
 			</div>
 		);
 	};
+	
 	
 	
 };

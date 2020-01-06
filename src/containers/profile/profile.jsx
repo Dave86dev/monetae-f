@@ -14,19 +14,19 @@ class Profile extends React.Component {
             userType: ""
         };
     }
-
+	
     async componentDidMount() {
         try {
             let token = session.get().token;
             let id = session.get().userId;
-
+			
             const res = await axios.get(getUrl(`/user/${id}?token=${token}`));
-
+			
             this.setState({ userData: res.data }, () => {
                 // this.state.userType = this.state.userData.userType === 0 ? "Cliente" : "Vendedor";
             });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     }
 
@@ -68,7 +68,7 @@ class Profile extends React.Component {
                 );
 
             default:
-                console.log("default");
+                console.error("default");
         }
     }
 

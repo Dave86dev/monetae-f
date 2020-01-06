@@ -8,7 +8,7 @@ import Header from "./components/header/header";
 import SearchResults from "./containers/searchResults/searchResults";
 import ProductDetail from "./containers/productDetail/productDetail";
 import Login from "./containers/login/login";
-import Profile from "./components/profile/profile";
+import Profile from "./containers/profile/profile";
 import Register from "./containers/register/register";
 import PasswordRecovery from "./containers/passwordRecovery/passwordRecovery";
 import Admin from "./containers/admin/admin";

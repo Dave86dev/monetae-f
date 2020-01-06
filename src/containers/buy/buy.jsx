@@ -37,6 +37,7 @@ class Buy extends React.Component {
             let body = {
                 buyerId: this.state.userData._id,
                 sellerId: _y.ownerId,
+                productId: _y._id,
                 originLocation: _y.location,
                 destinationCity: this.state.userData.billing.city,
                 destinationCountry: this.state.userData.billing.country,
@@ -80,7 +81,7 @@ class Buy extends React.Component {
         try {
             let token = session.get().token;
             let id = session.get().userId;
-
+			
             const res = await axios.get(getUrl(`/user/${id}?token=${token}`));
 
             this.setState({ userData: res.data });
