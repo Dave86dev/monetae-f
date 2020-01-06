@@ -131,6 +131,10 @@ class Admin extends React.Component {
                                     estado = "Recibido";
                                     break;
 
+                                case 4:
+                                    estado = "Recibido y valorado";
+                                    break;
+
                                 default:
                                     estado = "Esperando pago.";
                                     break;
