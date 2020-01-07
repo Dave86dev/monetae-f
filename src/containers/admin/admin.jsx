@@ -147,13 +147,13 @@ class Admin extends React.Component {
                                     estado = "Esperando pago.";
                                     break;
                             }
-
+                            console.log(_x);
                             return (
                                 <tr key={_x._id}>
                                     <th>{_x.items}</th>
                                     <th><Moment format="DD/MM/YYYY">{_x.date}</Moment></th>
                                     <th>{_x._buyerUsername}</th>
-                                    <th>{_x._ownerUsername}</th>
+                                    <th>{_x._sellerUsername}</th>
                                     <th>{_x.originLocation}</th>
                                     <th>{_x.destinationCity}</th>
                                     <th>{_x.destinationCountry}</th>
