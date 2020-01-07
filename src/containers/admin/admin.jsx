@@ -31,7 +31,6 @@ class Admin extends React.Component {
 
     applyFilters() {
         let newArr = this.state.productSales.filter(_x => {
-            console.log(!!this.state.filtro_categoria);
 
             let mesTraductor = {
                 "enero" : "01",

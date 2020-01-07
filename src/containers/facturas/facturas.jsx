@@ -52,10 +52,6 @@ class Facturas extends React.Component {
 		
 		let newArr = this.state.storageProducts.filter( _x => {
 			
-			console.log( 
-				!!(this.state.filtro_categoria)
-			);
-			
 			return (
 				
 				_x.title.toLowerCase().includes(

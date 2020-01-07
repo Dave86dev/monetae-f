@@ -22,7 +22,7 @@ class ProductDetail extends React.Component {
 		this.state = {
 			quantity: 0,
 			imageIdx: 0,
-			purchaseData: ["a"],
+			purchaseData: [],
 			
 		}
 	};

@@ -188,8 +188,6 @@ class Cesta extends React.Component {
 		});
 		
 		
-		console.log( "preciototal :", precioTotal );
-		
 	};
 	
 	
