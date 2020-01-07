@@ -147,7 +147,7 @@ class Admin extends React.Component {
                                     estado = "Esperando pago.";
                                     break;
                             }
-                            console.log(_x);
+                            
                             return (
                                 <tr key={_x._id}>
                                     <th>{_x.items}</th>
