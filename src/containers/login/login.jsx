@@ -179,9 +179,10 @@ class Login extends React.Component {
 			<div className="loginMain">
 				<div className="loginCard">
 					<div className="header">
-						<img className="image"
-							src="https://trello-attachments.s3.amazonaws.com/5de522b655e9ad63df7441fb/5def57a617949c786fc8ec01/261e294ef093b2db52c2bf6d093c2bd1/logoMonetae_3.png"
-							alt="logo"
+						<ImageLabor
+							src="https://trello-attachments.s3.amazonaws.com/5e1f2e19295ba37cfa41ebe6/1000x1000/93d5c1c8cceb6c32b1d9b50a01380268/labor_logo5.png"
+							w={65}
+							alt="imagen de la empresa"
 						/>
 						<h1>Acceder</h1>
 					</div>
